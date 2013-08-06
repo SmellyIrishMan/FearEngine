@@ -53,10 +53,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Camera.cs" />
+    <Compile Include="Cameras\Camera.cs" />
     <Compile Include="FearEngineApp.cs" />
     <Compile Include="Meshes\Primatives\Plane.cs" />
+    <Compile Include="Meshes\VertexLayouts.cs" />
     <Compile Include="PresentationProperties.cs" />
+    <Compile Include="Time\TimeKeeper.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

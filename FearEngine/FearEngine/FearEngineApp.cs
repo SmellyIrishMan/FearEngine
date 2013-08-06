@@ -15,15 +15,17 @@ namespace FearEngine
     public class FearEngineApp
     {
         protected RenderForm m_Form;
-        protected Device m_Device;
         protected SwapChain m_SwapChain;
         protected SwapChainDescription m_SwapChainDesc;
-        protected DeviceContext m_Context;
+
+        protected static Device m_Device;
+        public static Device Device { get { return m_Device; } }
+        protected static DeviceContext m_Context;
+        public static DeviceContext Context { get { return m_Context; } }
+
         protected Factory m_Factory;
         protected Texture2D m_BackBuffer;
         protected RenderTargetView m_RenderTargetView;
-
-        protected Stopwatch m_Clock;
 
         public static PresentationProperties PresentationProps { get; private set; }
 
