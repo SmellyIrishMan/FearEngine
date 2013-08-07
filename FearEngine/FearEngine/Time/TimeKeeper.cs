@@ -15,20 +15,19 @@ namespace FearEngine.Time
             FrameCount = 0;
             Clock = new Stopwatch();
             Clock.Start();
-            PreviousTime = Clock.ElapsedTicks;
-
-            MSPerTick = (1.0 / Stopwatch.Frequency) / 1000.0;
+            PreviousTime = Clock.ElapsedMilliseconds;
         }
 
         public static void Update()
         {
             FrameCount++;
 
-            long currentTime = Clock.ElapsedTicks;
-            Delta = (float)((currentTime - PreviousTime) * MSPerTick);
-            //Console.WriteLine("First half; " + (currentTime - PreviousTime));
-            Console.WriteLine("Frames; " + FrameCount + "\tTime; " + Clock.ElapsedMilliseconds + "\tDelta; " + Delta);
-            PreviousTime = currentTime;
+            long currentTime = Clock.ElapsedMilliseconds;
+            Delta = (float)(currentTime - PreviousTime);
+            if(Delta > 0)
+            {
+                PreviousTime = currentTime;
+            }
         }
     }
 }
