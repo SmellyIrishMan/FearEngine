@@ -128,6 +128,7 @@ namespace FearEngine
         protected virtual void Update()
         {
             TimeKeeper.Update();
+            InputManager.Update();
             MainCamera.Update();
         }
 

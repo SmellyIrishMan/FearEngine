@@ -7,8 +7,8 @@ namespace FearEngine
 {
     public class Transform
     {
-        private const float STRAFE_SPEED = 5.0f;
-        private const float WALK_SPEED = 5.0f;
+        private const float STRAFE_SPEED = 35.0f;
+        private const float WALK_SPEED = 35.0f;
 
         public bool EnableFPSControl { get; set; }
 
@@ -51,7 +51,7 @@ namespace FearEngine
             }
         }
 
-        private void OnMouseMoved(object sender, MouseEventArgs e, Vector2 delta)
+        private void OnMouseMoved(Vector2 delta)
         {
             if (EnableFPSControl)
             {
@@ -125,14 +125,14 @@ namespace FearEngine
 
         public void Pitch(float angle)
         {
-            Matrix rotation = Matrix.RotationAxis(Right, angle * 0.001f);
+            Matrix rotation = Matrix.RotationAxis(Right, angle * TimeKeeper.Delta);
             Up = Vector3.TransformNormal(Up, rotation);
             Forward = Vector3.TransformNormal(Forward, rotation);
         }
 
         public void RotateY(float angle)
         {
-            Matrix rotation = Matrix.RotationY(angle * 0.001f);
+            Matrix rotation = Matrix.RotationY(angle * TimeKeeper.Delta);
 
             Up = Vector3.TransformNormal(Up, rotation);
             Right = Vector3.TransformNormal(Right, rotation);

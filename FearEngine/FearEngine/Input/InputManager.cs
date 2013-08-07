@@ -1,6 +1,7 @@
 ﻿using SharpDX.Windows;
 using System.Windows.Forms;
 using SharpDX;
+using System.Drawing;
 
 public static class InputManager
 {
@@ -9,7 +10,7 @@ public static class InputManager
     public static KeyEventHandler KeyDown;
     public static KeyPressEventHandler KeyPressed;
 
-    public delegate void MouseMoveHandler(object sender, MouseEventArgs e, Vector2 delta);
+    public delegate void MouseMoveHandler(Vector2 delta);
     public static MouseMoveHandler MouseMoved;
 
     private static Vector2 previousMousePosition = Vector2.Zero;
@@ -17,11 +18,26 @@ public static class InputManager
 
     public static void Initialise(RenderForm form)
     {
+        //Cursor.
         Form = form;
         Form.KeyUp += OnKeyUp;
         Form.KeyDown += OnKeyDown;
         Form.KeyPress += OnKeyPressed;
-        Form.MouseMove += OnMouseMoved;
+
+        Point p = Cursor.Position;
+        previousMousePosition = new Vector2(p.X, p.Y);
+    }
+
+    public static void Update()
+    {
+        Point p = Cursor.Position;
+        Vector2 currentMousePosition = new Vector2(p.X, p.Y);
+        MouseMovedDelta = currentMousePosition - previousMousePosition;
+        if (MouseMovedDelta.Length() != 0.0f)
+        {
+            MouseMoved(MouseMovedDelta);
+        }
+        previousMousePosition = currentMousePosition;
     }
 
     private static void OnKeyUp(object sender, KeyEventArgs e)
@@ -45,18 +61,6 @@ public static class InputManager
         if (KeyPressed != null)
         {
             KeyPressed(sender, e);
-        }
-    }
-
-    private static void OnMouseMoved(object sender, MouseEventArgs e)
-    {
-        Vector2 currentMousePosition = new Vector2(e.Location.X, e.Location.Y);
-        MouseMovedDelta = currentMousePosition - previousMousePosition;
-        previousMousePosition = currentMousePosition;
-
-        if (MouseMoved != null)
-        {
-            MouseMoved(sender, e, MouseMovedDelta);
         }
     }
 }
