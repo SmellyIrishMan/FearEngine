@@ -3,17 +3,23 @@ using System;
 
 namespace FearEngine.Cameras
 {
-    class Camera
+    public class Camera : GameObject
     {
-        Transform transform;
+        public Matrix View { get; set; }
+        public Matrix Projection { get; set; }
 
-        Matrix View { get; set; }
-        Matrix Projection { get; set; }
-
-        Camera()
+        public Camera() : base()
         {
-            View = Matrix.LookAtLH(new Vector3(0, 0, -5), new Vector3(0, 0, 0), Vector3.UnitY);
-            Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, FearEngineApp.PresentationProps.AspectRatio, 0.1f, 100.0f);
+            Transform.Position = new Vector3(0, 10, -5);
+
+            Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, FearEngineApp.PresentationProps.AspectRatio, 0.01f, 1000.0f);
+            View = Matrix.LookAtLH(Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            View = Matrix.LookAtLH(Transform.Position, Transform.Position + Transform.Forward, Vector3.UnitY);
         }
 
         public void UpdateView()

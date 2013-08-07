@@ -13,6 +13,7 @@ namespace FearEngine.Time
 
         public static void Initialise()
         {
+            Clock = new Stopwatch();
             Clock.Start();
             PreviousTime = Clock.ElapsedMilliseconds;
         }

@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Buffer = SharpDX.Direct3D11.Buffer;
 using Device = SharpDX.Direct3D11.Device;
+using FearEngine.Cameras;
 
 namespace FearEngine
 {
@@ -29,6 +30,8 @@ namespace FearEngine
         protected RenderTargetView m_RenderTargetView;
 
         public static PresentationProperties PresentationProps { get; private set; }
+
+        public static Camera MainCamera;
 
         public virtual void Initialise()
         {
@@ -75,6 +78,8 @@ namespace FearEngine
 
             InputManager.Initialise(m_Form);
             InputManager.KeyUp += OnKeyUp;
+
+            MainCamera = new Camera();
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
@@ -123,6 +128,7 @@ namespace FearEngine
         protected virtual void Update()
         {
             TimeKeeper.Update();
+            MainCamera.Update();
         }
 
         protected virtual void Dispose()

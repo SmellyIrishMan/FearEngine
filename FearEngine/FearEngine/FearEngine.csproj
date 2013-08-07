@@ -55,7 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cameras\Camera.cs" />
+    <Compile Include="Cameras\CameraManager.cs" />
     <Compile Include="FearEngineApp.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Meshes\Primatives\Plane.cs" />
     <Compile Include="Meshes\VertexLayouts.cs" />
