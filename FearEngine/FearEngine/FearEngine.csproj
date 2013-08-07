@@ -30,20 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpDX">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SharpDX\Bin\Signed-net40\SharpDX.dll</HintPath>
+    <Reference Include="SharpDX, Version=2.4.2.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\SharpDX\Bin\Signed-net40\SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.D3DCompiler">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SharpDX\Bin\Signed-net40\SharpDX.D3DCompiler.dll</HintPath>
+    <Reference Include="SharpDX.D3DCompiler, Version=2.4.2.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\SharpDX\Bin\Signed-net40\SharpDX.D3DCompiler.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D11">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SharpDX\Bin\Signed-net40\SharpDX.Direct3D11.dll</HintPath>
+    <Reference Include="SharpDX.Direct3D11, Version=2.4.2.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\SharpDX\Bin\Signed-net40\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.DirectInput">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SharpDX\Bin\Signed-net40\SharpDX.DirectInput.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.DXGI">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SharpDX\Bin\Signed-net40\SharpDX.DXGI.dll</HintPath>
+    <Reference Include="SharpDX.DXGI, Version=2.4.2.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\SharpDX\Bin\Signed-net40\SharpDX.DXGI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Cameras\Camera.cs" />
     <Compile Include="FearEngineApp.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Meshes\Primatives\Plane.cs" />
     <Compile Include="Meshes\VertexLayouts.cs" />
     <Compile Include="PresentationProperties.cs" />

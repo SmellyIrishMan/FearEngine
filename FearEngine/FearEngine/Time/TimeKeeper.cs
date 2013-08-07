@@ -3,12 +3,25 @@ namespace FearEngine.Time
 {
     public static class TimeKeeper
     {
-        public static Stopwatch Clock;
-
+        private static Stopwatch Clock{ get; set;}
+        private static long PreviousTime{ get; set; }
+        private static float m_delta;
         public static float Delta
         {
-            //TODO GIVE THIS SOME PROPER VALUES GOD DAMN IT!!!
-            get { return 1.0f; }
+            get { return m_delta; }
+        }
+
+        public static void Initialise()
+        {
+            Clock.Start();
+            PreviousTime = Clock.ElapsedMilliseconds;
+        }
+
+        public static void Update()
+        {
+            long currentTime = Clock.ElapsedMilliseconds;
+            m_delta = (currentTime - PreviousTime) / 1000.0f;
+            PreviousTime = currentTime;
         }
     }
 }

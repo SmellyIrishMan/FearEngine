@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using FearEngine.Time;
+using SharpDX;
 using SharpDX.D3DCompiler;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
@@ -36,6 +37,8 @@ namespace FearEngine
 
         protected void Initialise(string title) 
         {
+            TimeKeeper.Initialise();
+
             PresentationProps = new PresentationProperties();
 
             m_Form = new RenderForm(title);
@@ -70,18 +73,21 @@ namespace FearEngine
 
             m_Form.UserResized += OnUserResized;
 
-            m_Form.KeyUp += (sender, args) =>
+            InputManager.Initialise(m_Form);
+            InputManager.KeyUp += OnKeyUp;
+        }
+
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F)
             {
-                if (args.KeyCode == Keys.F)
-                {
-                    PresentationProps.Fullscreen = !PresentationProps.Fullscreen;
-                    m_SwapChain.SetFullscreenState(PresentationProps.Fullscreen, null);
-                }
-                else if (args.KeyCode == Keys.Escape)
-                {
-                    m_Form.Close();
-                }
-            };
+                PresentationProps.Fullscreen = !PresentationProps.Fullscreen;
+                m_SwapChain.SetFullscreenState(PresentationProps.Fullscreen, null);
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                m_Form.Close();
+            }
         }
 
         private void OnUserResized(object sender, EventArgs e)
@@ -114,7 +120,10 @@ namespace FearEngine
             });
         }
 
-        protected virtual void Update(){}
+        protected virtual void Update()
+        {
+            TimeKeeper.Update();
+        }
 
         protected virtual void Dispose()
         {
