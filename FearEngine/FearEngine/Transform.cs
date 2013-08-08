@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using FearEngine.Time;
 using SharpDX;
 
@@ -9,6 +8,7 @@ namespace FearEngine
     {
         private const float STRAFE_SPEED = 0.1f;
         private const float WALK_SPEED = 0.1f;
+        private const float ROTATION_SPEED = 0.0001f;
 
         public bool EnableFPSControl { get; set; }
 
@@ -22,6 +22,8 @@ namespace FearEngine
         private float StrafeDir { get; set; }
         private bool IsWalking { get; set; }
         private float WalkDir { get; set; }
+        private bool IsRotating { get; set; }
+        private Vector2 RotationDir { get; set; }
 
         public Transform()
         {
@@ -29,6 +31,9 @@ namespace FearEngine
             InputManager.KeyDown += OnKeyDown;
             InputManager.KeyUp += OnKeyUp;
             InputManager.MouseMoved += OnMouseMoved;
+            InputManager.MouseStopped += OnMouseStopped;
+            InputManager.MouseDown += OnMouseDown;
+            InputManager.MouseUp += OnMouseUp;
 
             Position = Vector3.Zero;
             Forward = Vector3.UnitZ;
@@ -48,6 +53,27 @@ namespace FearEngine
                 {
                     Walk(WalkDir);
                 }
+                if (IsRotating)
+                {
+                    Pitch(RotationDir.Y);
+                    RotateY(RotationDir.X);
+                }
+            }
+        }
+
+        private void OnMouseDown(object sender, MouseEventArgs e)
+        {
+            if (EnableFPSControl)
+            {
+                IsRotating = e.Button == MouseButtons.Right;
+            }
+        }
+
+        private void OnMouseUp(object sender, MouseEventArgs e)
+        {
+            if (EnableFPSControl && IsRotating)
+            {
+                IsRotating = !(e.Button == MouseButtons.Right);
             }
         }
 
@@ -55,8 +81,15 @@ namespace FearEngine
         {
             if (EnableFPSControl)
             {
-                Pitch(delta.Y);
-                RotateY(delta.X);
+                RotationDir = delta;
+            }
+        }
+
+        private void OnMouseStopped(Vector2 delta)
+        {
+            if (EnableFPSControl)
+            {
+                RotationDir = delta;
             }
         }
 
@@ -125,14 +158,14 @@ namespace FearEngine
 
         public void Pitch(float angle)
         {
-            Matrix rotation = Matrix.RotationAxis(Right, angle * TimeKeeper.Delta * 0.001f);
+            Matrix rotation = Matrix.RotationAxis(Right, angle * TimeKeeper.Delta * ROTATION_SPEED);
             Up = Vector3.TransformNormal(Up, rotation);
             Forward = Vector3.TransformNormal(Forward, rotation);
         }
 
         public void RotateY(float angle)
         {
-            Matrix rotation = Matrix.RotationY(angle * TimeKeeper.Delta * 0.001f);
+            Matrix rotation = Matrix.RotationY(angle * TimeKeeper.Delta * ROTATION_SPEED);
 
             Up = Vector3.TransformNormal(Up, rotation);
             Right = Vector3.TransformNormal(Right, rotation);

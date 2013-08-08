@@ -1,33 +1,31 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 namespace FearEngine.Time
 {
     public static class TimeKeeper
     {
         private static int FrameCount { get; set; }
         private static Stopwatch Clock{ get; set;}
-        private static long PreviousTime{ get; set; }
-        private static double MSPerTick { get; set; }
+        private static double PreviousTime { get; set; }
         public static float Delta { get; private set; }
+
+        public const int FIXED_TIME_STEP = 33;
 
         public static void Initialise()
         {
             FrameCount = 0;
             Clock = new Stopwatch();
             Clock.Start();
-            PreviousTime = Clock.ElapsedMilliseconds;
+            PreviousTime = Clock.Elapsed.TotalMilliseconds;
         }
 
         public static void Update()
         {
             FrameCount++;
 
-            long currentTime = Clock.ElapsedMilliseconds;
+            double currentTime = Clock.Elapsed.TotalMilliseconds;
+            long currentTick = Clock.Elapsed.Ticks;
             Delta = (float)(currentTime - PreviousTime);
-            if(Delta > 0)
-            {
-                PreviousTime = currentTime;
-            }
+            PreviousTime = currentTime;
         }
     }
 }

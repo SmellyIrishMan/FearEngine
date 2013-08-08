@@ -12,6 +12,9 @@ public static class InputManager
 
     public delegate void MouseMoveHandler(Vector2 delta);
     public static MouseMoveHandler MouseMoved;
+    public static MouseMoveHandler MouseStopped;
+    public static MouseEventHandler MouseDown;
+    public static MouseEventHandler MouseUp;
 
     private static Vector2 previousMousePosition = Vector2.Zero;
     public static Vector2 MouseMovedDelta { get; private set; }
@@ -24,8 +27,27 @@ public static class InputManager
         Form.KeyDown += OnKeyDown;
         Form.KeyPress += OnKeyPressed;
 
+        Form.MouseDown += OnMouseDown;
+        Form.MouseUp += OnMouseUp;
+
         Point p = Cursor.Position;
         previousMousePosition = new Vector2(p.X, p.Y);
+    }
+
+    private static void OnMouseUp(object sender, MouseEventArgs e)
+    {
+        if (MouseUp != null)
+        {
+            MouseUp(sender, e);
+        }
+    }
+
+    private static void OnMouseDown(object sender, MouseEventArgs e)
+    {
+        if (MouseDown != null)
+        {
+            MouseDown(sender, e);
+        }
     }
 
     public static void Update()
@@ -35,7 +57,17 @@ public static class InputManager
         MouseMovedDelta = currentMousePosition - previousMousePosition;
         if (MouseMovedDelta.Length() != 0.0f)
         {
-            MouseMoved(MouseMovedDelta);
+            if (MouseMoved != null)
+            {
+                MouseMoved(MouseMovedDelta);
+            }
+        }
+        else
+        {
+            if (MouseStopped != null)
+            {
+                MouseStopped(Vector2.Zero);
+            }
         }
         previousMousePosition = currentMousePosition;
     }

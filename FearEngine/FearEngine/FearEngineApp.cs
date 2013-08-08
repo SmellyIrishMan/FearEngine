@@ -1,16 +1,14 @@
 ﻿using FearEngine.Time;
 using SharpDX;
-using SharpDX.D3DCompiler;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Windows;
 using System;
-using System.Diagnostics;
 using System.Windows.Forms;
-using Buffer = SharpDX.Direct3D11.Buffer;
 using Device = SharpDX.Direct3D11.Device;
 using FearEngine.Cameras;
+using System.Threading;
 
 namespace FearEngine
 {
@@ -130,6 +128,7 @@ namespace FearEngine
             TimeKeeper.Update();
             InputManager.Update();
             MainCamera.Update();
+            Thread.Sleep(TimeKeeper.FIXED_TIME_STEP);
         }
 
         protected virtual void Dispose()
