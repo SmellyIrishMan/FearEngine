@@ -13,126 +13,93 @@ using Buffer = SharpDX.Direct3D11.Buffer;
 
 namespace FearEngine.Meshes.Primatives
 {
-    public class Plane
+    public abstract class Plane
     {
-        Point Size { get; set; }  //How many points in the plane? 
+        protected Point Size { get; set; }  //How many points in the plane? 
 
         int VertexCount { get; set; }
         int IndexCount { get; set; }
+
+        protected VertexLayouts.PositionNormal[] Vertices { get; set; }
+        protected UInt32[] Indices { get; set; }
+
         Buffer VertexBuffer { get; set; }
         Buffer IndexBuffer { get; set; }
 
-        public Plane()
+        public Plane(Point size)
         {
-            Size = new Point(1024, 1024);
-            VertexCount = (Size.X - 1) * (Size.Y - 1) * 8;
-            IndexCount = VertexCount;
-
-            Bitmap heightmap = new Bitmap("C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\Heightmaps\\Heightmap.bmp");
+            Size = size;
+            VertexCount = Size.X * Size.Y;
+            IndexCount = (Size.X - 1) * (Size.Y - 1 ) * 6;
 
             VertexBuffer = IndexBuffer = null;
 
-            VertexLayouts.PositionColor[] vertices = new VertexLayouts.PositionColor[VertexCount];
-            UInt32[] indices = new UInt32[IndexCount];
+            Vertices = new VertexLayouts.PositionNormal[VertexCount];
+            Indices = new UInt32[IndexCount];
+        }
 
+        public void Initialise()
+        {
+            InitialiseVerticesAndIndicies();
+            CreateBuffers();
+        }
+
+        protected virtual void InitialiseVerticesAndIndicies()
+        {
             UInt32 index = 0;
-            float positionX, positionZ;
 
-            for (int j = 0; j < Size.Y - 1; j++)
+            for (int j = 0; j < Size.Y; j++)
             {
-                for (int i = 0; i < Size.X - 1; i++)
+                for (int i = 0; i < Size.X; i++)
                 {
-                    // LINE 1
-                    // Upper left.
-                    positionX = (float)i;
-                    positionZ = (float)(j + 1);
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
-                    index++;
-
-                    // Upper right.
-                    positionX = (float)(i + 1);
-                    positionZ = (float)(j + 1);
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
-                    index++;
-
-                    // LINE 2
-                    // Upper right.
-                    positionX = (float)(i + 1);
-                    positionZ = (float)(j + 1);
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
-                    index++;
-
-                    // Bottom right.
-                    positionX = (float)(i + 1);
-                    positionZ = (float)j;
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
-                    index++;
-
-                    // LINE 3
-                    // Bottom right.
-                    positionX = (float)(i + 1);
-                    positionZ = (float)j;
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
-                    index++;
-
-                    // Bottom left.
-                    positionX = (float)i;
-                    positionZ = (float)j;
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
-                    index++;
-
-                    // LINE 4
-                    // Bottom left.
-                    positionX = (float)i;
-                    positionZ = (float)j;
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
-                    index++;
-
-                    // Upper left.
-                    positionX = (float)i;
-                    positionZ = (float)(j + 1);
-
-                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
-                    vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                    indices[index] = index;
+                    Vertices[index].Position = new Vector3(i, 0.0f, j);
+                    Vertices[index].Normal = new Vector3(0.0f, 1.0f, 0.0f);
                     index++;
                 }
             }
 
-            CreateBuffers(vertices, indices);
+            InitialiseIndices();
         }
 
-        private void CreateBuffers(VertexLayouts.PositionColor[] vertices, UInt32[] indices)
+        protected void InitialiseIndices()
+        {
+            UInt32 index = 0;
+            for (int j = 0; j < Size.Y - 1; j++)
+            {
+                for (int i = 0; i < Size.X - 1; i++)
+                {
+                    //Bottom Left
+                    Indices[index] = (uint)((j * Size.X) + i);
+                    index++;
+                    //Top Left
+                    Indices[index] = (uint)(((j + 1) * Size.X) + i);
+                    index++;
+                    //Top Right
+                    Indices[index] = (uint)(((j + 1) * Size.X) + (i + 1));
+                    index++;
+                    //Bottom Left
+                    Indices[index] = (uint)((j * Size.X) + i);
+                    index++;
+                    //Top Right
+                    Indices[index] = (uint)(((j + 1) * Size.X) + (i + 1));
+                    index++;
+                    //Bottom Right
+                    Indices[index] = (uint)((j * Size.X) + (i + 1));
+                    index++;
+                }
+            }
+        }
+
+        private void CreateBuffers()
         {
             BufferDescription vertDesc = new BufferDescription();
             vertDesc.Usage = ResourceUsage.Default;
-            vertDesc.SizeInBytes = VertexLayouts.PositionColor.GetByteSize() * VertexCount;
+            vertDesc.SizeInBytes = VertexLayouts.PositionNormal.GetByteSize() * VertexCount;
             vertDesc.BindFlags = BindFlags.VertexBuffer;
             vertDesc.CpuAccessFlags = CpuAccessFlags.None;
             vertDesc.OptionFlags = ResourceOptionFlags.None;
             vertDesc.StructureByteStride = 0;
-            VertexBuffer = Buffer.Create(FearEngineApp.Device, vertices, vertDesc);
+            VertexBuffer = Buffer.Create(FearEngineApp.Device, Vertices, vertDesc);
 
             BufferDescription indexDesc = new BufferDescription();
             indexDesc.Usage = ResourceUsage.Default;
@@ -141,13 +108,13 @@ namespace FearEngine.Meshes.Primatives
             indexDesc.CpuAccessFlags = CpuAccessFlags.None;
             indexDesc.OptionFlags = ResourceOptionFlags.None;
             indexDesc.StructureByteStride = 0;
-            IndexBuffer = Buffer.Create(FearEngineApp.Device, indices, indexDesc);
+            IndexBuffer = Buffer.Create(FearEngineApp.Device, Indices, indexDesc);
         }
 
         public void Render()
         {
-            FearEngineApp.Context.InputAssembler.PrimitiveTopology = PrimitiveTopology.LineList;
-            FearEngineApp.Context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(VertexBuffer, VertexLayouts.PositionColor.GetByteSize(), 0));
+            FearEngineApp.Context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
+            FearEngineApp.Context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(VertexBuffer, VertexLayouts.PositionNormal.GetByteSize(), 0));
             FearEngineApp.Context.InputAssembler.SetIndexBuffer(IndexBuffer, Format.R32_UInt, 0);
             FearEngineApp.Context.DrawIndexed(IndexCount, 0, 0);
         }

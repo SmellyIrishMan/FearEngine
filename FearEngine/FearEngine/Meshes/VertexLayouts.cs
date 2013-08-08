@@ -29,5 +29,30 @@ namespace FearEngine.Meshes
                 return elements;
             }
         }
+
+        public struct PositionNormal
+        {
+            public Vector3 Position { get; set; }
+            public Vector3 Normal { get; set; }
+
+            private static InputElement[] elements = new[]
+            {
+                new InputElement("POSITION", 0, Format.R32G32B32_Float, 0, 0),
+                new InputElement("NORMAL", 0, Format.R32G32B32_Float, 12, 0)
+            };
+
+            public static int GetByteSize()
+            {
+                int size = Utilities.SizeOf<Vector3>();
+                size += Utilities.SizeOf<Vector3>();
+
+                return size;
+            }
+
+            public static InputElement[] GetInputElements()
+            {
+                return elements;
+            }
+        }
     }
 }
