@@ -24,9 +24,11 @@ namespace FearEngine.Meshes.Primatives
 
         public Plane()
         {
-            Size = new Point(100, 100);
+            Size = new Point(1024, 1024);
             VertexCount = (Size.X - 1) * (Size.Y - 1) * 8;
             IndexCount = VertexCount;
+
+            Bitmap heightmap = new Bitmap("C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\Heightmaps\\Heightmap.bmp");
 
             VertexBuffer = IndexBuffer = null;
 
@@ -45,7 +47,7 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)i;
                     positionZ = (float)(j + 1);
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
@@ -54,7 +56,7 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)(i + 1);
                     positionZ = (float)(j + 1);
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
@@ -64,7 +66,7 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)(i + 1);
                     positionZ = (float)(j + 1);
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
@@ -73,7 +75,7 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)(i + 1);
                     positionZ = (float)j;
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
@@ -83,7 +85,7 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)(i + 1);
                     positionZ = (float)j;
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
@@ -92,7 +94,7 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)i;
                     positionZ = (float)j;
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
@@ -102,7 +104,7 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)i;
                     positionZ = (float)j;
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
@@ -111,13 +113,18 @@ namespace FearEngine.Meshes.Primatives
                     positionX = (float)i;
                     positionZ = (float)(j + 1);
 
-                    vertices[index].Position = new Vector3(positionX, 0.0f, positionZ);
+                    vertices[index].Position = new Vector3(positionX, (heightmap.GetPixel((int)positionX, (int)positionZ).R / 255.0f) * 60.0f, positionZ);
                     vertices[index].Color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
                     indices[index] = index;
                     index++;
                 }
             }
 
+            CreateBuffers(vertices, indices);
+        }
+
+        private void CreateBuffers(VertexLayouts.PositionColor[] vertices, UInt32[] indices)
+        {
             BufferDescription vertDesc = new BufferDescription();
             vertDesc.Usage = ResourceUsage.Default;
             vertDesc.SizeInBytes = VertexLayouts.PositionColor.GetByteSize() * VertexCount;
@@ -134,7 +141,6 @@ namespace FearEngine.Meshes.Primatives
             indexDesc.CpuAccessFlags = CpuAccessFlags.None;
             indexDesc.OptionFlags = ResourceOptionFlags.None;
             indexDesc.StructureByteStride = 0;
-
             IndexBuffer = Buffer.Create(FearEngineApp.Device, indices, indexDesc);
         }
 
