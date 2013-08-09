@@ -45,7 +45,7 @@ namespace BasicPlane
         {
             Initialise("Basic Plane");
 
-            terrain = new Terrain(new Point(256, 256), "H:\\Coding.Fast\\fearengine\\Resources\\Textures\\Heightmaps\\Heightmap.bmp");
+            terrain = new Terrain(new Point(256, 256), "../../../../../Resources/Textures/Heightmaps/Heightmap.bmp");
             terrain.Initialise();
 
             // Compile Vertex and Pixel shaders
@@ -53,11 +53,11 @@ namespace BasicPlane
             {
                 File.Copy("../../../../../ThirdParty/SharpDX/Bin/Signed-net40/sharpdx_direct3d11_effects_x86.dll" ,"sharpdx_direct3d11_effects_x86.dll");
             }
-            m_ShaderByteCode = ShaderBytecode.CompileFromFile("H:\\Coding.Fast\\fearengine\\Resources\\Shaders\\BasicPositionNormal.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
+            m_ShaderByteCode = ShaderBytecode.CompileFromFile("../../../../../Resources/Shaders/BasicPositionNormal.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
             m_ColorEffect = new Effect(Device, m_ShaderByteCode, EffectFlags.None);
             m_ColorTech = m_ColorEffect.GetTechniqueByName("BasicPositionNormalTech");
 
-            m_ShaderByteCode = ShaderBytecode.CompileFromFile("H:\\Coding.Fast\\fearengine\\Resources\\Shaders\\DrawNormals.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
+            m_ShaderByteCode = ShaderBytecode.CompileFromFile("../../../../../Resources/Shaders/DrawNormals.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
             m_NormalsEffect = new Effect(Device, m_ShaderByteCode, EffectFlags.None);
             m_NormalsTech = m_NormalsEffect.GetTechniqueByName("DrawNormalsTech");
         }
