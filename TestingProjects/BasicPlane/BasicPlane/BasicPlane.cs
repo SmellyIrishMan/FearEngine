@@ -53,9 +53,9 @@ namespace BasicPlane
             {
                 File.Copy("../../../../../ThirdParty/SharpDX/Bin/Signed-net40/sharpdx_direct3d11_effects_x86.dll" ,"sharpdx_direct3d11_effects_x86.dll");
             }
-            m_ShaderByteCode = ShaderBytecode.CompileFromFile("../../../../../Resources/Shaders/BasicPositionNormal.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
+            m_ShaderByteCode = ShaderBytecode.CompileFromFile("../../../../../Resources/Shaders/BasicPositionNormalLight.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
             m_ColorEffect = new Effect(Device, m_ShaderByteCode, EffectFlags.None);
-            m_ColorTech = m_ColorEffect.GetTechniqueByName("BasicPositionNormalTech");
+            m_ColorTech = m_ColorEffect.GetTechniqueByName("BasicPositionNormalLightTech");
 
             m_ShaderByteCode = ShaderBytecode.CompileFromFile("../../../../../Resources/Shaders/DrawNormals.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
             m_NormalsEffect = new Effect(Device, m_ShaderByteCode, EffectFlags.None);
@@ -75,6 +75,10 @@ namespace BasicPlane
                 Matrix WVP = world * view * proj;
 
                 m_ColorEffect.GetVariableByName("gWorldViewProj").AsMatrix().SetMatrix(WVP);
+
+                m_ColorEffect.GetVariableByName("gLightAmbient").AsVector().Set(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                m_ColorEffect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(0.9f, 0.76f, 0.8f, 0.0f));
+                m_ColorEffect.GetVariableByName("gLightDir").AsVector().Set(new Vector4(0.2f, -1.0f, 0.15f, 0.0f));
 
                 // Layout from VertexShader input signature
                 m_Layout = new InputLayout(

@@ -71,6 +71,7 @@
     <Compile Include="FearEngineApp.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Lighting\Light.cs" />
     <Compile Include="Meshes\Primatives\Plane.cs" />
     <Compile Include="Meshes\Terrain\Terrain.cs" />
     <Compile Include="Meshes\VertexLayouts.cs" />
