@@ -69,52 +69,52 @@ namespace FearEngine.Meshes.Terrain
 
 	        // Now go through all the vertices and take an average of each face normal 	
 	        // that the vertex touches to get the averaged normal for that vertex.
-            //for (j = 0; j < Size.Y; j++)
-            //{
-            //    for (i = 0; i < Size.X; i++)
-            //    {
-            //        // Initialize the sum.
-            //        sum = Vector3.Zero;
+            for (j = 0; j < Size.Y; j++)
+            {
+                for (i = 0; i < Size.X; i++)
+                {
+                    // Initialize the sum.
+                    sum = Vector3.Zero;
 
-            //        // Bottom left face.
-            //        if(((i-1) >= 0) && ((j-1) >= 0))
-            //        {
-            //            index = ((j - 1) * Size.X) + (i - 1);
+                    // Bottom left face.
+                    if (((i - 1) >= 0) && ((j - 1) >= 0))
+                    {
+                        index = ((j - 1) * Size.X) + (i - 1);
 
-            //            sum += normals[index];
-            //        }
+                        sum += normals[index];
+                    }
 
-            //        // Bottom right face.
-            //        if ((i < (Size.X - 1)) && ((j - 1) >= 0))
-            //        {
-            //            index = ((j - 1) * Size.X) + (i + 1);
+                    // Bottom right face.
+                    if ((i < (Size.X - 1)) && ((j - 1) >= 0))
+                    {
+                        index = ((j - 1) * Size.X) + (i + 1);
 
-            //            sum += normals[index];
-            //        }
+                        sum += normals[index];
+                    }
 
-            //        // Upper left face.
-            //        if (((i - 1) >= 0) && (j < (Size.Y - 1)))
-            //        {
-            //            index = ((j + 1) * Size.X) + (i - 1);
+                    // Upper left face.
+                    if (((i - 1) >= 0) && (j < (Size.Y - 1)))
+                    {
+                        index = ((j + 1) * Size.X) + (i - 1);
 
-            //            sum += normals[index];
-            //        }
+                        sum += normals[index];
+                    }
 
-            //        // Upper right face.
-            //        if ((i < (Size.X - 1)) && (j + 1 < Size.Y))
-            //        {
-            //            index = ((j + 1) * Size.X) + i;
+                    // Upper right face.
+                    if ((i < (Size.X - 1)) && (j + 1 < Size.Y))
+                    {
+                        index = ((j + 1) * Size.X) + i;
 
-            //            sum += normals[index];
-            //        }
-			
-            //        // Get an index to the vertex location in the height map array.
-            //        index = (j * Size.X) + i;
+                        sum += normals[index];
+                    }
 
-            //        // Normalize the final shared normal for this vertex and store it in the height map array.
-            //        Vertices[index].Normal = Vector3.Normalize(sum);
-            //    }
-            //}
+                    // Get an index to the vertex location in the height map array.
+                    index = (j * Size.X) + i;
+
+                    // Normalize the final shared normal for this vertex and store it in the height map array.
+                    Vertices[index].Normal = Vector3.Normalize(sum);
+                }
+            }
         }
     }
 }

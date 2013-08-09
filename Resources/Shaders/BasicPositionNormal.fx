@@ -28,7 +28,7 @@ VertexOut VS(VertexIn vin)
 
 float4 PS(VertexOut pin) : SV_Target
 {
-    return float4(pin.NormW, 1.0f);
+    return float4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 technique11 BasicPositionNormalTech
@@ -36,6 +36,7 @@ technique11 BasicPositionNormalTech
     pass P0
     {
         SetVertexShader( CompileShader( vs_5_0, VS() ) );
+		SetGeometryShader( NULL );
         SetPixelShader( CompileShader( ps_5_0, PS() ) );
     }
 }

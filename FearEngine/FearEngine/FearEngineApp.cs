@@ -18,14 +18,16 @@ namespace FearEngine
         protected SwapChain m_SwapChain;
         protected SwapChainDescription m_SwapChainDesc;
 
-        protected static Device m_Device;
-        public static Device Device { get { return m_Device; } }
+        private static Device m_Device;
+        public static Device Device { get { return m_Device; } protected set { m_Device = value; } }
         protected static DeviceContext m_Context;
         public static DeviceContext Context { get { return m_Context; } }
 
         protected Factory m_Factory;
         protected Texture2D m_BackBuffer;
+        protected Texture2D m_DepthStencilBuffer;
         protected RenderTargetView m_RenderTargetView;
+        protected DepthStencilView m_DepthStencilView;
 
         public static PresentationProperties PresentationProps { get; private set; }
 
@@ -59,7 +61,7 @@ namespace FearEngine
 
             // Create Device and SwapChain
             Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.None, m_SwapChainDesc, out m_Device, out m_SwapChain);
-            m_Context = m_Device.ImmediateContext;
+            m_Context = Device.ImmediateContext;
 
             // Ignore all windows events
             m_Factory = m_SwapChain.GetParent<Factory>();
@@ -67,10 +69,21 @@ namespace FearEngine
 
             // New RenderTargetView from the backbuffer
             m_BackBuffer = Texture2D.FromSwapChain<Texture2D>(m_SwapChain, 0);
-            m_RenderTargetView = new RenderTargetView(m_Device, m_BackBuffer);
+            m_RenderTargetView = new RenderTargetView(Device, m_BackBuffer);
+
+            Texture2DDescription depthDesc = new Texture2DDescription();
+            depthDesc.Format = Format.D24_UNorm_S8_UInt;
+            depthDesc.ArraySize = 1;
+            depthDesc.MipLevels = 1;
+            depthDesc.Width = PresentationProps.Width;
+            depthDesc.Height = PresentationProps.Height;
+            depthDesc.SampleDescription = new SampleDescription(1, 0);
+            depthDesc.BindFlags = BindFlags.DepthStencil;
+            m_DepthStencilBuffer = new Texture2D(Device, depthDesc);
+            m_DepthStencilView = new DepthStencilView(Device, m_DepthStencilBuffer);
 
             m_Context.Rasterizer.SetViewports(new Viewport(0, 0, PresentationProps.Width, PresentationProps.Height, 0.0f, 1.0f));
-            m_Context.OutputMerger.SetTargets(m_RenderTargetView);
+            m_Context.OutputMerger.SetTargets(m_DepthStencilView, m_RenderTargetView);
 
             m_Form.UserResized += OnUserResized;
 
@@ -107,7 +120,7 @@ namespace FearEngine
 
             // Get the backbuffer from the swapchain
             m_BackBuffer = Texture2D.FromSwapChain<Texture2D>(m_SwapChain, 0);
-            m_RenderTargetView = new RenderTargetView(m_Device, m_BackBuffer);
+            m_RenderTargetView = new RenderTargetView(Device, m_BackBuffer);
 
             // Setup targets and viewport for rendering
             m_Context.Rasterizer.SetViewports(new Viewport(0, 0, PresentationProps.Width, PresentationProps.Height, 0.0f, 1.0f));
@@ -135,13 +148,16 @@ namespace FearEngine
         {
             m_Factory.Dispose();
             m_BackBuffer.Dispose();
+
+            m_DepthStencilBuffer.Dispose();
+            m_DepthStencilView.Dispose();
             m_RenderTargetView.Dispose();
 
             m_Context.ClearState();
             m_Context.Flush();
             m_Context.Dispose();
 
-            m_Device.Dispose();
+            Device.Dispose();
             m_SwapChain.Dispose();
         }
     }
