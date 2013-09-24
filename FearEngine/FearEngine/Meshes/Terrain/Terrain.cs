@@ -12,7 +12,7 @@ namespace FearEngine.Meshes.Terrain
 
         public Terrain(Point size, string heightmapLocation) : base(size)
         {
-            heightmap = new Bitmap("H:\\Coding.Fast\\fearengine\\Resources\\Textures\\Heightmaps\\Heightmap.bmp");
+            heightmap = new Bitmap("..\\..\\..\\..\\..\\Resources\\Textures\\Heightmaps\\Heightmap.bmp");
             heightmap = new Bitmap(heightmapLocation);
         }
 
