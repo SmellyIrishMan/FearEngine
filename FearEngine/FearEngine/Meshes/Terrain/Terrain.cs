@@ -34,9 +34,11 @@ namespace FearEngine.Meshes.Terrain
             CalculateNormals();
         }
 
+        //The normals are computed using the following technique
+        //http://www.gamedev.net/page/resources/_/technical/graphics-programming-and-theory/efficient-normal-computations-for-terrain-lighting-in-directx-10-r3313
         private void CalculateNormals()
         {
-	        int i, j, index1, index2, index3, index;
+	        int i, j, leftVert, rightVert, lowerVert, upperVert, currentVert;
 	        Vector3 vertex1, vertex2, vertex3, vector1, vector2, sum;
             Vector3[] normals = new Vector3[Size.Y * Size.X];
 
@@ -45,25 +47,43 @@ namespace FearEngine.Meshes.Terrain
 	        {
                 for (i = 0; i < Size.X; i++)
 		        {
-                    index1 = (j * Size.X) + i;
-                    index2 = (j * Size.X) + (i + 1);
-                    index3 = ((j + 1) * Size.X) + i;
+                    currentVert = (j * Size.X) + i;
+                    leftVert = (j * Size.X) + (i - 1);
+                    rightVert = (j * Size.X) + (i + 1);
+                    lowerVert = ((j - 1) * Size.X) + i;
+                    upperVert = ((j + 1) * Size.X) + i;
 
-			        // Get three vertices from the face.
-			        vertex1 = Vertices[index1].Position;
-                    vertex2 = Vertices[index2].Position;
-                    vertex3 = Vertices[index3].Position;
+                    Vector3 normal = new Vector3(0, 1, 0);
+                    if (j == 0) //If our current pixel is on the bottom row so it has no low pixel to bounce off.
+                    {
+                        normal.Z = Vertices[currentVert].Position.Y - Vertices[upperVert].Position.Y;
+                    }
+                    else if (j == Size.Y)   //If our current pixel is on the top row so it has no higher pixel to bounce off.
+                    {
+                        normal.Z = Vertices[lowerVert].Position.Y - Vertices[currentVert].Position.Y;
+                    }
+                    else
+                    {
+                        normal.Z = ((Vertices[currentVert].Position.Y - Vertices[upperVert].Position.Y) 
+                            + (Vertices[lowerVert].Position.Y - Vertices[currentVert].Position.Y)) * 0.5f;
+                    }
 
-			        // Calculate the two vectors for this face.
-                    vector1 = vertex1 - vertex3;
-                    vector2 = vertex3 - vertex2;
-
-                    index = (j * Size.X) + i;
+                    if (i == 0)
+                    {
+                        normal.X = Vertices[currentVert].Position.Y - Vertices[rightVert].Position.Y;
+                    }
+                    else if (i == Size.X)
+                    {
+                        normal.X = Vertices[leftVert].Position.Y - Vertices[currentVert].Position.Y;
+                    }
+                    else
+                    {
+                        normal.X = ((Vertices[currentVert].Position.Y - Vertices[rightVert].Position.Y) 
+                            + (Vertices[leftVert].Position.Y - Vertices[currentVert].Position.Y)) * 0.5f;
+                    }
 
 			        // Calculate the cross product of those two vectors to get the un-normalized value for this face normal.
-                    normals[index] = Vector3.Cross(vector1, vector2);
-
-                    Vertices[index].Normal = Vector3.Cross(vector1, vector2);
+                    Vertices[currentVert].Normal = normals[currentVert] = Vector3.Normalize(normal);
 		        }
 	        }
 
@@ -79,40 +99,40 @@ namespace FearEngine.Meshes.Terrain
                     // Bottom left face.
                     if (((i - 1) >= 0) && ((j - 1) >= 0))
                     {
-                        index = ((j - 1) * Size.X) + (i - 1);
+                        currentVert = ((j - 1) * Size.X) + (i - 1);
 
-                        sum += normals[index];
+                        sum += normals[currentVert];
                     }
 
                     // Bottom right face.
                     if ((i < (Size.X - 1)) && ((j - 1) >= 0))
                     {
-                        index = ((j - 1) * Size.X) + (i + 1);
+                        currentVert = ((j - 1) * Size.X) + (i + 1);
 
-                        sum += normals[index];
+                        sum += normals[currentVert];
                     }
 
                     // Upper left face.
                     if (((i - 1) >= 0) && (j < (Size.Y - 1)))
                     {
-                        index = ((j + 1) * Size.X) + (i - 1);
+                        currentVert = ((j + 1) * Size.X) + (i - 1);
 
-                        sum += normals[index];
+                        sum += normals[currentVert];
                     }
 
                     // Upper right face.
                     if ((i < (Size.X - 1)) && (j + 1 < Size.Y))
                     {
-                        index = ((j + 1) * Size.X) + i;
+                        currentVert = ((j + 1) * Size.X) + i;
 
-                        sum += normals[index];
+                        sum += normals[currentVert];
                     }
 
                     // Get an index to the vertex location in the height map array.
-                    index = (j * Size.X) + i;
+                    currentVert = (j * Size.X) + i;
 
                     // Normalize the final shared normal for this vertex and store it in the height map array.
-                    Vertices[index].Normal = Vector3.Normalize(sum);
+                    Vertices[currentVert].Normal = Vector3.Normalize(sum);
                 }
             }
         }
