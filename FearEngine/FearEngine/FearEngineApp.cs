@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Device = SharpDX.Direct3D11.Device;
 using FearEngine.Cameras;
 using System.Threading;
+using FearEngine.Resources;
+using FearEngine.Logger;
 
 namespace FearEngine
 {
@@ -40,6 +42,8 @@ namespace FearEngine
 
         protected void Initialise(string title) 
         {
+            FearLog.Initialise();
+            ResourceManager.Initialise();
             TimeKeeper.Initialise();
 
             PresentationProps = new PresentationProperties();
@@ -144,7 +148,7 @@ namespace FearEngine
             Thread.Sleep(TimeKeeper.FIXED_TIME_STEP);
         }
 
-        protected virtual void Dispose()
+        private void Dispose()
         {
             m_Factory.Dispose();
             m_BackBuffer.Dispose();
@@ -159,6 +163,13 @@ namespace FearEngine
 
             Device.Dispose();
             m_SwapChain.Dispose();
+        }
+
+        protected virtual void Shutdown()
+        {
+            Dispose();
+
+            ResourceManager.Shutdown();
         }
     }
 }

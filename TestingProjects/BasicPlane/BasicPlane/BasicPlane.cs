@@ -26,7 +26,7 @@ namespace BasicPlane
             BasicPlane app = new BasicPlane();
             app.Initialise();
             app.Run();
-            app.Dispose();
+            app.Shutdown();
         }
 
         CompilationResult m_ShaderByteCode;
@@ -49,6 +49,7 @@ namespace BasicPlane
             terrain.Initialise();
 
             // Compile Vertex and Pixel shaders
+            //TODO This is a big hack because the shaders won't compile without this file but it's not working to just reference it... :(
             if (!File.Exists("sharpdx_direct3d11_effects_x86.dll"))
             {
                 File.Copy("../../../../../ThirdParty/SharpDX/Bin/Signed-net40/sharpdx_direct3d11_effects_x86.dll" ,"sharpdx_direct3d11_effects_x86.dll");
@@ -118,7 +119,7 @@ namespace BasicPlane
             base.Update();
         }
 
-        protected override void Dispose()
+        protected override void Shutdown()
         {
             // Release all resources
             m_ShaderByteCode.Dispose();
@@ -128,7 +129,7 @@ namespace BasicPlane
             m_NormalsEffect.Dispose();
             m_Layout.Dispose();
 
-            base.Dispose();
+            base.Shutdown();
         }
     }
 }

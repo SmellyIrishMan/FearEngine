@@ -72,10 +72,12 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Lighting\Light.cs" />
+    <Compile Include="Logger\FearLog.cs" />
     <Compile Include="Meshes\Primatives\Plane.cs" />
     <Compile Include="Meshes\Terrain\Terrain.cs" />
     <Compile Include="Meshes\VertexLayouts.cs" />
     <Compile Include="PresentationProperties.cs" />
+    <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Time\TimeKeeper.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
