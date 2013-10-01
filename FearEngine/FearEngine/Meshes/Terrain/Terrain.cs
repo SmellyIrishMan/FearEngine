@@ -10,10 +10,9 @@ namespace FearEngine.Meshes.Terrain
         Bitmap heightmap;
         private const float TERRAIN_HEIGHT = 45.0f;
 
-        public Terrain(Point size, string heightmapLocation) : base(size)
+        public Terrain(Point size, Bitmap heights) : base(size)
         {
-            heightmap = new Bitmap("..\\..\\..\\..\\..\\Resources\\Textures\\Heightmaps\\Heightmap.bmp");
-            heightmap = new Bitmap(heightmapLocation);
+            heightmap = heights;
         }
 
         override protected void InitialiseVerticesAndIndicies()

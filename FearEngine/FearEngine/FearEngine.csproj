@@ -64,6 +64,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cameras\Camera.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Meshes\Terrain\Terrain.cs" />
     <Compile Include="Meshes\VertexLayouts.cs" />
     <Compile Include="PresentationProperties.cs" />
+    <Compile Include="Resources\Image.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Time\TimeKeeper.cs" />
     <Compile Include="Transform.cs" />

@@ -12,6 +12,7 @@ using Buffer = SharpDX.Direct3D11.Buffer;
 using FearEngine.Meshes.Terrain;
 using System.Drawing;
 using System.IO;
+using FearEngine.Resources;
 
 namespace BasicPlane
 {
@@ -45,7 +46,7 @@ namespace BasicPlane
         {
             Initialise("Basic Plane");
 
-            terrain = new Terrain(new Point(256, 256), "../../../../../Resources/Textures/Heightmaps/Heightmap.bmp");
+            terrain = new Terrain(new Point(256, 256), ResourceManager.GetImage("TEX_SimpleHeightBmp"));
             terrain.Initialise();
 
             // Compile Vertex and Pixel shaders

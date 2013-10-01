@@ -21,16 +21,11 @@ namespace FearEngine.Logger
     public static class FearLog
     {
         private static LogPriority LoggingPriority{get; set;}
-        private static bool IsLoggingEverything{get; set;}
+        private static bool IsLoggingEverything = false;
         
         public static void Initialise()
         {
             LoggingPriority = LogPriority.HIGH;
-        }
-
-        public static void LogEverything( bool shouldWeLogEverything)
-        {
-            IsLoggingEverything = shouldWeLogEverything;
         }
 
         public static void Log(String message,
