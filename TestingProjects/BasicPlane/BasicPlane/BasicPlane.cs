@@ -31,16 +31,6 @@ namespace BasicPlane
             app.Shutdown();
         }
 
-        CompilationResult m_ShaderByteCode;
-
-        Effect m_ColorEffect;
-        EffectTechnique m_ColorTech;
-
-        Effect m_NormalsEffect;
-        EffectTechnique m_NormalsTech;
-
-        InputLayout m_Layout;
-
         Terrain terrain;
 
         public override void Initialise()
@@ -70,14 +60,6 @@ namespace BasicPlane
 
         protected override void Shutdown()
         {
-            // Release all resources
-            m_ShaderByteCode.Dispose();
-            m_ColorTech.Dispose();
-            m_ColorEffect.Dispose();
-            m_NormalsTech.Dispose();
-            m_NormalsEffect.Dispose();
-            m_Layout.Dispose();
-
             base.Shutdown();
         }
     }

@@ -185,6 +185,8 @@ namespace FearEngine.Resources
                         mat.RenderEffect = new Effect(FearEngineApp.Device, m_ShaderByteCode, EffectFlags.None);
                         mat.RenderTechnique = mat.RenderEffect.GetTechniqueByName(shaderTech);
 
+                        m_ShaderByteCode.Dispose();
+
                         return mat;
                     }
                 }
@@ -195,7 +197,11 @@ namespace FearEngine.Resources
 
         public static void Shutdown()
         {
-
+            foreach (Material mat in LoadedMaterials.Values)
+            {
+                mat.RenderEffect.Dispose();
+                mat.RenderTechnique.Dispose();
+            }
         }
     }
 }

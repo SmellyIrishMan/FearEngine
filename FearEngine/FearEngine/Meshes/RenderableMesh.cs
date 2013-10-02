@@ -30,10 +30,6 @@ namespace FearEngine.Meshes
             Materials = new Dictionary<string, Material>();
         }
 
-        public void SetGeometryBuffers()
-        {
-        }
-
         public void AddMaterial(Material mat)
         {
             Materials.Add(mat.Name, mat);
@@ -64,6 +60,7 @@ namespace FearEngine.Meshes
                 }
 
                 // Layout from VertexShader input signature
+                //TODO This should really be a once off thing. We don't need to create it on every render call.
                 InputLayout m_Layout = new InputLayout(
                     FearEngineApp.Device,
                     ShaderSignature.GetInputSignature(CurrentMaterial.RenderTechnique.GetPassByIndex(pass).Description.Signature),
@@ -76,6 +73,9 @@ namespace FearEngine.Meshes
                 FearEngineApp.Context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(VertexBuffer, VertexLayouts.PositionNormalTexture.GetByteSize(), 0));
                 FearEngineApp.Context.InputAssembler.SetIndexBuffer(IndexBuffer, Format.R32_UInt, 0);
                 FearEngineApp.Context.DrawIndexed(IndexCount, 0, 0);
+
+                //TODO Move this somewhere better.
+                m_Layout.Dispose();
             }
         }
     }
