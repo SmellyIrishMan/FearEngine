@@ -13,18 +13,12 @@ using Buffer = SharpDX.Direct3D11.Buffer;
 
 namespace FearEngine.Meshes.Primatives
 {
-    public abstract class Plane
+    public abstract class Plane : RenderableMesh
     {
         protected Point Size { get; set; }  //How many points in the plane? 
 
-        int VertexCount { get; set; }
-        int IndexCount { get; set; }
-
         protected VertexLayouts.PositionNormalTexture[] Vertices { get; set; }
         protected UInt32[] Indices { get; set; }
-
-        Buffer VertexBuffer { get; set; }
-        Buffer IndexBuffer { get; set; }
 
         public Plane(Point size)
         {
@@ -110,14 +104,6 @@ namespace FearEngine.Meshes.Primatives
             indexDesc.OptionFlags = ResourceOptionFlags.None;
             indexDesc.StructureByteStride = 0;
             IndexBuffer = Buffer.Create(FearEngineApp.Device, Indices, indexDesc);
-        }
-
-        public void Render()
-        {
-            FearEngineApp.Context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
-            FearEngineApp.Context.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(VertexBuffer, VertexLayouts.PositionNormalTexture.GetByteSize(), 0));
-            FearEngineApp.Context.InputAssembler.SetIndexBuffer(IndexBuffer, Format.R32_UInt, 0);
-            FearEngineApp.Context.DrawIndexed(IndexCount, 0, 0);
         }
 
         public void Dispose()

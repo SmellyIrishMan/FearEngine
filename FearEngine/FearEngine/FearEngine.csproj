@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\SharpDX\Bin\Signed-net40\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Direct3D11.Effects">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SharpDX\Bin\Signed-net40\SharpDX.Direct3D11.Effects.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.DXGI, Version=2.4.2.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\SharpDX\Bin\Signed-net40\SharpDX.DXGI.dll</HintPath>
@@ -74,11 +77,13 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Lighting\Light.cs" />
     <Compile Include="Logger\FearLog.cs" />
+    <Compile Include="Meshes\RenderableMesh.cs" />
     <Compile Include="Meshes\Primatives\Plane.cs" />
     <Compile Include="Meshes\Terrain\Terrain.cs" />
     <Compile Include="Meshes\VertexLayouts.cs" />
     <Compile Include="PresentationProperties.cs" />
     <Compile Include="Resources\Image.cs" />
+    <Compile Include="Resources\Material.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Time\TimeKeeper.cs" />
     <Compile Include="Transform.cs" />

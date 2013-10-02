@@ -3,5 +3,16 @@
 	<Material>
 		<Name>DEFAULT</Name>
 		<Filepath>C:\Someplace</Filepath>
+		<Technique>NotAvailable</Technique>
+	</Material>
+	<Material>
+		<Name>TexturedLit</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
+		<Technique>BasicPositionNormalLightTech</Technique>
+	</Material>
+	<Material>
+		<Name>DrawNormals</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\DrawNormals.fx</Filepath>
+		<Technique>DrawNormalsTech</Technique>
 	</Material>
 </Materials>
