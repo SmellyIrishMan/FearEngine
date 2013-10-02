@@ -86,7 +86,7 @@ namespace BasicPlane
                 m_Layout = new InputLayout(
                     Device,
                     ShaderSignature.GetInputSignature(m_ColorTech.GetPassByIndex(pass).Description.Signature),
-                    VertexLayouts.PositionNormal.GetInputElements());
+                    VertexLayouts.PositionNormalTexture.GetInputElements());
                 m_Context.InputAssembler.InputLayout = m_Layout;
 
                 m_ColorTech.GetPassByIndex(pass).Apply(m_Context);

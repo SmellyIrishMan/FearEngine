@@ -24,6 +24,7 @@ namespace FearEngine.Meshes.Terrain
                 {
                     Vertices[index].Position = new Vector3(i, (heightmap.GetPixel(i, j).R / 255.0f) * TERRAIN_HEIGHT, j);
                     Vertices[index].Normal = new Vector3(0.0f, 1.0f, 0.0f);
+                    Vertices[index].TexCoord = new Vector2((float)i / (float)(Size.X - 1), (float)j / (float)(Size.Y - 1));
                     index++;
                 }
             }
@@ -38,7 +39,7 @@ namespace FearEngine.Meshes.Terrain
         private void CalculateNormals()
         {
 	        int i, j, leftVert, rightVert, lowerVert, upperVert, currentVert;
-	        Vector3 vertex1, vertex2, vertex3, vector1, vector2, sum;
+	        Vector3 sum;
             Vector3[] normals = new Vector3[Size.Y * Size.X];
 
 	        // Go through all the faces in the mesh and calculate their normals.
