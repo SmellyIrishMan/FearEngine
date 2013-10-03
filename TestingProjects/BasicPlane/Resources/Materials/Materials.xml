@@ -6,9 +6,13 @@
 		<Technique>NotAvailable</Technique>
 	</Material>
 	<Material>
-		<Name>TexturedLit</Name>
+		<Name>SimpleLit</Name>
 		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
 		<Technique>BasicPositionNormalLightTech</Technique>
+	</Material>
+	<Material>
+		<Name>TexturedLit</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLightTextured.fx</Filepath>				<Technique>BasicPositionNormalLightTexturedTech</Technique>
 	</Material>
 	<Material>
 		<Name>DrawNormals</Name>
