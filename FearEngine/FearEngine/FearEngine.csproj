@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Collada_Main">
+      <HintPath>..\..\ThirdParty\Collada_Main\Collada_Main\bin\Debug\Collada_Main.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=2.4.2.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\SharpDX\Bin\Signed-net40\SharpDX.dll</HintPath>
