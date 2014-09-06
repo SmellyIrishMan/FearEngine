@@ -30,8 +30,7 @@ public static class InputManager
         Form.MouseDown += OnMouseDown;
         Form.MouseUp += OnMouseUp;
 
-        Point p = Cursor.Position;
-        previousMousePosition = new Vector2(p.X, p.Y);
+        //previousMousePosition = SharpDX.Toolkit.Input.MouseManager;
     }
 
     private static void OnMouseUp(object sender, MouseEventArgs e)
@@ -52,8 +51,8 @@ public static class InputManager
 
     public static void Update()
     {
-        Point p = Cursor.Position;
-        Vector2 currentMousePosition = new Vector2(p.X, p.Y);
+        //Point p = Cursor.Position;
+        Vector2 currentMousePosition = new Vector2(0, 0);
         MouseMovedDelta = currentMousePosition - previousMousePosition;
         if (MouseMovedDelta.Length() != 0.0f)
         {

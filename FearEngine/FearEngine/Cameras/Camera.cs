@@ -5,14 +5,14 @@ namespace FearEngine.Cameras
 {
     public class Camera : GameObject
     {
-        public Matrix View { get; set; }
-        public Matrix Projection { get; set; }
+        public Matrix View { get; private set;  }
+        public Matrix Projection { get; private set; }
 
         public Camera() : base()
         {
-            Transform.Position = new Vector3(0, 10, -5);
+            Transform.Position = new Vector3(0, 10, -25);
 
-            Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, FearEngineApp.PresentationProps.AspectRatio, 0.01f, 1000.0f);
+            Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, FearEngineApp.GetDevice().Viewport.AspectRatio, 0.01f, 1000.0f);
             View = Matrix.LookAtLH(Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);
         }
 

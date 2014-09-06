@@ -1,6 +1,8 @@
 ﻿using FearEngine.Logger;
+using FearEngine.Resources.Meshes;
 using SharpDX.D3DCompiler;
 using SharpDX.Direct3D11;
+using SharpDX.Toolkit.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -172,13 +174,17 @@ namespace FearEngine.Resources
                         xmlReader.Read();
                         string shaderTech = xmlReader.Value;
 
+                        EffectCompiler compiler = new EffectCompiler();
+                        var effectResult = compiler.CompileFromFile(shaderFilepath);
+                        if (effectResult.HasErrors) 
+                        { 
+                            FearLog.Log("ERROR Compiling effect; " + shaderFilepath, LogPriority.EXCEPTION); 
+                        }
+
                         Material mat = new Material();
                         mat.Name = name;
-                        CompilationResult m_ShaderByteCode = ShaderBytecode.CompileFromFile(shaderFilepath, "fx_5_0", ShaderFlags.None, EffectFlags.None, null, null);
-                        mat.RenderEffect = new Effect(FearEngineApp.Device, m_ShaderByteCode, EffectFlags.None);
-                        mat.RenderTechnique = mat.RenderEffect.GetTechniqueByName(shaderTech);
-
-                        m_ShaderByteCode.Dispose();
+                        mat.RenderEffect = new Effect(FearEngineApp.GetDevice(), effectResult.EffectData);
+                        mat.RenderTechnique = mat.RenderEffect.Techniques[shaderTech];
 
                         return mat;
                     }
@@ -193,7 +199,6 @@ namespace FearEngine.Resources
             foreach (Material mat in LoadedMaterials.Values)
             {
                 mat.RenderEffect.Dispose();
-                mat.RenderTechnique.Dispose();
             }
         }
     }

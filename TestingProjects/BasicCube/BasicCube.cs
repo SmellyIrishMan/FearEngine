@@ -1,40 +1,33 @@
-﻿using FearEngine.Meshes;
-using SharpDX;
-using SharpDX.D3DCompiler;
-using SharpDX.Direct3D;
-using SharpDX.Direct3D11;
-using SharpDX.DXGI;
-using SharpDX.Windows;
-using System;
-using Buffer = SharpDX.Direct3D11.Buffer;
-using FearEngine.Resources;
+﻿using FearEngine.Resources;
 using FearEngine.Resources.Meshes;
 using FearEngine.Logger;
+using System;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
 
 namespace BasicCube
 {
     class BasicCube : FearEngine.FearEngineApp
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+#if NETFX_CORE
+        [MTAThread]
+#else
         [STAThread]
+#endif
         static void Main()
         {
-            BasicCube app = new BasicCube();
-            app.Initialise();
-            app.Run();
-            app.Shutdown();
+            BasicCube game = new BasicCube();
+            game.Run();
         }
 
         MeshReader meshReader;
         Mesh cube;
         MeshRenderer meshRenderer;
-        Material material;
+        FearEngine.Resources.Material material;
 
-        public override void Initialise()
+        protected override void Initialize()
         {
-            Initialise("Basic Cube");
+            base.Initialize();
 
             meshReader = new MeshReader();
             meshRenderer = new MeshRenderer();
@@ -43,22 +36,20 @@ namespace BasicCube
             material = ResourceManager.GetMaterial("TexturedLit");
         }
 
-        protected override void Update()
+        protected override void Draw(GameTime gameTime)
         {
-            m_Context.ClearRenderTargetView(m_RenderTargetView, SharpDX.Color.BurlyWood);
-            m_Context.ClearDepthStencilView(m_DepthStencilView, DepthStencilClearFlags.Depth, 1.0f, 0);
-
+            GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
 
             meshRenderer.RenderMesh(cube, material);
 
-            m_SwapChain.Present(0, PresentFlags.None);
-
-            base.Update();
+            //InputManager.Update();
+            //MainCamera.Update();
+            base.Draw(gameTime);
         }
 
-        protected override void Shutdown()
-        {
-            base.Shutdown();
-        }
+        //protected override void Shutdown()
+        //{
+        //    base.Shutdown();
+        //}
     }
 }

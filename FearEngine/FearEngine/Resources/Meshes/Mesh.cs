@@ -1,5 +1,4 @@
-﻿using FearEngine.Meshes;
-using SharpDX.Direct3D11;
+﻿using SharpDX.Direct3D11;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +26,7 @@ namespace FearEngine.Resources.Meshes
             vertDesc.CpuAccessFlags = CpuAccessFlags.None;
             vertDesc.OptionFlags = ResourceOptionFlags.None;
             vertDesc.StructureByteStride = 0;
-            vertexBuffer = Buffer.Create(FearEngineApp.Device, vertices, vertDesc);
+            //vertexBuffer = Buffer.Create(FearEngineApp.Device, vertices, vertDesc);
 
             indexCount = (uint)indices.Length;
             BufferDescription indexDesc = new BufferDescription();
@@ -37,7 +36,7 @@ namespace FearEngine.Resources.Meshes
             indexDesc.CpuAccessFlags = CpuAccessFlags.None;
             indexDesc.OptionFlags = ResourceOptionFlags.None;
             indexDesc.StructureByteStride = 0;
-            indexBuffer = Buffer.Create(FearEngineApp.Device, indices, indexDesc);
+            //indexBuffer = Buffer.Create(FearEngineApp.Device, indices, indexDesc);
         }
 
         public Buffer GetVertexBuffer()
