@@ -1,10 +1,8 @@
 ﻿using FearEngine.Resources;
 using FearEngine.Resources.Meshes;
-using FearEngine.Logger;
 using System;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
-using SharpDX;
 
 namespace BasicCube
 {
@@ -26,8 +24,6 @@ namespace BasicCube
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
 
-        private BasicEffect basicEffect;
-        private Buffer<VertexPositionColor> vertices;
         private VertexInputLayout inputLayout;
 
         protected override void Initialize()
@@ -36,13 +32,14 @@ namespace BasicCube
 
             meshReader = new MeshReader();
             meshRenderer = new MeshRenderer();
-            material = ResourceManager.GetMaterial("BasicLit");
+            material = ResourceManager.GetMaterial("NormalLit");
         }
 
         protected override void LoadContent()
         {
-
             cube = meshReader.LoadMesh("C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE");
+
+            inputLayout = VertexInputLayout.FromBuffer(0, cube.GetVertexBuffer());
 
             base.LoadContent();
         }

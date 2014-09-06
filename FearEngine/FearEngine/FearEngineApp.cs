@@ -49,6 +49,9 @@ namespace FearEngine
             base.Initialize();
             Window.Title = "Fear Engine V1.0";
 
+            SharpDX.ViewportF viewport = new SharpDX.Viewport(0, 0, (int)DEFAULT_WIDTH, (int)DEFAULT_HEIGHT, 0.0f, 1.0f);
+            graphicsDeviceManager.GraphicsDevice.SetViewport(viewport);
+
             FearLog.Initialise();
             ResourceManager.Initialise();
             TimeKeeper.Initialise();
@@ -69,7 +72,7 @@ namespace FearEngine
         protected override void Update(GameTime gameTime)
         {
             //InputManager.Update();
-            //MainCamera.Update();
+            MainCamera.Update();
             base.Update(gameTime);
         }
 

@@ -21,14 +21,15 @@ namespace FearEngine.Resources.Meshes
         {
             Matrix world = Matrix.Identity;
 
-            Matrix view = Matrix.LookAtLH(new Vector3(0, 0, -15), new Vector3(0, 0, 0), Vector3.UnitY);
-            Matrix proj = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, FearEngineApp.GetDevice().Viewport.AspectRatio, 0.01f, 1000.0f);
+            Matrix view = FearEngineApp.MainCamera.View;
+            Matrix proj = FearEngineApp.MainCamera.Projection;
             Matrix WVP = world * view * proj;
 
+            //TODO This should be in the update loop and not here.
             material.RenderEffect.Parameters["gWorldViewProj"].SetValue(WVP);
 
             //TODO Change this all up so that we do it better... yeah
-            if (material.Name.CompareTo("TexturedLit") == 0)
+            if (material.Name.CompareTo("NormalLit") == 0)
             {
                 material.RenderEffect.Parameters["gLightAmbient"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
                 material.RenderEffect.Parameters["gLightDiffuse"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
@@ -41,7 +42,7 @@ namespace FearEngine.Resources.Meshes
 
             FearEngineApp.GetDevice().SetIndexBuffer(mesh.GetIndexBuffer(), true);
 
-            FearEngineApp.GetDevice().DrawIndexed(PrimitiveType.TriangleList, 1);
+            FearEngineApp.GetDevice().DrawIndexed(PrimitiveType.TriangleList, mesh.GetIndexBuffer().ElementCount);
         }
     }
 }
