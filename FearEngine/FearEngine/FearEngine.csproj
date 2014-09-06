@@ -83,14 +83,23 @@
     <Compile Include="Meshes\RenderableMesh.cs" />
     <Compile Include="Meshes\Primatives\Plane.cs" />
     <Compile Include="Meshes\Terrain\Terrain.cs" />
-    <Compile Include="Meshes\VertexLayouts.cs" />
+    <Compile Include="Resources\Meshes\MeshRenderer.cs" />
+    <Compile Include="Resources\Meshes\VertexLayouts.cs" />
     <Compile Include="PresentationProperties.cs" />
     <Compile Include="Resources\Image.cs" />
     <Compile Include="Resources\Material.cs" />
+    <Compile Include="Resources\Meshes\Mesh.cs" />
+    <Compile Include="Resources\Meshes\MeshReader.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Time\TimeKeeper.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\ThirdParty\SharpDX\Bin\Signed-net40\sharpdx_direct3d11_effects_x86.dll">
+      <Link>sharpdx_direct3d11_effects_x86.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
 ﻿using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
-namespace FearEngine.Meshes
+namespace FearEngine.Resources.Meshes
 {
     public static class VertexLayouts
     {

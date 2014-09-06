@@ -1,4 +1,5 @@
 ﻿using FearEngine.Resources;
+using FearEngine.Resources.Meshes;
 using SharpDX;
 using SharpDX.D3DCompiler;
 using SharpDX.Direct3D;

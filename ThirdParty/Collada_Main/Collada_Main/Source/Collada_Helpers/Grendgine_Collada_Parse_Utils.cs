@@ -6,7 +6,8 @@ namespace grendgine_collada
 	{
 		public static int[] String_To_Int(string int_array)
 		{
-			string[] str = int_array.Split(' ');
+            char[] charSeparators = new char[] { '\n', ' ' };
+            string[] str = int_array.Split(charSeparators, StringSplitOptions.RemoveEmptyEntries);
 			int[] array = new int[str.GetLongLength(0)];
 			try
 			{
@@ -26,7 +27,8 @@ namespace grendgine_collada
 		
 		public static float[] String_To_Float(string float_array)
 		{
-			string[] str = float_array.Split(' ');
+            char[] charSeparators = new char[] { '\n', ' ' };
+            string[] str = float_array.Split(charSeparators, StringSplitOptions.RemoveEmptyEntries);
 			float[] array = new float[str.GetLongLength(0)];
 			try
 			{
@@ -46,7 +48,8 @@ namespace grendgine_collada
 	
 		public static bool[] String_To_Bool(string bool_array)
 		{
-			string[] str = bool_array.Split(' ');
+            char[] charSeparators = new char[] { '\n', ' ' };
+            string[] str = bool_array.Split(charSeparators, StringSplitOptions.RemoveEmptyEntries);
 			bool[] array = new bool[str.GetLongLength(0)];
 			try
 			{
@@ -63,8 +66,5 @@ namespace grendgine_collada
 			}
 			return array;
 		}
-		
-
-		
 	}
 }

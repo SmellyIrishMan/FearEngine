@@ -5,21 +5,21 @@
       <author>Andy</author>
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2013_static</authoring_tool>
     </contributor>
-    <created>2014-09-06T11:18:37</created>
-    <modified>2014-09-06T11:18:37</modified>
+    <created>2014-09-06T11:13:30</created>
+    <modified>2014-09-06T11:13:30</modified>
     <unit name="inch" meter="0.0254"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="ColorEffectR148G177B27">
+    <effect id="ColorEffectR28G28B177">
       <profile_COMMON>
         <technique sid="common">
           <phong>
             <ambient>
-              <color>0.5803922 0.6941177 0.1058824 1</color>
+              <color>0.1098039 0.1098039 0.6941177 1</color>
             </ambient>
             <diffuse>
-              <color>0.5803922 0.6941177 0.1058824 1</color>
+              <color>0.1098039 0.1098039 0.6941177 1</color>
             </diffuse>
             <specular>
               <color>1 1 1 1</color>
@@ -42,64 +42,64 @@
     </effect>
   </library_effects>
   <library_materials>
-    <material id="ColorEffectR148G177B27-material" name="ColorEffectR148G177B27-material">
-      <instance_effect url="#ColorEffectR148G177B27"/>
+    <material id="ColorEffectR28G28B177-material" name="ColorEffectR28G28B177-material">
+      <instance_effect url="#ColorEffectR28G28B177"/>
     </material>
   </library_materials>
   <library_geometries>
-    <geometry id="geom-SimpleBox" name="SimpleBox">
+    <geometry id="geom-SimplePlane" name="SimplePlane">
       <mesh>
-        <source id="geom-SimpleBox-positions">
-          <float_array id="geom-SimpleBox-positions-array" count="24">-0.5 -0.5 0 0.5 -0.5 0 -0.5 0.5 0 0.5 0.5 0 -0.5 -0.5 1 0.5 -0.5 1 -0.5 0.5 1 0.5 0.5 1</float_array>
+        <source id="geom-SimplePlane-positions">
+          <float_array id="geom-SimplePlane-positions-array" count="12">-0.5 -0.5 0 0.5 -0.5 0 -0.5 0.5 0 0.5 0.5 0</float_array>
           <technique_common>
-            <accessor source="#geom-SimpleBox-positions-array" count="8" stride="3">
+            <accessor source="#geom-SimplePlane-positions-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <source id="geom-SimpleBox-normals">
-          <float_array id="geom-SimpleBox-normals-array" count="72">0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 0 1 0 -1 0 0 -1 0 0 -1 0 0 -1 0 1 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0 1 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0</float_array>
+        <source id="geom-SimplePlane-normals">
+          <float_array id="geom-SimplePlane-normals-array" count="12">0 0 1 0 0 1 0 0 1 0 0 1</float_array>
           <technique_common>
-            <accessor source="#geom-SimpleBox-normals-array" count="24" stride="3">
+            <accessor source="#geom-SimplePlane-normals-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <source id="geom-SimpleBox-map1">
-          <float_array id="geom-SimpleBox-map1-array" count="36">0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0</float_array>
+        <source id="geom-SimplePlane-map1">
+          <float_array id="geom-SimplePlane-map1-array" count="24">0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 0 1 1 0</float_array>
           <technique_common>
-            <accessor source="#geom-SimpleBox-map1-array" count="12" stride="3">
+            <accessor source="#geom-SimplePlane-map1-array" count="8" stride="3">
               <param name="S" type="float"/>
               <param name="T" type="float"/>
               <param name="P" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <vertices id="geom-SimpleBox-vertices">
-          <input semantic="POSITION" source="#geom-SimpleBox-positions"/>
+        <vertices id="geom-SimplePlane-vertices">
+          <input semantic="POSITION" source="#geom-SimplePlane-positions"/>
         </vertices>
-        <triangles material="ColorMaterial" count="12">
-          <input semantic="VERTEX" source="#geom-SimpleBox-vertices" offset="0"/>
-          <input semantic="NORMAL" source="#geom-SimpleBox-normals" offset="1"/>
-          <input semantic="TEXCOORD" source="#geom-SimpleBox-map1" offset="2" set="0"/>
-          <p>0 0 9 2 1 11 3 2 10 3 2 10 1 3 8 0 0 9 4 4 8 5 5 9 7 6 11 7 6 11 6 7 10 4 4 8 0 8 4 1 9 5 5 10 7 5 10 7 4 11 6 0 8 4 1 12 0 3 13 1 7 14 3 7 14 3 5 15 2 1 12 0 3 16 4 2 17 5 6 18 7 6 18 7 7 19 6 3 16 4 2 20 0 0 21 1 4 22 3 4 22 3 6 23 2 2 20 0</p>
+        <triangles material="ColorMaterial" count="2">
+          <input semantic="VERTEX" source="#geom-SimplePlane-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-SimplePlane-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-SimplePlane-map1" offset="2" set="0"/>
+          <p>2 0 6 0 1 4 3 2 7 1 3 5 3 2 7 0 1 4</p>
         </triangles>
       </mesh>
       <extra>
         <technique profile="OpenCOLLADA3dsMax">
-          <max_box>
+          <max_plane>
+            <density>1</density>
             <generateuvs>1</generateuvs>
-            <height>1</height>
-            <heightsegments>1</heightsegments>
-            <length>1</length>
-            <lengthsegments>1</lengthsegments>
+            <lenght>1</lenght>
+            <lenghtsegments>1</lenghtsegments>
+            <scale>1</scale>
             <width>1</width>
             <widthsegments>1</widthsegments>
-          </max_box>
+          </max_plane>
         </technique>
       </extra>
     </geometry>
@@ -118,14 +118,14 @@
       <node name="EnvironmentAmbientLight">
         <instance_light url="#EnvironmentAmbientLight"/>
       </node>
-      <node id="node-SimpleBox" name="SimpleBox">
+      <node id="node-SimplePlane" name="SimplePlane">
         <rotate>-1 0 0 -90.00001</rotate>
         <node>
           <matrix>1 0 0 0 0 0 1 0 0 -1 0 0 0 0 0 1</matrix>
-          <instance_geometry url="#geom-SimpleBox">
+          <instance_geometry url="#geom-SimplePlane">
             <bind_material>
               <technique_common>
-                <instance_material symbol="ColorMaterial" target="#ColorEffectR148G177B27-material"/>
+                <instance_material symbol="ColorMaterial" target="#ColorEffectR28G28B177-material"/>
               </technique_common>
             </bind_material>
           </instance_geometry>

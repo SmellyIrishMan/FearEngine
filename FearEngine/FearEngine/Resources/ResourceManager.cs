@@ -20,13 +20,6 @@ namespace FearEngine.Resources
 
         public static void Initialise()
         {
-            // Used for Compiling Vertex and Pixel shaders
-            //TODO This is a big hack because the shaders won't compile without this file but it's not working to just reference it... :(
-            if (!File.Exists("sharpdx_direct3d11_effects_x86.dll"))
-            {
-                File.Copy("../../../../../ThirdParty/SharpDX/Bin/Signed-net40/sharpdx_direct3d11_effects_x86.dll", "sharpdx_direct3d11_effects_x86.dll");
-            }
-
             //Setup the storage for the different resources
             LoadedImages = new Dictionary<string, Bitmap>();
             LoadedMaterials = new Dictionary<string, Material>();

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Materials>
+	<Material>
+		<Name>TexturedLit</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
+		<Technique>BasicPositionNormalLightTech</Technique>
+	</Material>
+</Materials>

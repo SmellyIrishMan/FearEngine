@@ -55,7 +55,7 @@ namespace FearEngine
             m_SwapChainDesc = new SwapChainDescription()
             {
                 BufferCount = 1,
-                ModeDescription = new ModeDescription(PresentationProps.Width, PresentationProps.Height, new Rational(60, 1), Format.R8G8B8A8_UNorm),
+                ModeDescription = new ModeDescription(PresentationProps.Width, PresentationProps.Height, new Rational(60, 1), Format.R8G8B8A8_UNorm_SRgb),
                 IsWindowed = !PresentationProps.Fullscreen,
                 OutputHandle = m_Form.Handle,
                 SampleDescription = new SampleDescription(1, 0),
