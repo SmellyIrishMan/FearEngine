@@ -4,6 +4,7 @@ using FearEngine.Logger;
 using System;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
+using SharpDX;
 
 namespace BasicCube
 {
@@ -25,15 +26,30 @@ namespace BasicCube
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
 
+        private BasicEffect basicEffect;
+        private Buffer<VertexPositionColor> vertices;
+        private VertexInputLayout inputLayout;
+
         protected override void Initialize()
         {
             base.Initialize();
 
             meshReader = new MeshReader();
             meshRenderer = new MeshRenderer();
+            material = ResourceManager.GetMaterial("BasicLit");
+        }
+
+        protected override void LoadContent()
+        {
+
             cube = meshReader.LoadMesh("C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE");
 
-            material = ResourceManager.GetMaterial("TexturedLit");
+            base.LoadContent();
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -44,12 +60,8 @@ namespace BasicCube
 
             //InputManager.Update();
             //MainCamera.Update();
+
             base.Draw(gameTime);
         }
-
-        //protected override void Shutdown()
-        //{
-        //    base.Shutdown();
-        //}
     }
 }

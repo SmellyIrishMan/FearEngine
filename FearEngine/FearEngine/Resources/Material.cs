@@ -11,6 +11,5 @@ namespace FearEngine.Resources
     {
         public String Name { get; set; }
         public Effect RenderEffect { get; set; }
-        public EffectTechnique RenderTechnique { get; set; }
     }
 }

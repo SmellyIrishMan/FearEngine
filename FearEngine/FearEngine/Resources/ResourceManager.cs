@@ -184,7 +184,7 @@ namespace FearEngine.Resources
                         Material mat = new Material();
                         mat.Name = name;
                         mat.RenderEffect = new Effect(FearEngineApp.GetDevice(), effectResult.EffectData);
-                        mat.RenderTechnique = mat.RenderEffect.Techniques[shaderTech];
+                        mat.RenderEffect.CurrentTechnique = mat.RenderEffect.Techniques[shaderTech];
 
                         return mat;
                     }

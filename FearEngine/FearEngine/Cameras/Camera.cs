@@ -10,7 +10,7 @@ namespace FearEngine.Cameras
 
         public Camera() : base()
         {
-            Transform.Position = new Vector3(0, 10, -25);
+            Transform.Position = new Vector3(0, 0, -15);
 
             Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, FearEngineApp.GetDevice().Viewport.AspectRatio, 0.01f, 1000.0f);
             View = Matrix.LookAtLH(Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);

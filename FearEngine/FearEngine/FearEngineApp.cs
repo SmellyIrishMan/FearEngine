@@ -27,6 +27,8 @@ namespace FearEngine
         public FearEngineApp()
         {
             graphicsDeviceManager = new GraphicsDeviceManager(this);
+            graphicsDeviceManager.DeviceCreationFlags = DeviceCreationFlags.Debug;
+
             graphicsDeviceManager.PreferredBackBufferFormat = Format.R8G8B8A8_UNorm_SRgb;
             graphicsDeviceManager.PreferredBackBufferWidth = (int)DEFAULT_WIDTH;
             graphicsDeviceManager.PreferredBackBufferHeight = (int)DEFAULT_HEIGHT;
