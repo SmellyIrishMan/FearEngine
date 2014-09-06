@@ -46,6 +46,9 @@ namespace BasicCube
 
         protected override void Update(GameTime gameTime)
         {
+            //InputManager.Update();
+            //MainCamera.Update();
+
             base.Update(gameTime);
         }
 
@@ -54,9 +57,6 @@ namespace BasicCube
             GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
 
             meshRenderer.RenderMesh(cube, material);
-
-            //InputManager.Update();
-            //MainCamera.Update();
 
             base.Draw(gameTime);
         }

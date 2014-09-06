@@ -1,15 +1,8 @@
 ﻿using FearEngine.Logger;
-using FearEngine.Resources.Meshes;
-using SharpDX.D3DCompiler;
-using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace FearEngine.Resources

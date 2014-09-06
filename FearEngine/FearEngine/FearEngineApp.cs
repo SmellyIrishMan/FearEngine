@@ -1,12 +1,6 @@
-﻿using FearEngine.Time;
-using SharpDX.DXGI;
-using SharpDX.Windows;
+﻿using SharpDX.DXGI;
 using System;
-using System.Windows.Forms;
-using Device = SharpDX.Direct3D11.Device;
-using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 using FearEngine.Cameras;
-using System.Threading;
 using FearEngine.Resources;
 using FearEngine.Logger;
 using SharpDX.Toolkit.Graphics;
@@ -54,7 +48,6 @@ namespace FearEngine
 
             FearLog.Initialise();
             ResourceManager.Initialise();
-            TimeKeeper.Initialise();
 
             //InputManager.Initialise(m_Form);
             //InputManager.KeyUp += OnKeyUp;

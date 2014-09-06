@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using FearEngine.Time;
 using SharpDX;
 
 namespace FearEngine
@@ -148,28 +147,28 @@ namespace FearEngine
 
         public void Strafe(float dir)
         {
-            Position = Position + (Right * dir * STRAFE_SPEED * TimeKeeper.Delta);
+            //Position = Position + (Right * dir * STRAFE_SPEED * TimeKeeper.Delta);
         }
 
         public void Walk(float dir)
         {
-            Position = Position + (Forward * dir * WALK_SPEED * TimeKeeper.Delta);
+           //Position = Position + (Forward * dir * WALK_SPEED * TimeKeeper.Delta);
         }
 
         public void Pitch(float angle)
         {
-            Matrix rotation = Matrix.RotationAxis(Right, angle * TimeKeeper.Delta * ROTATION_SPEED);
-            Up = Vector3.TransformNormal(Up, rotation);
-            Forward = Vector3.TransformNormal(Forward, rotation);
+            //Matrix rotation = Matrix.RotationAxis(Right, angle * TimeKeeper.Delta * ROTATION_SPEED);
+            //Up = Vector3.TransformNormal(Up, rotation);
+            //Forward = Vector3.TransformNormal(Forward, rotation);
         }
 
         public void RotateY(float angle)
         {
-            Matrix rotation = Matrix.RotationY(angle * TimeKeeper.Delta * ROTATION_SPEED);
+            //Matrix rotation = Matrix.RotationY(angle * TimeKeeper.Delta * ROTATION_SPEED);
 
-            Up = Vector3.TransformNormal(Up, rotation);
-            Right = Vector3.TransformNormal(Right, rotation);
-            Forward = Vector3.TransformNormal(Forward, rotation);
+            //Up = Vector3.TransformNormal(Up, rotation);
+            //Right = Vector3.TransformNormal(Right, rotation);
+            //Forward = Vector3.TransformNormal(Forward, rotation);
         }
     }
 }
