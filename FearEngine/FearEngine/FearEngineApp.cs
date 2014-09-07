@@ -4,6 +4,7 @@ using FearEngine.Cameras;
 using FearEngine.Resources;
 using FearEngine.Logger;
 using SharpDX.Toolkit.Graphics;
+using SharpDX.Toolkit.Input;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using FearEngine.Resources.Managment;
@@ -50,22 +51,20 @@ namespace FearEngine
             FearLog.Initialise();
             ResourceManager.Initialise();
 
-            //InputManager.Initialise(m_Form);
-            //InputManager.KeyUp += OnKeyUp;
+            InputManager.Initialise(new MouseManager(this), new KeyboardManager(this));
 
             MainCamera = new Camera();
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            //InputManager.Update();
             //MainCamera.Update();
             base.Draw(gameTime);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            //InputManager.Update();
+            InputManager.Update();
             MainCamera.Update();
             base.Update(gameTime);
         }

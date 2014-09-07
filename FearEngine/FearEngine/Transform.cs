@@ -27,12 +27,12 @@ namespace FearEngine
         public Transform()
         {
             EnableFPSControl = true;
-            InputManager.KeyDown += OnKeyDown;
-            InputManager.KeyUp += OnKeyUp;
-            InputManager.MouseMoved += OnMouseMoved;
-            InputManager.MouseStopped += OnMouseStopped;
-            InputManager.MouseDown += OnMouseDown;
-            InputManager.MouseUp += OnMouseUp;
+            //InputManager.KeyDown += OnKeyDown;
+            //InputManager.KeyUp += OnKeyUp;
+            //InputManager.MouseMoved += OnMouseMoved;
+            //InputManager.MouseStopped += OnMouseStopped;
+            //InputManager.MouseDown += OnMouseDown;
+            //InputManager.MouseUp += OnMouseUp;
 
             Position = Vector3.Zero;
             Forward = Vector3.UnitZ;
