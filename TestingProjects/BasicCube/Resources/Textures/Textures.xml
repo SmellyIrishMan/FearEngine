@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shaders>
-	<Shader>
-		<Name>SHADER_Default</Name>
+<Textures>
+	<Texture>
+		<Name>TEX_Default</Name>
 		<Filepath>C:\Someplace</Filepath>
-	</Shader>
-</Shaders>
+	</Texture>
+</Textures>

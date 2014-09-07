@@ -6,6 +6,7 @@ using FearEngine.Logger;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
+using FearEngine.Resources.Managment;
 
 namespace FearEngine
 {

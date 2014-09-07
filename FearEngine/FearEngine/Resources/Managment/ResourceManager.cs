@@ -1,27 +1,43 @@
 ﻿using FearEngine.Logger;
+using FearEngine.Resources.Managment.Loaders;
+using FearEngine.Resources.Meshes;
 using SharpDX.Toolkit.Graphics;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Xml;
 
-namespace FearEngine.Resources
+namespace FearEngine.Resources.Managment
 {
     public static class ResourceManager
     {
-        private static string RootResourcePath{get; set;}
         private static Dictionary<string, Bitmap> LoadedImages;
+
+        private static MaterialLoader materialLoader;
         private static Dictionary<string, Material> LoadedMaterials;
+
+        private static MeshLoader meshLoader;
+        private static Dictionary<string, Mesh> LoadedMeshes;
+
+        private const string DEFAULT_MATERIAL_NAME = "DEFAULT_MATERIAL";
+        private const string DEFAULT_MESH_NAME = "DEFAULT_MESH";
+
+        public static string RootResourcePath { get; private set; }
 
         public static void Initialise()
         {
             //Setup the storage for the different resources
             LoadedImages = new Dictionary<string, Bitmap>();
+
+            materialLoader = new MaterialLoader();
             LoadedMaterials = new Dictionary<string, Material>();
+
+            meshLoader = new MeshLoader();
+            LoadedMeshes = new Dictionary<string, Mesh>();
 
             //Find our resource directory, or create one.
             DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
-            resourceDir = resourceDir.Parent.Parent.Parent;
+            resourceDir = resourceDir.Parent.Parent;
             RootResourcePath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
 
             if (!System.IO.Directory.Exists(RootResourcePath))
@@ -33,14 +49,15 @@ namespace FearEngine.Resources
             }
 
             FearLog.Log("Current Resource Directory; " + RootResourcePath);
+
+            GetMaterial(DEFAULT_MATERIAL_NAME);
+            GetMaterial(DEFAULT_MESH_NAME);
         }
 
         public static void CreateResourceDirectory()
         {
             CreateSubResourceFolder("Textures");
-            CreateSubResourceFolder("Shaders");
-            CreateSubResourceFolder("Scenes");
-            CreateSubResourceFolder("Models");
+            CreateSubResourceFolder("Meshes");
             CreateSubResourceFolder("Materials");
         }
 
@@ -76,28 +93,17 @@ namespace FearEngine.Resources
                                     "\t\t<Filepath>C:\\Someplace</Filepath>",
                                 "\t</Texture>",
                 });
-            defaultResource.Add("Shaders",
-                new string[] {  "\t<Shader>",
-                                    "\t\t<Name>SHADER_Default</Name>",
-                                    "\t\t<Filepath>C:\\Someplace</Filepath>",
-                                "\t</Shader>",
-                });
-            defaultResource.Add("Scenes",
-                new string[] {  "\t<Scene>",
-                                    "\t\t<Name>SCENE_Default</Name>",
-                                    "\t\t<Filepath>C:\\Someplace</Filepath>",
-                                "\t</Scene>",
-                });
-            defaultResource.Add("Models",
-                new string[] {  "\t<Model>",
-                                    "\t\t<Name>MODEL_Default</Name>",
-                                    "\t\t<Filepath>C:\\Someplace</Filepath>",
-                                "\t</Model>",
+            defaultResource.Add("Meshes",
+                new string[] {  "\t<Mesh>",
+                                    "\t\t<Name>"+DEFAULT_MESH_NAME+"</Name>",
+                                    "\t\t<Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE</Filepath>",
+                                "\t</Mesh>",
                 });
             defaultResource.Add("Materials",
                 new string[] {  "\t<Material>",
-                                    "\t\t<Name>MAT_Default</Name>",
-                                    "\t\t<Filepath>C:\\Someplace</Filepath>",
+                                    "\t\t<Name>"+DEFAULT_MATERIAL_NAME+"</Name>",
+                                    "\t\t<Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\Basic.fx</Filepath>",
+                                    "\t\t<Technique>BasicPositionColorTech</Technique>",
                                 "\t</Material>",
                 });
 
@@ -140,51 +146,30 @@ namespace FearEngine.Resources
         {
             if (!LoadedMaterials.ContainsKey(name))
             {
-                LoadedMaterials[name] = LoadMaterial(name);
+                LoadedMaterials[name] = materialLoader.Load(RootResourcePath + "\\Materials\\Materials.xml", name);
+                if (LoadedMaterials[name] == null)
+                {
+                    FearLog.Log("Failed to load material " + name, LogPriority.EXCEPTION);
+                    return LoadedMaterials[DEFAULT_MATERIAL_NAME];
+                }
             }
 
             return LoadedMaterials[name];
         }
 
-        private static Material LoadMaterial(string name)
+        public static Mesh GetMesh(string name)
         {
-            XmlTextReader xmlReader = new XmlTextReader(RootResourcePath + "\\Materials\\Materials.xml");
-            while (xmlReader.Read())
+            if (!LoadedMeshes.ContainsKey(name))
             {
-                FearLog.Log(xmlReader.Name, LogPriority.LOW);
-                if (xmlReader.Name.CompareTo("Name") == 0)
+                LoadedMeshes[name] = meshLoader.Load(RootResourcePath + "\\Meshes\\Meshes.xml", name);
+                if (LoadedMeshes[name] == null)
                 {
-                    xmlReader.Read();
-                    if (xmlReader.Value.CompareTo(name) == 0)
-                    {
-                        FearLog.Log("Loading material " + xmlReader.Value, LogPriority.HIGH);
-
-                        xmlReader.ReadToFollowing("Filepath");
-                        xmlReader.Read();
-                        string shaderFilepath = xmlReader.Value;
-
-                        xmlReader.ReadToFollowing("Technique");
-                        xmlReader.Read();
-                        string shaderTech = xmlReader.Value;
-
-                        EffectCompiler compiler = new EffectCompiler();
-                        var effectResult = compiler.CompileFromFile(shaderFilepath);
-                        if (effectResult.HasErrors) 
-                        { 
-                            FearLog.Log("ERROR Compiling effect; " + shaderFilepath, LogPriority.EXCEPTION); 
-                        }
-
-                        Material mat = new Material();
-                        mat.Name = name;
-                        mat.RenderEffect = new Effect(FearEngineApp.GetDevice(), effectResult.EffectData);
-                        mat.RenderEffect.CurrentTechnique = mat.RenderEffect.Techniques[shaderTech];
-
-                        return mat;
-                    }
+                    FearLog.Log("Failed to load mesh " + name, LogPriority.EXCEPTION);
+                    return LoadedMeshes[DEFAULT_MATERIAL_NAME];
                 }
             }
-            FearLog.Log("Failed to load material " + name, LogPriority.EXCEPTION);
-            return null;
+
+            return LoadedMeshes[name];
         }
 
         public static void Shutdown()

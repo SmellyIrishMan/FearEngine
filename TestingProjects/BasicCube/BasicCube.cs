@@ -1,8 +1,8 @@
-﻿using FearEngine.Resources;
-using FearEngine.Resources.Meshes;
+﻿using FearEngine.Resources.Meshes;
 using System;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
+using FearEngine.Resources.Managment;
 
 namespace BasicCube
 {
@@ -18,8 +18,6 @@ namespace BasicCube
             BasicCube game = new BasicCube();
             game.Run();
         }
-
-        MeshReader meshReader;
         Mesh cube;
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
@@ -30,14 +28,13 @@ namespace BasicCube
         {
             base.Initialize();
 
-            meshReader = new MeshReader();
             meshRenderer = new MeshRenderer();
-            material = ResourceManager.GetMaterial("NormalLit");
         }
 
         protected override void LoadContent()
         {
-            cube = meshReader.LoadMesh("C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE");
+            cube = ResourceManager.GetMesh("DEFAULT_MESH");
+            material = ResourceManager.GetMaterial("NormalLit");
 
             inputLayout = VertexInputLayout.FromBuffer(0, cube.GetVertexBuffer());
 

@@ -2,23 +2,26 @@
 using grendgine_collada;
 using SharpDX;
 using System;
+using System.Xml;
 
 namespace FearEngine.Resources.Meshes
 {
-    public class MeshReader
+    public class MeshLoader
     {
         private const string meshExtension = "DAE";
         private const bool switchFromZUpToYUp = true;
 
-        public MeshReader()
+        public MeshLoader()
         {}
 
         //TODO HOLY FUCKING SHIT THIS IS HORRENDOUS
-        public Mesh LoadMesh(string filename)
-        {
+        public Mesh Load(string xmlFile, string name)
+        {            
+            string filename = GetFilenameFromXML(xmlFile, name);
+
             if(filename.Substring(filename.LastIndexOf('.') + 1).ToUpper().CompareTo(meshExtension) != 0)
             {
-                FearLog.Log("Unknown file extension for mesh.", LogPriority.HIGH);
+                FearLog.Log("Unknown file extension for mesh; " + name, LogPriority.HIGH);
                 return null;
             }
             else
@@ -61,6 +64,30 @@ namespace FearEngine.Resources.Meshes
 
                  return new Mesh(vertices, indices);
             }
+        }
+
+        private static string GetFilenameFromXML(string xmlFile, string name)
+        {
+            string filepath = "";
+            XmlTextReader xmlReader = new XmlTextReader(xmlFile);
+            while (xmlReader.Read())
+            {
+                FearLog.Log(xmlReader.Name, LogPriority.LOW);
+                if (xmlReader.Name.CompareTo("Name") == 0)
+                {
+                    xmlReader.Read();
+                    if (xmlReader.Value.CompareTo(name) == 0)
+                    {
+                        FearLog.Log("Loading mesh " + xmlReader.Value, LogPriority.HIGH);
+
+                        xmlReader.ReadToFollowing("Filepath");
+                        xmlReader.Read();
+                        filepath = xmlReader.Value;
+                    }
+                }
+            }
+
+            return filepath;
         }
 
         private Vector3[] ReadSource(Grendgine_Collada_Source src)
