@@ -14,8 +14,8 @@ public static class InputManager
     public static Vector2 MouseMovedDelta { get; private set; }
 
     private static MouseManager m_Mouse;
-
     private static KeyboardManager m_Keyboard;
+
     private static List<Keys> m_PressedKeys;
 
     public static void Initialise(MouseManager mouse, KeyboardManager keyboard)
@@ -25,22 +25,6 @@ public static class InputManager
         m_Keyboard = keyboard;
         m_PressedKeys = new List<Keys>();
     }
-
-    //private static void OnMouseUp(object sender, MouseEventArgs e)
-    //{
-    //    if (MouseUp != null)
-    //    {
-    //        MouseUp(sender, e);
-    //    }
-    //}
-
-    //private static void OnMouseDown(object sender, MouseEventArgs e)
-    //{
-    //    if (MouseDown != null)
-    //    {
-    //        MouseDown(sender, e);
-    //    }
-    //}
 
     public static void Update()
     {

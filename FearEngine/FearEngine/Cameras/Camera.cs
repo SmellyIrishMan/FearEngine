@@ -1,4 +1,5 @@
 ﻿using SharpDX;
+using SharpDX.Toolkit;
 
 namespace FearEngine.Cameras
 {
@@ -7,18 +8,21 @@ namespace FearEngine.Cameras
         public Matrix View { get; private set;  }
         public Matrix Projection { get; private set; }
 
-        public Camera() : base()
+        readonly IUpdateable movementComponent;
+
+        public Camera(string name, Transform transform, IUpdateable movement)
+            : base(name, transform)
         {
-            Transform.Position = new Vector3(1, 2, -5);
+            movementComponent = movement;
 
             Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, FearEngineApp.GetDevice().Viewport.AspectRatio, 0.01f, 1000.0f);
             View = Matrix.LookAtLH(Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-            base.Update();
-            //View = Matrix.LookAtLH(Transform.Position, Transform.Position + Transform.Forward, Vector3.UnitY);
+            movementComponent.Update(this, gameTime);
+            View = Matrix.LookAtLH(Transform.Position, Transform.Position + Transform.Forward, Vector3.UnitY);
         }
 
         public void UpdateView()

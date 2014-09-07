@@ -65,12 +65,13 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraController.cs" />
     <Compile Include="Cameras\Camera.cs" />
     <Compile Include="Cameras\CameraManager.cs" />
     <Compile Include="FearEngineApp.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Lighting\Light.cs" />
+    <Compile Include="IUpdateable.cs" />
     <Compile Include="Logger\FearLog.cs" />
     <Compile Include="Resources\Managment\Loaders\MaterialLoader.cs" />
     <Compile Include="Terrain\Terrain.cs" />
@@ -86,6 +87,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\SharpDX.2.6.2\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.2\build\SharpDX.targets')" />

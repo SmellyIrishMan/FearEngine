@@ -8,6 +8,7 @@ using SharpDX.Toolkit.Input;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using FearEngine.Resources.Managment;
+using SharpDX;
 
 namespace FearEngine
 {
@@ -53,19 +54,22 @@ namespace FearEngine
 
             InputManager.Initialise(new MouseManager(this), new KeyboardManager(this));
 
-            MainCamera = new Camera();
+            Transform cameraTransform = new Transform();
+            cameraTransform.Position = new Vector3(1, 2, -5);
+            MainCamera = new Camera("MainCamera", cameraTransform, new CameraController());
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            //MainCamera.Update();
             base.Draw(gameTime);
         }
 
         protected override void Update(GameTime gameTime)
         {
             InputManager.Update();
-            MainCamera.Update();
+
+            MainCamera.Update(gameTime);
+
             base.Update(gameTime);
         }
 

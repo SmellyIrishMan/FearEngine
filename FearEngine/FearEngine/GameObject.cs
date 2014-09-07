@@ -1,16 +1,23 @@
-﻿using System.Collections.Generic;
-using FearEngine;
-public abstract class GameObject
+﻿using SharpDX.Toolkit;
+namespace FearEngine
 {
-    protected Transform Transform;
-
-    public GameObject()
+    public class GameObject
     {
-        Transform = new Transform();
-    }
+        public string Name { get; private set; }
+        public Transform Transform { get; private set; }
 
-    virtual public void Update()
-    {
-        Transform.Update();
+        public GameObject(string name)
+        {
+            Name = name;
+            Transform = new Transform();
+        }
+
+        public GameObject(string name, Transform transform) 
+            : this(name)
+        {
+            Transform = transform;
+        }
+
+        public virtual void Update(GameTime gameTime){}
     }
 }
