@@ -65,14 +65,15 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraController.cs" />
+    <Compile Include="CameraControllerComponent.cs" />
     <Compile Include="Cameras\Camera.cs" />
     <Compile Include="Cameras\CameraManager.cs" />
     <Compile Include="FearEngineApp.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\IInput.cs" />
     <Compile Include="IUpdateable.cs" />
     <Compile Include="Logger\FearLog.cs" />
+    <Compile Include="Input\MouseAndKeyboardInputComponent.cs" />
     <Compile Include="Resources\Managment\Loaders\MaterialLoader.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />

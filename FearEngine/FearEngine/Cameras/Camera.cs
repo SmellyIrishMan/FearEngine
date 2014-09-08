@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using FearEngine.Input;
+using SharpDX;
 using SharpDX.Toolkit;
 
 namespace FearEngine.Cameras
@@ -9,10 +10,12 @@ namespace FearEngine.Cameras
         public Matrix Projection { get; private set; }
 
         readonly IUpdateable movementComponent;
+        readonly IInput inputComponent;
 
-        public Camera(string name, Transform transform, IUpdateable movement)
+        public Camera(string name, Transform transform, IInput input, IUpdateable movement)
             : base(name, transform)
         {
+            inputComponent = input;
             movementComponent = movement;
 
             Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, FearEngineApp.GetDevice().Viewport.AspectRatio, 0.01f, 1000.0f);
@@ -21,6 +24,10 @@ namespace FearEngine.Cameras
 
         public override void Update(GameTime gameTime)
         {
+            inputComponent.Update(this, gameTime);
+            //TODO Build some sort of message passing system or something. This is not a great way to do things.
+            //TODO This is a horrible horrible way of doing things. Don't just start casting objects into there concrete types. Ugh
+            ((CameraControllerComponent)movementComponent).SetInputInformation(inputComponent);
             movementComponent.Update(this, gameTime);
             View = Matrix.LookAtLH(Transform.Position, Transform.Position + Transform.Forward, Vector3.UnitY);
         }

@@ -43,9 +43,6 @@ namespace BasicCube
 
         protected override void Update(GameTime gameTime)
         {
-            //InputManager.Update();
-            //MainCamera.Update();
-
             base.Update(gameTime);
         }
 

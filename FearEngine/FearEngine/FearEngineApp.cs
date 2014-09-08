@@ -9,12 +9,16 @@ using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using FearEngine.Resources.Managment;
 using SharpDX;
+using FearEngine.Input;
 
 namespace FearEngine
 {
     public class FearEngineApp : Game
     {
         private static GraphicsDeviceManager graphicsDeviceManager;
+
+        private static MouseManager mouse;
+        private static KeyboardManager keyboard;
 
         public static Camera MainCamera;
 
@@ -52,11 +56,12 @@ namespace FearEngine
             FearLog.Initialise();
             ResourceManager.Initialise();
 
-            InputManager.Initialise(new MouseManager(this), new KeyboardManager(this));
+            mouse = new MouseManager(this);
+            keyboard = new KeyboardManager(this);
 
             Transform cameraTransform = new Transform();
-            cameraTransform.Position = new Vector3(1, 2, -5);
-            MainCamera = new Camera("MainCamera", cameraTransform, new CameraController());
+            cameraTransform.MoveTo(new Vector3(1, 2, -5));
+            MainCamera = new Camera("MainCamera", cameraTransform, new MouseAndKeyboardInputComponent(mouse, keyboard), new CameraControllerComponent());
         }
 
         protected override void Draw(GameTime gameTime)
@@ -66,8 +71,6 @@ namespace FearEngine
 
         protected override void Update(GameTime gameTime)
         {
-            InputManager.Update();
-
             MainCamera.Update(gameTime);
 
             base.Update(gameTime);
