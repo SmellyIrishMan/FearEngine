@@ -12,12 +12,7 @@ namespace FearEngine.Input
 
         private Vector2 m_CurrentPosition = Vector2.Zero;
         private Vector2 m_PreviousMousePosition = Vector2.Zero;
-        private Vector2 m_LockedMousePosition = Vector2.Zero;
-
         private Vector2 m_MouseMovedDelta;
-        private float m_MouseMovedErrorMargin = 0.001f;
-
-        private bool m_LockingPosition;
 
         private KeyboardManager m_Keyboard;
 
@@ -42,56 +37,14 @@ namespace FearEngine.Input
         {
             m_MouseState = m_Mouse.GetState();
             m_CurrentPosition = new Vector2(m_MouseState.X, m_MouseState.Y);
-            if (IsMouseButtonDown(MouseButton.RightMouseButton))
-            {
-                LockPosition();
-            }
-            else
-            {
-                UnlockPosition();
-            }
 
             CalculateDelta();
-
-            if (m_LockingPosition)
-            {
-                m_Mouse.SetPosition(m_LockedMousePosition);
-            }
-        }
-
-        private void LockPosition()
-        {
-            if (!m_LockingPosition)
-            {
-                m_LockingPosition = true;
-                m_MouseState = m_Mouse.GetState();
-                m_LockedMousePosition = m_CurrentPosition;
-            }
-        }
-
-        private void UnlockPosition()
-        {
-            m_LockingPosition = false;
         }
 
         private void CalculateDelta()
         {
-            Vector2 currentMousePosition = new Vector2(m_MouseState.X, m_MouseState.Y);
-            if (m_LockingPosition)
-            {
-                m_MouseMovedDelta = m_CurrentPosition - m_LockedMousePosition;
-                //FearEngine.Logger.FearLog.Log("Locked mouse.\nCurrentPosition; " + m_CurrentPosition.ToString() + "\nLockedPosition; " + m_LockedMousePosition.ToString() + "\nDelta; " + m_MouseMovedDelta.ToString() + "\n", Logger.LogPriority.ALWAYS);
-            }
-            else
-            {
-                m_MouseMovedDelta = m_CurrentPosition - m_PreviousMousePosition;
-                m_PreviousMousePosition = m_CurrentPosition;
-            }
-
-            if (m_MouseMovedDelta.Length() <= m_MouseMovedErrorMargin)
-            {
-                m_MouseMovedDelta = Vector2.Zero;
-            }
+            m_MouseMovedDelta = m_CurrentPosition - m_PreviousMousePosition;
+            m_PreviousMousePosition = m_CurrentPosition;
         }
 
         private void UpdateKeyboardState()
