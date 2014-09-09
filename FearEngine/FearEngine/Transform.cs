@@ -10,8 +10,11 @@ namespace FearEngine
         public Vector3 Right { get; private set; }
         public Vector3 Up { get; private set; }
 
+        private Quaternion rotation;
+
         public Transform()
         {
+            rotation = Quaternion.Identity;
             Position = Vector3.Zero;
             Forward = Vector3.UnitZ;
             Right = Vector3.UnitX;
@@ -25,18 +28,20 @@ namespace FearEngine
 
         public void Pitch(float radians)
         {
-            Matrix rotation = Matrix.RotationAxis(Right, radians);
-            Up = Vector3.TransformNormal(Up, rotation);
-            Forward = Vector3.TransformNormal(Forward, rotation);
+            rotation.X += radians;
+
+            Right = Vector3.Transform(Vector3.UnitX, rotation);
+            Up = Vector3.Transform(Vector3.UnitY, rotation);
+            Forward = Vector3.Transform(Vector3.UnitZ, rotation);
         }
 
         public void Yaw(float radians)
         {
-            Matrix rotation = Matrix.RotationY(radians);
+            rotation.Y += radians;
 
-            Up = Vector3.TransformNormal(Up, rotation);
-            Right = Vector3.TransformNormal(Right, rotation);
-            Forward = Vector3.TransformNormal(Forward, rotation);
+            Right = Vector3.Transform(Vector3.UnitX, rotation);
+            Up = Vector3.Transform(Vector3.UnitY, rotation);
+            Forward = Vector3.Transform(Vector3.UnitZ, rotation);
         }
     }
 }

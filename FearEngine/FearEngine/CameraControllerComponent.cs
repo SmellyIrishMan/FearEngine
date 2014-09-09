@@ -22,8 +22,21 @@ namespace FearEngine
             RotationDir = Vector2.Zero;
         }
 
-        public void SetInputInformation(IInput input)
+
+        public void Update(GameObject owner, GameTime gameTime)
         {
+            UpdateInput();
+
+            Transform parentTransform = owner.Transform;
+            Strafe(parentTransform, gameTime);
+            Walk(parentTransform, gameTime);
+            Pitch(parentTransform, gameTime);
+            Yaw(parentTransform, gameTime);
+        }
+
+        public void UpdateInput()
+        {
+            InputManager input = InputManager.Instance;
             StrafeDir = 0.0f;
             if (input.IsKeyDown(Keys.D))
             {
@@ -51,15 +64,6 @@ namespace FearEngine
             {
                 RotationDir = input.GetMouseDelta();
             }
-        }
-
-        public void Update(GameObject owner, GameTime gameTime)
-        {
-            Transform parentTransform = owner.Transform;
-            Strafe(parentTransform, gameTime);
-            Walk(parentTransform, gameTime);
-            Pitch(parentTransform, gameTime);
-            Yaw(parentTransform, gameTime);
         }
 
         public void Strafe(Transform transform, GameTime gameTime)

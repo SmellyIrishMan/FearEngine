@@ -1,12 +1,37 @@
 ﻿using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FearEngine.Input
 {
-    class MouseAndKeyboardInputComponent : IInput
+    public enum MouseButton
     {
+        LeftMouseButton,
+        RightMouseButton
+    };
+
+    class InputManager
+    {
+        private static InputManager instance;
+
+        private InputManager() {}
+        public static InputManager Instance
+        {
+            get 
+            {
+                if (instance == null)
+                {
+                    instance = new InputManager();
+                }
+                return instance;
+            }
+        }
+
         private MouseManager m_Mouse;
         private MouseState m_MouseState;
 
@@ -15,10 +40,9 @@ namespace FearEngine.Input
         private Vector2 m_MouseMovedDelta;
 
         private KeyboardManager m_Keyboard;
-
         private List<Keys> m_PressedKeys;
 
-        public MouseAndKeyboardInputComponent(MouseManager mouse, KeyboardManager keyboard)
+        public void Initialise(MouseManager mouse, KeyboardManager keyboard)
         {
             m_Mouse = mouse;
 
@@ -26,7 +50,7 @@ namespace FearEngine.Input
             m_PressedKeys = new List<Keys>();
         }
 
-        public void Update(GameObject owner, GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             UpdateMouseState();
 

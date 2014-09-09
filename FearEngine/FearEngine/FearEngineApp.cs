@@ -58,10 +58,11 @@ namespace FearEngine
 
             mouse = new MouseManager(this);
             keyboard = new KeyboardManager(this);
+            InputManager.Instance.Initialise(mouse, keyboard);
 
             Transform cameraTransform = new Transform();
             cameraTransform.MoveTo(new Vector3(1, 2, -5));
-            MainCamera = new Camera("MainCamera", cameraTransform, new MouseAndKeyboardInputComponent(mouse, keyboard), new CameraControllerComponent());
+            MainCamera = new Camera("MainCamera", cameraTransform, new CameraControllerComponent());
         }
 
         protected override void Draw(GameTime gameTime)
@@ -71,6 +72,8 @@ namespace FearEngine
 
         protected override void Update(GameTime gameTime)
         {
+            InputManager.Instance.Update(gameTime);
+
             MainCamera.Update(gameTime);
 
             base.Update(gameTime);
