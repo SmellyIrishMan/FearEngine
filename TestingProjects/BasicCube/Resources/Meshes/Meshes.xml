@@ -4,4 +4,8 @@
 		<Name>DEFAULT_MESH</Name>
 		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Box.DAE</Filepath>
 	</Mesh>
+	<Mesh>
+		<Name>TEAPOT</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Teapot.DAE</Filepath>
+	</Mesh>	
 </Meshes>

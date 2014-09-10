@@ -33,7 +33,7 @@ namespace BasicCube
 
         protected override void LoadContent()
         {
-            cube = ResourceManager.GetMesh("DEFAULT_MESH");
+            cube = ResourceManager.GetMesh("TEAPOT");
             material = ResourceManager.GetMaterial("NormalLit");
 
             inputLayout = VertexInputLayout.FromBuffer(0, cube.GetVertexBuffer());
