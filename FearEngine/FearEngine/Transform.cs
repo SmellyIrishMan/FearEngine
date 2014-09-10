@@ -5,20 +5,21 @@ namespace FearEngine
 {
     public class Transform
     {
+        public Quaternion Rotation { get; private set; }
         public Vector3 Position { get; private set; }
         public Vector3 Forward { get; private set; }
         public Vector3 Right { get; private set; }
         public Vector3 Up { get; private set; }
 
-        private Quaternion rotation;
+        private Vector3 YawPitchRoll;
 
         public Transform()
         {
-            rotation = Quaternion.Identity;
+            Rotation = Quaternion.Identity;
             Position = Vector3.Zero;
-            Forward = Vector3.UnitZ;
-            Right = Vector3.UnitX;
-            Up = Vector3.UnitY;
+            Forward = Vector3.ForwardLH;
+            Right = Vector3.Right;
+            Up = Vector3.Up;
         }
 
         public void MoveTo(Vector3 position)
@@ -28,20 +29,24 @@ namespace FearEngine
 
         public void Pitch(float radians)
         {
-            rotation.X += radians;
+            YawPitchRoll.Y += radians;
 
-            Right = Vector3.Transform(Vector3.UnitX, rotation);
-            Up = Vector3.Transform(Vector3.UnitY, rotation);
-            Forward = Vector3.Transform(Vector3.UnitZ, rotation);
+            UpdateRotation();
         }
 
         public void Yaw(float radians)
         {
-            rotation.Y += radians;
+            YawPitchRoll.X += radians;
 
-            Right = Vector3.Transform(Vector3.UnitX, rotation);
-            Up = Vector3.Transform(Vector3.UnitY, rotation);
-            Forward = Vector3.Transform(Vector3.UnitZ, rotation);
+            UpdateRotation();
+        }
+
+        private void UpdateRotation()
+        {
+            Rotation = Quaternion.RotationYawPitchRoll(YawPitchRoll.X, YawPitchRoll.Y, YawPitchRoll.Z);
+            Right = Vector3.Transform(Vector3.Right, Rotation);
+            Up = Vector3.Transform(Vector3.Up, Rotation);
+            Forward = Vector3.Transform(Vector3.ForwardLH, Rotation);
         }
     }
 }

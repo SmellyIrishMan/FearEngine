@@ -15,6 +15,8 @@ namespace FearEngine
         private float WalkDir;
         private Vector2 RotationDir;
 
+        private Vector3 View;
+
         public CameraControllerComponent()
         {
             StrafeDir = 0.0f;
