@@ -3,6 +3,7 @@ using System;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using FearEngine.Resources.Managment;
+using FearEngine;
 
 namespace BasicCube
 {
@@ -15,14 +16,16 @@ namespace BasicCube
 #endif
         static void Main()
         {
-            BasicCube game = new BasicCube();
-            game.Run();
+            BasicCube app = new BasicCube();
+
+            FearAppFactory appFactory = new FearAppFactory();
+            appFactory.CreateFearApp(app);
+
+            app.Run();
         }
         MeshRenderable cube;
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
-
-        private VertexInputLayout inputLayout;
 
         protected override void Initialize()
         {
@@ -33,10 +36,8 @@ namespace BasicCube
 
         protected override void LoadContent()
         {
-            cube = ResourceManager.GetMesh("TEAPOT");
-            material = ResourceManager.GetMaterial("NormalLit");
-
-            inputLayout = VertexInputLayout.FromBuffer(0, cube.GetVertexBuffer());
+            cube = resourceManager.GetMesh("TEAPOT");
+            material = resourceManager.GetMaterial("NormalLit");
 
             base.LoadContent();
         }
@@ -50,7 +51,7 @@ namespace BasicCube
         {
             GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
 
-            meshRenderer.RenderMesh(cube, material);
+            meshRenderer.RenderMesh(GetDevice(), cube, material, mainCamera);
 
             base.Draw(gameTime);
         }

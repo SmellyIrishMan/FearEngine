@@ -10,23 +10,27 @@ using System.Xml;
 
 namespace FearEngine.Resources.Managment
 {
-    public static class ResourceManager
+    public class FearResourceManager
     {
-        private static Dictionary<string, Bitmap> LoadedImages;
+        GraphicsDevice device;
 
-        private static MaterialLoader materialLoader;
-        private static Dictionary<string, Material> LoadedMaterials;
+        private Dictionary<string, Bitmap> LoadedImages;
 
-        private static ColladaMeshLoader meshLoader;
-        private static Dictionary<string, MeshRenderable> LoadedMeshes;
+        private MaterialLoader materialLoader;
+        private Dictionary<string, Material> LoadedMaterials;
+
+        private ColladaMeshLoader meshLoader;
+        private Dictionary<string, MeshRenderable> LoadedMeshes;
 
         private const string DEFAULT_MATERIAL_NAME = "DEFAULT_MATERIAL";
         private const string DEFAULT_MESH_NAME = "DEFAULT_MESH";
 
-        public static string RootResourcePath { get; private set; }
+        public string RootResourcePath { get; private set; }
 
-        public static void Initialise()
+        public FearResourceManager(GraphicsDevice dev)
         {
+            device = dev;
+
             //Setup the storage for the different resources
             LoadedImages = new Dictionary<string, Bitmap>();
 
@@ -50,19 +54,21 @@ namespace FearEngine.Resources.Managment
             }
 
             FearLog.Log("Current Resource Directory; " + RootResourcePath);
-
-            GetMaterial(DEFAULT_MATERIAL_NAME);
-            GetMaterial(DEFAULT_MESH_NAME);
         }
 
-        public static void CreateResourceDirectory()
+        public void Initialize(GraphicsDevice dev)
+        {
+            device = dev;
+        }
+
+        public void CreateResourceDirectory()
         {
             CreateSubResourceFolder("Textures");
             CreateSubResourceFolder("Meshes");
             CreateSubResourceFolder("Materials");
         }
 
-        private static void CreateSubResourceFolder(string name)
+        private void CreateSubResourceFolder(string name)
         {
             string subResourcePath = System.IO.Path.Combine(RootResourcePath, name);
             System.IO.Directory.CreateDirectory(subResourcePath);
@@ -70,7 +76,7 @@ namespace FearEngine.Resources.Managment
             PopulateXMLFile(xmlFilePath, name);
         }
 
-        private static void PopulateXMLFile(string xmlFilePath, string type)
+        private void PopulateXMLFile(string xmlFilePath, string type)
         {
             Dictionary<string, string[]> defaultResource = PrepareDefaultResources();
 
@@ -85,7 +91,7 @@ namespace FearEngine.Resources.Managment
             file.Close();
         }
 
-        private static Dictionary<string, string[]> PrepareDefaultResources()
+        private Dictionary<string, string[]> PrepareDefaultResources()
         { 
             Dictionary<string, string[]> defaultResource = new Dictionary<string, string[]>();
             defaultResource.Add("Textures",
@@ -111,7 +117,7 @@ namespace FearEngine.Resources.Managment
             return defaultResource;
         }
 
-        public static Bitmap GetImage(string name)
+        public Bitmap GetImage(string name)
         {
             if (!LoadedImages.ContainsKey(name))
             {
@@ -121,7 +127,7 @@ namespace FearEngine.Resources.Managment
             return LoadedImages[name];
         }
 
-        private static Bitmap LoadImage(string name)
+        private Bitmap LoadImage(string name)
         {
             XmlTextReader xmlReader = new XmlTextReader(RootResourcePath + "\\Textures\\Textures.xml");
             while (xmlReader.Read())
@@ -143,11 +149,11 @@ namespace FearEngine.Resources.Managment
             return new Bitmap(128, 128);
         }
 
-        public static Material GetMaterial(string name)
+        public Material GetMaterial(string name)
         {
             if (!LoadedMaterials.ContainsKey(name))
             {
-                LoadedMaterials[name] = materialLoader.Load(RootResourcePath + "\\Materials\\Materials.xml", name);
+                LoadedMaterials[name] = materialLoader.Load(RootResourcePath + "\\Materials\\Materials.xml", name, device);
                 if (LoadedMaterials[name] == null)
                 {
                     FearLog.Log("Failed to load material " + name, LogPriority.EXCEPTION);
@@ -158,11 +164,11 @@ namespace FearEngine.Resources.Managment
             return LoadedMaterials[name];
         }
 
-        public static MeshRenderable GetMesh(string name)
+        public MeshRenderable GetMesh(string name)
         {
             if (!LoadedMeshes.ContainsKey(name))
             {
-                LoadedMeshes[name] = new MeshRenderable(FearEngineApp.GetDevice(), meshLoader.Load(GetFilenameFromXML(RootResourcePath + "\\Meshes\\Meshes.xml", name)));
+                LoadedMeshes[name] = new MeshRenderable(device, meshLoader.Load(GetFilenameFromXML(RootResourcePath + "\\Meshes\\Meshes.xml", name)));
                 if (LoadedMeshes[name] == null)
                 {
                     FearLog.Log("Failed to load mesh " + name, LogPriority.EXCEPTION);
@@ -173,7 +179,7 @@ namespace FearEngine.Resources.Managment
             return LoadedMeshes[name];
         }
 
-        private static string GetFilenameFromXML(string xmlFile, string name)
+        private string GetFilenameFromXML(string xmlFile, string name)
         {
             string filepath = "";
             XmlTextReader xmlReader = new XmlTextReader(xmlFile);
@@ -197,7 +203,7 @@ namespace FearEngine.Resources.Managment
             return filepath;
         }
 
-        public static void Shutdown()
+        public void Shutdown()
         {
             foreach (Material mat in LoadedMaterials.Values)
             {

@@ -5,7 +5,7 @@ using SharpDX.Toolkit.Input;
 
 namespace FearEngine
 {
-    class CameraControllerComponent : IUpdateable
+    class CameraControllerComponent : Updateable
     {
         private const float STRAFE_SPEED = 0.025f;
         private const float WALK_SPEED = 0.025f;
@@ -15,8 +15,12 @@ namespace FearEngine
         private float WalkDir;
         private Vector2 RotationDir;
 
-        public CameraControllerComponent()
+        FearInput input;
+
+        public CameraControllerComponent(FearInput inputParam)
         {
+            input = inputParam;
+
             StrafeDir = 0.0f;
             WalkDir = 0.0f;
             RotationDir = Vector2.Zero;
@@ -36,7 +40,6 @@ namespace FearEngine
 
         public void UpdateInput()
         {
-            InputManager input = InputManager.Instance;
             StrafeDir = 0.0f;
             if (input.IsKeyDown(Keys.D))
             {

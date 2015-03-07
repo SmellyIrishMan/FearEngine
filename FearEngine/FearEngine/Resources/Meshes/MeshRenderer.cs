@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using FearEngine.Cameras;
+using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Meshes
@@ -8,12 +9,12 @@ namespace FearEngine.Resources.Meshes
         public MeshRenderer()
         {}
 
-        public void RenderMesh(MeshRenderable mesh, Material material)
+        public void RenderMesh(GraphicsDevice device, MeshRenderable mesh, Material material, Camera cam)
         {
             Matrix world = Matrix.Identity;
 
-            Matrix view = FearEngineApp.MainCamera.View;
-            Matrix proj = FearEngineApp.MainCamera.Projection;
+            Matrix view = cam.View;
+            Matrix proj = cam.Projection;
             Matrix WVP = world * view * proj;
 
             //TODO This should be in the update loop and not here.
@@ -28,12 +29,12 @@ namespace FearEngine.Resources.Meshes
             }
             material.RenderEffect.CurrentTechnique.Passes[0].Apply();
 
-            FearEngineApp.GetDevice().SetVertexBuffer(mesh.GetVertexBuffer());
-            FearEngineApp.GetDevice().SetVertexInputLayout(mesh.GetInputLayout());
+            device.SetVertexBuffer(mesh.GetVertexBuffer());
+            device.SetVertexInputLayout(mesh.GetInputLayout());
 
-            FearEngineApp.GetDevice().SetIndexBuffer(mesh.GetIndexBuffer(), true);
+            device.SetIndexBuffer(mesh.GetIndexBuffer(), true);
 
-            FearEngineApp.GetDevice().DrawIndexed(PrimitiveType.TriangleList, mesh.GetIndexBuffer().ElementCount);
+            device.DrawIndexed(PrimitiveType.TriangleList, mesh.GetIndexBuffer().ElementCount);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace FearEngine
 {
-    public interface IUpdateable
+    public interface Updateable
     {
         void Update(GameObject owner, GameTime gameTime);
     }

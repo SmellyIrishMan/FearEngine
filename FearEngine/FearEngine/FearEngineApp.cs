@@ -15,19 +15,31 @@ namespace FearEngine
 {
     public class FearEngineApp : Game
     {
-        private static GraphicsDeviceManager graphicsDeviceManager;
+        private GraphicsDeviceManager graphicsDeviceManager;
 
-        private static MouseManager mouse;
-        private static KeyboardManager keyboard;
+        protected FearInput input;
+        protected FearResourceManager resourceManager;
 
-        public static Camera MainCamera;
+        protected Camera mainCamera;
 
         private const uint DEFAULT_WIDTH = 1280;
         private const uint DEFAULT_HEIGHT = 720;
 
         public FearEngineApp()
+        {}
+
+        public void SetupApp(GraphicsDeviceManager deviceMan, FearResourceManager resMan, FearInput paramInput)
         {
-            graphicsDeviceManager = new GraphicsDeviceManager(this);
+            graphicsDeviceManager = deviceMan;
+            SetupDevice();
+
+            resourceManager = resMan;
+
+            input = paramInput;
+        }
+
+        private void SetupDevice()
+        {
             graphicsDeviceManager.DeviceCreationFlags = DeviceCreationFlags.Debug;
 
             graphicsDeviceManager.PreferredBackBufferFormat = Format.R8G8B8A8_UNorm_SRgb;
@@ -50,19 +62,15 @@ namespace FearEngine
             base.Initialize();
             Window.Title = "Fear Engine V1.0";
 
+            FearLog.Initialise();
+            resourceManager.Initialize(GetDevice());
+
             SharpDX.ViewportF viewport = new SharpDX.Viewport(0, 0, (int)DEFAULT_WIDTH, (int)DEFAULT_HEIGHT, 0.0f, 1.0f);
             graphicsDeviceManager.GraphicsDevice.SetViewport(viewport);
 
-            FearLog.Initialise();
-            ResourceManager.Initialise();
-
-            mouse = new MouseManager(this);
-            keyboard = new KeyboardManager(this);
-            InputManager.Instance.Initialise(mouse, keyboard);
-
             Transform cameraTransform = new Transform();
             cameraTransform.MoveTo(new Vector3(1, 2, -5));
-            MainCamera = new Camera("MainCamera", cameraTransform, new CameraControllerComponent());
+            mainCamera = new Camera("MainCamera", cameraTransform, new CameraControllerComponent(input), GetDevice().GetViewport(0).AspectRatio);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -72,26 +80,26 @@ namespace FearEngine
 
         protected override void Update(GameTime gameTime)
         {
-            InputManager.Instance.Update(gameTime);
+            input.Update(gameTime);
 
-            MainCamera.Update(gameTime);
+            mainCamera.Update(gameTime);
 
             base.Update(gameTime);
         }
 
-        public static GraphicsDevice GetDevice()
+        public GraphicsDevice GetDevice()
         {
             return graphicsDeviceManager.GraphicsDevice;
         }
 
-        public static DeviceContext GetContext()
+        public DeviceContext GetContext()
         {
             return (DeviceContext) graphicsDeviceManager.GraphicsDevice;
         }
 
         protected override void OnExiting(object sender, EventArgs args)
         {
-            ResourceManager.Shutdown();
+            resourceManager.Shutdown();
         }
     }
 }

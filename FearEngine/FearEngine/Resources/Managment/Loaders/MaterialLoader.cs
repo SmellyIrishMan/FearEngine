@@ -11,7 +11,7 @@ namespace FearEngine.Resources.Managment.Loaders
 {
     public class MaterialLoader
     {
-        public Material Load(string xmlFile, string name)
+        public Material Load(string xmlFile, string name, GraphicsDevice device)
         {
             XmlTextReader xmlReader = new XmlTextReader(xmlFile);
             while (xmlReader.Read())
@@ -41,7 +41,7 @@ namespace FearEngine.Resources.Managment.Loaders
 
                         Material mat = new Material();
                         mat.Name = name;
-                        mat.RenderEffect = new Effect(FearEngineApp.GetDevice(), effectResult.EffectData);
+                        mat.RenderEffect = new Effect(device, effectResult.EffectData);
                         mat.RenderEffect.CurrentTechnique = mat.RenderEffect.Techniques[shaderTech];
 
                         return mat;

@@ -1,11 +1,7 @@
 ﻿using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FearEngine.Input
 {
@@ -15,23 +11,8 @@ namespace FearEngine.Input
         RightMouseButton
     };
 
-    class InputManager
+    public class FearInput
     {
-        private static InputManager instance;
-
-        private InputManager() {}
-        public static InputManager Instance
-        {
-            get 
-            {
-                if (instance == null)
-                {
-                    instance = new InputManager();
-                }
-                return instance;
-            }
-        }
-
         private MouseManager m_Mouse;
         private MouseState m_MouseState;
 
@@ -42,7 +23,8 @@ namespace FearEngine.Input
         private KeyboardManager m_Keyboard;
         private List<Keys> m_PressedKeys;
 
-        public void Initialise(MouseManager mouse, KeyboardManager keyboard)
+
+        public FearInput(MouseManager mouse, KeyboardManager keyboard)
         {
             m_Mouse = mouse;
 
