@@ -1,28 +1,21 @@
 ﻿using SharpDX.Toolkit.Graphics;
-using System;
-using Buffer = SharpDX.Toolkit.Graphics.Buffer;
+
 namespace FearEngine.Resources.Meshes
 {
-    public class Mesh
+    public class MeshRenderable
     {
-        private uint vertexCount;
-        private uint indexCount;
-
         private Buffer<VertexLayouts.PositionNormalTexture> vertexBuffer;
         private Buffer indexBuffer;
 
         //TODO This should probably be generalised outside of the mesh.
         VertexInputLayout inputLayout;
 
-        public Mesh(VertexLayouts.PositionNormalTexture[] vertices, UInt32[] indices)
+        public MeshRenderable(GraphicsDevice graphicsDevice, MeshInformation meshInfo)
         {
-            vertexCount = (uint)vertices.Length;
-            vertexBuffer = Buffer.Vertex.New(FearEngineApp.GetDevice(), vertices);
+            vertexBuffer = Buffer.Vertex.New(graphicsDevice, meshInfo.GetVertices());
+            indexBuffer = Buffer.Index.New(graphicsDevice, meshInfo.GetIndices());
 
             inputLayout = VertexInputLayout.FromBuffer(0, vertexBuffer);
-
-            indexCount = (uint)indices.Length;
-            indexBuffer = Buffer.Index.New(FearEngineApp.GetDevice(), indices);
         }
 
         public Buffer<VertexLayouts.PositionNormalTexture> GetVertexBuffer()
@@ -38,11 +31,6 @@ namespace FearEngine.Resources.Meshes
         public Buffer GetIndexBuffer()
         {
             return indexBuffer;
-        }
-
-        public uint GetIndexCount()
-        {
-            return indexCount;
         }
 
         public void Dispose()

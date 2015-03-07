@@ -8,7 +8,7 @@ namespace FearEngine.Resources.Meshes
         public MeshRenderer()
         {}
 
-        public void RenderMesh(Mesh mesh, Material material)
+        public void RenderMesh(MeshRenderable mesh, Material material)
         {
             Matrix world = Matrix.Identity;
 

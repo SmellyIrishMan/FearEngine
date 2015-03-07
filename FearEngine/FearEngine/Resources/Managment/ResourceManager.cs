@@ -1,5 +1,6 @@
 ﻿using FearEngine.Logger;
 using FearEngine.Resources.Managment.Loaders;
+using FearEngine.Resources.Managment.Loaders.Collada;
 using FearEngine.Resources.Meshes;
 using SharpDX.Toolkit.Graphics;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace FearEngine.Resources.Managment
         private static MaterialLoader materialLoader;
         private static Dictionary<string, Material> LoadedMaterials;
 
-        private static MeshLoader meshLoader;
-        private static Dictionary<string, Mesh> LoadedMeshes;
+        private static ColladaMeshLoader meshLoader;
+        private static Dictionary<string, MeshRenderable> LoadedMeshes;
 
         private const string DEFAULT_MATERIAL_NAME = "DEFAULT_MATERIAL";
         private const string DEFAULT_MESH_NAME = "DEFAULT_MESH";
@@ -32,8 +33,8 @@ namespace FearEngine.Resources.Managment
             materialLoader = new MaterialLoader();
             LoadedMaterials = new Dictionary<string, Material>();
 
-            meshLoader = new MeshLoader();
-            LoadedMeshes = new Dictionary<string, Mesh>();
+            meshLoader = new ColladaMeshLoader();
+            LoadedMeshes = new Dictionary<string, MeshRenderable>();
 
             //Find our resource directory, or create one.
             DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
@@ -157,11 +158,11 @@ namespace FearEngine.Resources.Managment
             return LoadedMaterials[name];
         }
 
-        public static Mesh GetMesh(string name)
+        public static MeshRenderable GetMesh(string name)
         {
             if (!LoadedMeshes.ContainsKey(name))
             {
-                LoadedMeshes[name] = meshLoader.Load(RootResourcePath + "\\Meshes\\Meshes.xml", name);
+                LoadedMeshes[name] = new MeshRenderable(FearEngineApp.GetDevice(), meshLoader.Load(GetFilenameFromXML(RootResourcePath + "\\Meshes\\Meshes.xml", name)));
                 if (LoadedMeshes[name] == null)
                 {
                     FearLog.Log("Failed to load mesh " + name, LogPriority.EXCEPTION);
@@ -170,6 +171,30 @@ namespace FearEngine.Resources.Managment
             }
 
             return LoadedMeshes[name];
+        }
+
+        private static string GetFilenameFromXML(string xmlFile, string name)
+        {
+            string filepath = "";
+            XmlTextReader xmlReader = new XmlTextReader(xmlFile);
+            while (xmlReader.Read())
+            {
+                FearLog.Log(xmlReader.Name, LogPriority.LOW);
+                if (xmlReader.Name.CompareTo("Name") == 0)
+                {
+                    xmlReader.Read();
+                    if (xmlReader.Value.CompareTo(name) == 0)
+                    {
+                        FearLog.Log("Loading mesh " + xmlReader.Value, LogPriority.HIGH);
+
+                        xmlReader.ReadToFollowing("Filepath");
+                        xmlReader.Read();
+                        filepath = xmlReader.Value;
+                    }
+                }
+            }
+
+            return filepath;
         }
 
         public static void Shutdown()

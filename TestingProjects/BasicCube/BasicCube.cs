@@ -18,7 +18,7 @@ namespace BasicCube
             BasicCube game = new BasicCube();
             game.Run();
         }
-        Mesh cube;
+        MeshRenderable cube;
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
 
