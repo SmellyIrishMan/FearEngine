@@ -67,8 +67,9 @@
   <ItemGroup>
     <Compile Include="CameraControllerComponent.cs" />
     <Compile Include="Cameras\Camera.cs" />
-    <Compile Include="FearAppFactory.cs" />
-    <Compile Include="FearEngineApp.cs" />
+    <Compile Include="FearGameFactory.cs" />
+    <Compile Include="FearEngineImpl.cs" />
+    <Compile Include="FearGame.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Updateable.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="Resources\Managment\Loaders\Collada\SourceDataTexcoord2Impl.cs" />
     <Compile Include="Resources\Managment\Loaders\Collada\SourceDataTexcoord1Impl.cs" />
     <Compile Include="Resources\Managment\Loaders\Collada\SourceDataNormalImpl.cs" />
-    <Compile Include="Resources\Managment\Loaders\Collada\SourceDataUnknownImpl.cs" />
     <Compile Include="Resources\Managment\Loaders\Collada\SourceData.cs" />
     <Compile Include="Resources\Managment\Loaders\Collada\SourceDataFactory.cs" />
     <Compile Include="Resources\Managment\Loaders\Collada\SourceDataPositionImpl.cs" />

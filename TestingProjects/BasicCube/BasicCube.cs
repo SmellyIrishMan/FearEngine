@@ -7,7 +7,7 @@ using FearEngine;
 
 namespace BasicCube
 {
-    class BasicCube : FearEngine.FearEngineApp
+    class BasicCube
     {
 #if NETFX_CORE
         [MTAThread]
@@ -16,44 +16,43 @@ namespace BasicCube
 #endif
         static void Main()
         {
-            BasicCube app = new BasicCube();
-
-            FearAppFactory appFactory = new FearAppFactory();
-            appFactory.CreateFearApp(app);
-
-            app.Run();
+            FearGameFactory appFactory = new FearGameFactory();
+            appFactory.CreateFearGame(new BasicCubeGame());
         }
+    }
+
+    public class BasicCubeGame : FearEngine.FearGame
+    {
+        FearEngineImpl fearEngine;
+
         MeshRenderable cube;
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
 
-        protected override void Initialize()
+        public void Startup(FearEngineImpl engine)
         {
-            base.Initialize();
+            fearEngine = engine;
 
             meshRenderer = new MeshRenderer();
+
+            cube = fearEngine.GetResourceManager().GetMesh("TEAPOT");
+            material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
         }
 
-        protected override void LoadContent()
+        public void Update(GameTime gameTime)
         {
-            cube = resourceManager.GetMesh("TEAPOT");
-            material = resourceManager.GetMaterial("NormalLit");
 
-            base.LoadContent();
         }
 
-        protected override void Update(GameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
-            base.Update(gameTime);
+            fearEngine.GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
+
+            meshRenderer.RenderMesh(fearEngine.GetDevice(), cube, material, fearEngine.GetMainCamera());
         }
 
-        protected override void Draw(GameTime gameTime)
+        public void Shutdown()
         {
-            GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
-
-            meshRenderer.RenderMesh(GetDevice(), cube, material, mainCamera);
-
-            base.Draw(gameTime);
         }
     }
 }

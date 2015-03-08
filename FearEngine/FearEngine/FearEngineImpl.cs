@@ -13,20 +13,24 @@ using FearEngine.Input;
 
 namespace FearEngine
 {
-    public class FearEngineApp : Game
+    public class FearEngineImpl : Game
     {
+        private FearGame game;
+
         private GraphicsDeviceManager graphicsDeviceManager;
 
-        protected FearInput input;
-        protected FearResourceManager resourceManager;
+        private FearInput input;
+        private FearResourceManager resourceManager;
 
-        protected Camera mainCamera;
+        private Camera mainCamera;
 
         private const uint DEFAULT_WIDTH = 1280;
         private const uint DEFAULT_HEIGHT = 720;
 
-        public FearEngineApp()
-        {}
+        public FearEngineImpl(FearGame gameImpl)
+        {
+            game = gameImpl;
+        }
 
         public void SetupApp(GraphicsDeviceManager deviceMan, FearResourceManager resMan, FearInput paramInput)
         {
@@ -71,10 +75,14 @@ namespace FearEngine
             Transform cameraTransform = new Transform();
             cameraTransform.MoveTo(new Vector3(1, 2, -5));
             mainCamera = new Camera("MainCamera", cameraTransform, new CameraControllerComponent(input), GetDevice().GetViewport(0).AspectRatio);
+
+            game.Startup(this);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            game.Draw(gameTime);
+
             base.Draw(gameTime);
         }
 
@@ -85,6 +93,8 @@ namespace FearEngine
             mainCamera.Update(gameTime);
 
             base.Update(gameTime);
+
+            game.Update(gameTime);
         }
 
         public GraphicsDevice GetDevice()
@@ -97,8 +107,20 @@ namespace FearEngine
             return (DeviceContext) graphicsDeviceManager.GraphicsDevice;
         }
 
+        public FearResourceManager GetResourceManager()
+        {
+            return resourceManager;
+        }
+
+        public Camera GetMainCamera()
+        {
+            return mainCamera;
+        }
+
         protected override void OnExiting(object sender, EventArgs args)
         {
+            game.Shutdown();
+
             resourceManager.Shutdown();
         }
     }

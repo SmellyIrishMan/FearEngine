@@ -48,8 +48,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
                     data = new SourceDataTexcoord2Impl(src);
                     break;
                 default:
-                    data = new SourceDataUnknownImpl();
-                    break;
+                    throw new UnknownSourceTypeException();
             }
 
             return data;
@@ -67,7 +66,25 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
                     }
                 }
             }
-            return SourceType.UNKNOWN;
+
+            throw new UnknownSourceTypeException();
+        }
+
+        public class UnknownSourceTypeException : Exception
+        {
+            public UnknownSourceTypeException()
+            {
+            }
+
+            public UnknownSourceTypeException(string message)
+                : base(message)
+            {
+            }
+
+            public UnknownSourceTypeException(string message, Exception inner)
+                : base(message, inner)
+            {
+            }
         }
     }
 }

@@ -10,8 +10,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         POSITION,
         NORMAL,
         TEXCOORD1,
-        TEXCOORD2,
-        UNKNOWN
+        TEXCOORD2
     }
 
     abstract class SourceData
