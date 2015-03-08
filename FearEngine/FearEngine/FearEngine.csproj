@@ -73,7 +73,6 @@
     <Compile Include="FearGameTime.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Input\FearInput.cs" />
-    <Compile Include="MockFearGame.cs" />
     <Compile Include="Updateable.cs" />
     <Compile Include="Logger\FearLog.cs" />
     <Compile Include="Resources\Managment\Loaders\Collada\SourceDataTexcoord2Impl.cs" />

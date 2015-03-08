@@ -117,7 +117,7 @@ namespace FearEngine
             return mainCamera;
         }
 
-        public void Exit()
+        public void ExitGame()
         {
             this.Exit();
         }
