@@ -17,7 +17,7 @@ namespace BasicCube
         static void Main()
         {
             FearGameFactory appFactory = new FearGameFactory();
-            appFactory.CreateFearGame(new BasicCubeGame());
+            appFactory.CreateAndRunFearGame(new BasicCubeGame());
         }
     }
 
@@ -39,12 +39,12 @@ namespace BasicCube
             material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(FearGameTime gameTime)
         {
 
         }
 
-        public void Draw(GameTime gameTime)
+        public void Draw(FearGameTime gameTime)
         {
             fearEngine.GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
 

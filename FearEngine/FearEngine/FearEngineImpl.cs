@@ -81,7 +81,7 @@ namespace FearEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            game.Draw(gameTime);
+            game.Draw(new FearGameTime(gameTime));
 
             base.Draw(gameTime);
         }
@@ -94,7 +94,7 @@ namespace FearEngine
 
             base.Update(gameTime);
 
-            game.Update(gameTime);
+            game.Update(new FearGameTime(gameTime));
         }
 
         public GraphicsDevice GetDevice()
@@ -115,6 +115,11 @@ namespace FearEngine
         public Camera GetMainCamera()
         {
             return mainCamera;
+        }
+
+        public void Exit()
+        {
+            this.Exit();
         }
 
         protected override void OnExiting(object sender, EventArgs args)

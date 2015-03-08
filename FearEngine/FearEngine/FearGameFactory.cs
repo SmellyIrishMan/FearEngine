@@ -7,7 +7,7 @@ namespace FearEngine
 {
     public class FearGameFactory
     {
-        public FearEngineImpl CreateFearGame(FearGame game)
+        public FearEngineImpl CreateAndRunFearGame(FearGame game)
         {
             FearEngineImpl engine = new FearEngineImpl(game);
 
