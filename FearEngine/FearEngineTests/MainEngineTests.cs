@@ -12,9 +12,10 @@ namespace FearEngineTests
         {
             //Given
             FearGameFactory gameFactory = new FearGameFactory();
+            MockFearGame mockGame = new MockFearGame();
 
             //When
-            FearEngineImpl engine = gameFactory.CreateAndRunFearGame(new MockFearGame());
+            FearEngineImpl engine = gameFactory.CreateAndRunFearGame(mockGame);
 
             //Then
             Assert.IsTrue(true);

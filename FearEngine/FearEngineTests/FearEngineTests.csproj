@@ -82,6 +82,7 @@
     <Compile Include="MockFearGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainEngineTests.cs" />
+    <Compile Include="ResourceFileTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FearEngine\FearEngine.csproj">
