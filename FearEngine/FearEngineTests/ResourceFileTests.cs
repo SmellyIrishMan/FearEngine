@@ -9,7 +9,7 @@ namespace FearEngineTests
     public class ResourceFileTests
     {
         [TestMethod]
-        public void CreateFileWithoutOverwritingExistingFile()
+        public void AddDefaultMeshToFileWithoutDefaultMesh()
         {
             //Given
             DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
@@ -18,14 +18,14 @@ namespace FearEngineTests
 
             //When
             NoDefaultResourceFile testFile = new NoDefaultResourceFile(resourcesPath, defaultMeshPath);
-            string filePath = testFile.GetFilepathByResourceName("DEFAULT_MESH");
+            string filePath = testFile.GetFilepathByResourceName("DEFAULT");
 
             //Then
             Assert.IsTrue(filePath.CompareTo(defaultMeshPath) == 0);
         }
 
         [TestMethod]
-        public void AddDefaultMeshToFileWithoutDefaultMesh()
+        public void CreateFileWithoutOverwritingExistingFile()
         {
             //Given
             DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);

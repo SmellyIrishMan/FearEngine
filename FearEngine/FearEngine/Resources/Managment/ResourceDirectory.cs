@@ -3,6 +3,7 @@ using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources.Managment.Loaders.Collada;
 using FearEngine.Resources.Meshes;
 using SharpDX.Toolkit.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -10,17 +11,45 @@ using System.Xml;
 
 namespace FearEngine.Resources.Managment
 {
-    //public abstract class ResourceDirectory
-    //{
-    //    public ResourceDirectory(string rootResourcePath)
-    //    {
-    //        if (System.IO.Directory.Exists(rootResourcePath))
-    //        {
-    //            System.IO.Directory.CreateDirectory(System.IO.Path.Combine(rootResourcePath, GetDirectoryName()));
-    //        }
-    //    }
+    public class ResourceDirectory
+    {
+        private string directoryName = "FearResources";
+        private string resourcesPath;
 
-    //    virtual protected string GetDirectoryName();
+        Dictionary<ResourceType, ResourceFile> resourceFiles;
+
+        public ResourceDirectory(string rootResourcePath, ResourceFileFactory fileFactory)
+        {
+            if (System.IO.Directory.Exists(rootResourcePath))
+            {
+
+            }
+            else
+            {
+                System.IO.Directory.CreateDirectory(rootResourcePath);
+
+                resourcesPath = System.IO.Path.Combine(rootResourcePath, directoryName);
+                System.IO.Directory.CreateDirectory(resourcesPath);
+
+                var values = Enum.GetValues(typeof(ResourceType));
+
+                resourceFiles = new Dictionary<ResourceType, ResourceFile>();
+                foreach (ResourceType type in values)
+                {
+                    resourceFiles[type] = fileFactory.createResourceFile(type, resourcesPath);
+                }
+            }
+        }
+
+        public bool IsFullyFormed()
+        {
+            foreach (ResourceFile file in resourceFiles.Values)
+            {
+                System.IO.File.Exists(resourcesPath + "\\" + file.GetFilename());
+            }
+
+            return true;
+        }
 
     //    public Bitmap GetImage(string name)
     //    {
@@ -91,5 +120,5 @@ namespace FearEngine.Resources.Managment
     //            mat.RenderEffect.Dispose();
     //        }
     //    }
-    //}
+    }
 }

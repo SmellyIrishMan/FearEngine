@@ -13,11 +13,11 @@ namespace FearEngine.Resources.Managment
 
         string filePathElement = "Filepath";
 
-        abstract protected string GetFilename();
+        const string defaultResourceName = "DEFAULT";
+
+        abstract public string GetFilename();
 
         abstract protected string GetType();
-
-        abstract protected string GetDefaultName();
 
         public ResourceFile(string location, string defautFilePath)
         {
@@ -39,7 +39,7 @@ namespace FearEngine.Resources.Managment
                 file.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
                 file.WriteLine("<" + GetRootElement() + ">");
                 file.WriteLine("\t<" + GetType() + ">");
-                file.WriteLine("\t\t<Name>" + GetDefaultName() + "</Name>");
+                file.WriteLine("\t\t<Name>" + defaultResourceName + "</Name>");
                 file.WriteLine("\t\t<Filepath>" + defautFilePath + "</Filepath>");
                 file.WriteLine("\t</" + GetType() + ">");
                 file.WriteLine("</" + GetRootElement() + ">");
@@ -60,9 +60,9 @@ namespace FearEngine.Resources.Managment
         {
             List<string> newEntry = new List<string>();
             newEntry.Add("\t<" + GetType() + ">");
-            newEntry.Add("\t\t<Name>" + GetDefaultName() + "</Name>");
+            newEntry.Add("\t\t<Name>" + defaultResourceName + "</Name>");
             newEntry.Add("\t\t<Filepath>" + defautFilePath + "</Filepath>");
-            newEntry.Add("\t<" + GetType() + ">");
+            newEntry.Add("\t</" + GetType() + ">");
 
             return newEntry;
         }
@@ -86,7 +86,7 @@ namespace FearEngine.Resources.Managment
 
         private string GetFilepathForDefault()
         {
-            return SearchFileForName(GetDefaultName(), filePathElement);
+            return SearchFileForName(defaultResourceName, filePathElement);
         }
 
         private string SearchFileForName(string resourceName, string resourceElement)

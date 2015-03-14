@@ -73,6 +73,10 @@
     <Compile Include="FearGameTime.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Input\FearInput.cs" />
+    <Compile Include="Resources\Managment\ResourceFileFactory.cs" />
+    <Compile Include="Resources\Managment\ResourceType.cs" />
+    <Compile Include="Resources\Managment\TextureResourceFile.cs" />
+    <Compile Include="Resources\Managment\MaterialResourceFile.cs" />
     <Compile Include="Resources\Managment\MeshResourceFile.cs" />
     <Compile Include="Resources\Managment\ResourceDirectory.cs" />
     <Compile Include="Resources\Managment\ResourceFile.cs" />

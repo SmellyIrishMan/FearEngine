@@ -15,14 +15,9 @@ namespace FearEngineTests
             return "Mesh";
         }
 
-        override protected string GetFilename()
+        override public string GetFilename()
         {
             return "ResourceFileWithoutDefault.xml";
-        }
-
-        override protected string GetDefaultName()
-        {
-            return "DEFAULT_MESH";
         }
     }
 }
