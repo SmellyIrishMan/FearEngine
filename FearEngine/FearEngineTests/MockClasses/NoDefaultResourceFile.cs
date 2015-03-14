@@ -4,8 +4,8 @@ namespace FearEngineTests
 {
     public class NoDefaultResourceFile : ResourceFile
     {
-        public NoDefaultResourceFile(string location, string defautFilePath)
-            : base(location, defautFilePath)
+        public NoDefaultResourceFile(string location)
+            : base(location)
         {
 
         }

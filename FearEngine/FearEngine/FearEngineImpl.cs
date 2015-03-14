@@ -67,7 +67,6 @@ namespace FearEngine
             Window.Title = "Fear Engine V1.0";
 
             FearLog.Initialise();
-            resourceManager.Initialize(GetDevice());
 
             SharpDX.ViewportF viewport = new SharpDX.Viewport(0, 0, (int)DEFAULT_WIDTH, (int)DEFAULT_HEIGHT, 0.0f, 1.0f);
             graphicsDeviceManager.GraphicsDevice.SetViewport(viewport);

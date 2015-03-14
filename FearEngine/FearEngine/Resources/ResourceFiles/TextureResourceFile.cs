@@ -2,8 +2,8 @@
 {
     public class TextureResourceFile : ResourceFile
     {
-        public TextureResourceFile(string location, string defautFilePath)
-            : base(location, defautFilePath)
+        public TextureResourceFile(string location)
+            : base(location)
         {
 
         }

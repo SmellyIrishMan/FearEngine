@@ -12,12 +12,6 @@ namespace FearEngine.Resources.Managment
 {
     public interface ResourceLoader
     {
-        void Load(string filename);
-
-        void GetResourceType();
-
-        object GetResource(string filename);
-        //So in the manager we'll have a call like GetMaterial, GetTexture, GetSound etc...
-        //So that will call the appropriate loader and then cast the result to the correct type? Does that make sense? Let's hope so.
+        Resource Load(ResourceInformation info);
     }
 }

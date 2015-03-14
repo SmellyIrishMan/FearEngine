@@ -26,6 +26,7 @@ namespace FearEngine.Resources.Managment
             }
             else
             {
+                FearLog.Log("No Resource Directory Found, Creating One", LogPriority.EXCEPTION);
                 System.IO.Directory.CreateDirectory(rootResourcePath);
 
                 resourcesPath = System.IO.Path.Combine(rootResourcePath, directoryName);
@@ -39,6 +40,7 @@ namespace FearEngine.Resources.Managment
                     resourceFiles[type] = fileFactory.createResourceFile(type, resourcesPath);
                 }
             }
+            FearLog.Log("Current Resource Directory; " + rootResourcePath);
         }
 
         public bool IsFullyFormed()
@@ -51,74 +53,25 @@ namespace FearEngine.Resources.Managment
             return true;
         }
 
-    //    public Bitmap GetImage(string name)
-    //    {
-    //        if (!LoadedImages.ContainsKey(name))
-    //        {
-    //            LoadedImages[name] = LoadImage(name);
-    //        }
+        public string GetDefaultResourceName(ResourceType type)
+        {
+            return resourceFiles[type].GetDefaultResourceName();
+        }
 
-    //        return LoadedImages[name];
-    //    }
+        public ResourceInformation GetMaterialInformation(string name)
+        {
+            return resourceFiles[ResourceType.Material].GetResouceInformationByName(name);
+        }
 
-    //    private Bitmap LoadImage(string name)
-    //    {
-    //        XmlTextReader xmlReader = new XmlTextReader(RootResourcePath + "\\Textures\\Textures.xml");
-    //        while (xmlReader.Read())
-    //        {
-    //            FearLog.Log(xmlReader.Name, LogPriority.LOW);
-    //            if (xmlReader.Name.CompareTo("Name") == 0)
-    //            {
-    //                xmlReader.Read();
-    //                if (xmlReader.Value.CompareTo(name) == 0)
-    //                {
-    //                    FearLog.Log("Loading image " + xmlReader.Value, LogPriority.HIGH);
-    //                    xmlReader.ReadToFollowing("Filepath");
-    //                    xmlReader.Read();
-    //                    return new Bitmap(xmlReader.Value);
-    //                }
-    //            }
-    //        }
-    //        FearLog.Log("Failed to load image " + name, LogPriority.EXCEPTION);
-    //        return new Bitmap(128, 128);
-    //    }
+        public ResourceInformation GetMeshInformation(string name)
+        {
+            return resourceFiles[ResourceType.Mesh].GetResouceInformationByName(name);
+        }
 
-    //    public Material GetMaterial(string name)
-    //    {
-    //        if (!LoadedMaterials.ContainsKey(name))
-    //        {
-    //            LoadedMaterials[name] = materialLoader.Load(RootResourcePath + "\\Materials\\Materials.xml", name, device);
-    //            if (LoadedMaterials[name] == null)
-    //            {
-    //                FearLog.Log("Failed to load material " + name, LogPriority.EXCEPTION);
-    //                return LoadedMaterials[DEFAULT_MATERIAL_NAME];
-    //            }
-    //        }
+        public ResourceInformation GetTextureInformation(string name)
+        {
+            return resourceFiles[ResourceType.Texture].GetResouceInformationByName(name);
+        }
 
-    //        return LoadedMaterials[name];
-    //    }
-
-    //    public MeshRenderable GetMesh(string name)
-    //    {
-    //        if (!LoadedMeshes.ContainsKey(name))
-    //        {
-    //            LoadedMeshes[name] = new MeshRenderable(device, meshLoader.Load(GetFilenameFromXML(RootResourcePath + "\\Meshes\\Meshes.xml", name)));
-    //            if (LoadedMeshes[name] == null)
-    //            {
-    //                FearLog.Log("Failed to load mesh " + name, LogPriority.EXCEPTION);
-    //                return LoadedMeshes[DEFAULT_MATERIAL_NAME];
-    //            }
-    //        }
-
-    //        return LoadedMeshes[name];
-    //    }
-
-    //    public void Shutdown()
-    //    {
-    //        foreach (Material mat in LoadedMaterials.Values)
-    //        {
-    //            mat.RenderEffect.Dispose();
-    //        }
-    //    }
     }
 }

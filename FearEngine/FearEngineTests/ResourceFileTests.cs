@@ -8,67 +8,66 @@ namespace FearEngineTests
     [TestClass]
     public class ResourceFileTests
     {
-        [TestMethod]
-        public void AddDefaultMeshToFileWithoutDefaultMesh()
+        private string GetResourceFolder()
         {
-            //Given
             DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
             string resourcesPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
-            string defaultMeshPath = resourcesPath + "\\Box.DAE";
 
-            //When
-            NoDefaultResourceFile testFile = new NoDefaultResourceFile(resourcesPath, defaultMeshPath);
-            string filePath = testFile.GetFilepathByResourceName("DEFAULT");
-
-            //Then
-            Assert.IsTrue(filePath.CompareTo(defaultMeshPath) == 0);
+            return resourcesPath;
         }
-
+        
         [TestMethod]
         public void CreateFileWithoutOverwritingExistingFile()
         {
             //Given
-            DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
-            string resourcesPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
-            string defaultMeshPath = resourcesPath + "\\Box.DAE";
-
+            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
+            
             //When
-            MeshResourceFile testFile = new MeshResourceFile(resourcesPath, defaultMeshPath);
-            string filePath = testFile.GetFilepathByResourceName("TEAPOT");
+            string filePath = testFile.GetResouceInformationByName("TEAPOT").GetFilepath();
 
             //Then
-            Assert.IsTrue(filePath.CompareTo("") != 0);
+            string originalFilePath = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Teapot.DAE";
+            Assert.IsTrue(filePath.CompareTo(originalFilePath) == 0);
         }
 
         [TestMethod]
-        public void GetMeshThatDoesNotExistFromFile()
+        public void AddDefaultMeshToFileWithoutDefaultMesh()
         {
             //Given
-            string currentDir = System.Environment.CurrentDirectory;
-            string defaultFilePath = currentDir + "\\Test.Dae";
-            MeshResourceFile testFile = new MeshResourceFile(currentDir, defaultFilePath);
+            NoDefaultResourceFile testFile = new NoDefaultResourceFile(GetResourceFolder());
 
             //When
-            string filePath = testFile.GetFilepathByResourceName("THISMESHDOESNOTEXIST");
+            string filePath = testFile.GetResouceInformationByName("DEFAULT").GetFilepath();
 
             //Then
             Assert.IsTrue(filePath.CompareTo("") == 0);
         }
 
         [TestMethod]
-        public void GetMeshThatDoesNotExistFromFileAndFallbackToDefault()
+        public void GetMeshResourceThatDoesNotExist()
         {
             //Given
-            string currentDir = System.Environment.CurrentDirectory;
-            string defaultFilePath = currentDir + "\\Test.Dae";
-            MeshResourceFile testFile = new MeshResourceFile(currentDir, defaultFilePath);
+            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
 
             //When
-            string filePath = testFile.GetFilepathByResourceName("THISMESHDOESNOTEXIST", true);
+            string filePath = testFile.GetResouceInformationByName("THISMESHDOESNOTEXIST").GetFilepath();
 
             //Then
-            int check = filePath.CompareTo(defaultFilePath);
-            Assert.IsTrue(check == 0);
+            Assert.IsTrue(filePath.CompareTo("") == 0);
+        }
+
+        [TestMethod]
+        public void GetMeshResourceThatDoesNotExistAndFallbackToDefault()
+        {
+            //Given
+            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
+
+            //When
+            string filePath = testFile.GetResouceInformationByName("THISMESHDOESNOTEXIST", true).GetFilepath();
+
+            //Then
+            string originalFilePath = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE";
+            Assert.IsTrue(filePath.CompareTo(originalFilePath) == 0);
         }
     }
 }

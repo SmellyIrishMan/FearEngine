@@ -9,16 +9,13 @@ namespace FearEngine.Resources.Managment
             switch(type)
             {
                 case ResourceType.Mesh:
-                    const string defaultMeshFile = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE";
-                    return new MeshResourceFile(path, defaultMeshFile);
+                    return new MeshResourceFile(path);
 
                 case ResourceType.Material:
-                    const string defaultMaterialFile = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\Basic.fx";
-                    return new MaterialResourceFile(path, defaultMaterialFile);
+                    return new MaterialResourceFile(path);
 
                 case ResourceType.Texture:
-                    const string defaultTextureFile = "";
-                    return new TextureResourceFile(path, defaultTextureFile);
+                    return new TextureResourceFile(path);
 
                 default:
                     throw new UnknownResourceType();

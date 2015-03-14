@@ -1,8 +1,9 @@
-﻿using SharpDX.Toolkit.Graphics;
+﻿using FearEngine.Resources.Managment;
+using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Meshes
 {
-    public class MeshRenderable
+    public class Mesh : Resource
     {
         private Buffer<VertexLayouts.PositionNormalTexture> vertexBuffer;
         private Buffer indexBuffer;
@@ -10,12 +11,15 @@ namespace FearEngine.Resources.Meshes
         //TODO This should probably be generalised outside of the mesh.
         VertexInputLayout inputLayout;
 
-        public MeshRenderable(GraphicsDevice graphicsDevice, MeshInformation meshInfo)
+        private bool isLoaded = false;
+
+        public Mesh(GraphicsDevice graphicsDevice, MeshInformation meshInfo)
         {
             vertexBuffer = Buffer.Vertex.New(graphicsDevice, meshInfo.GetVertices());
             indexBuffer = Buffer.Index.New(graphicsDevice, meshInfo.GetIndices());
 
             inputLayout = VertexInputLayout.FromBuffer(0, vertexBuffer);
+            isLoaded = true;
         }
 
         public Buffer<VertexLayouts.PositionNormalTexture> GetVertexBuffer()
@@ -35,8 +39,14 @@ namespace FearEngine.Resources.Meshes
 
         public void Dispose()
         {
+            isLoaded = false;
             vertexBuffer.Dispose();
             indexBuffer.Dispose();
+        }
+
+        public bool IsLoaded()
+        {
+            return isLoaded;
         }
     }
 }

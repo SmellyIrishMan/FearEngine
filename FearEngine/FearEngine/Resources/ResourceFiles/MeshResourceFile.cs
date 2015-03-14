@@ -2,7 +2,7 @@
 {
     public class MeshResourceFile : ResourceFile
     {
-        public MeshResourceFile(string location, string defautFilePath) : base(location, defautFilePath)
+        public MeshResourceFile(string location) : base(location)
         {
 
         }

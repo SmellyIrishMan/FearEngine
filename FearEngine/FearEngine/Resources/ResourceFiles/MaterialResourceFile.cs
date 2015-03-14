@@ -2,8 +2,8 @@
 {
     public class MaterialResourceFile : ResourceFile
     {
-        public MaterialResourceFile(string location, string defautFilePath)
-            : base(location, defautFilePath)
+        public MaterialResourceFile(string location)
+            : base(location)
         {
 
         }

@@ -3,6 +3,7 @@ using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources.Managment.Loaders.Collada;
 using FearEngine.Resources.Meshes;
 using SharpDX.Toolkit.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -12,203 +13,113 @@ namespace FearEngine.Resources.Managment
 {
     public class FearResourceManager
     {
-        GraphicsDevice device;
+        private ResourceDirectory resourceDir;
+        private Dictionary<string, Texture> loadedTextures;
+        private Dictionary<string, Material> loadedMaterials;
+        private Dictionary<string, Mesh> loadedMeshes;
 
-        private Dictionary<string, Bitmap> LoadedImages;
+        private Dictionary<ResourceType, ResourceLoader> loaders;
 
-        private MaterialLoader materialLoader;
-        private Dictionary<string, Material> LoadedMaterials;
-
-        private ColladaMeshLoader meshLoader;
-        private Dictionary<string, MeshRenderable> LoadedMeshes;
-
-        private const string DEFAULT_MATERIAL_NAME = "DEFAULT_MATERIAL";
-        private const string DEFAULT_MESH_NAME = "DEFAULT_MESH";
-
-        public string RootResourcePath { get; private set; }
-
-        public FearResourceManager(GraphicsDevice dev)
+        public FearResourceManager(ResourceDirectory directory, ResourceLoader materialLoader, ResourceLoader meshLoader, ResourceLoader textureLoader)
         {
-            device = dev;
+            resourceDir = directory;
 
-            //Setup the storage for the different resources
-            LoadedImages = new Dictionary<string, Bitmap>();
-
-            materialLoader = new MaterialLoader();
-            LoadedMaterials = new Dictionary<string, Material>();
-
-            meshLoader = new ColladaMeshLoader();
-            LoadedMeshes = new Dictionary<string, MeshRenderable>();
-
-            //Find our resource directory, or create one.
-            DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
-            resourceDir = resourceDir.Parent.Parent;
-            RootResourcePath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
-
-            if (!System.IO.Directory.Exists(RootResourcePath))
-            {
-                FearLog.Log("No Resource Directory Found, Creating One", LogPriority.EXCEPTION);
-                System.IO.Directory.CreateDirectory(RootResourcePath);
-
-                CreateResourceDirectory();
-            }
-
-            FearLog.Log("Current Resource Directory; " + RootResourcePath);
-        }
-
-        public void Initialize(GraphicsDevice dev)
-        {
-            device = dev;
-        }
-
-        public void CreateResourceDirectory()
-        {
-            CreateSubResourceFolder("Textures");
-            CreateSubResourceFolder("Meshes");
-            CreateSubResourceFolder("Materials");
-        }
-
-        private void CreateSubResourceFolder(string name)
-        {
-            string subResourcePath = System.IO.Path.Combine(RootResourcePath, name);
-            System.IO.Directory.CreateDirectory(subResourcePath);
-            string xmlFilePath = subResourcePath + "\\" + name + ".xml";
-            PopulateXMLFile(xmlFilePath, name);
-        }
-
-        private void PopulateXMLFile(string xmlFilePath, string type)
-        {
-            Dictionary<string, string[]> defaultResource = PrepareDefaultResources();
-
-            System.IO.StreamWriter file = new StreamWriter(xmlFilePath);
-            file.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-            file.WriteLine("<" + type + ">");
-            foreach (string s in defaultResource[type])
-            {
-                file.WriteLine(s);
-            }
-            file.WriteLine("</" + type + ">");
-            file.Close();
-        }
-
-        private Dictionary<string, string[]> PrepareDefaultResources()
-        { 
-            Dictionary<string, string[]> defaultResource = new Dictionary<string, string[]>();
-            defaultResource.Add("Textures",
-                new string[] {  "\t<Texture>",
-                                    "\t\t<Name>TEX_Default</Name>",
-                                    "\t\t<Filepath>C:\\Someplace</Filepath>",
-                                "\t</Texture>",
-                });
-            defaultResource.Add("Meshes",
-                new string[] {  "\t<Mesh>",
-                                    "\t\t<Name>"+DEFAULT_MESH_NAME+"</Name>",
-                                    "\t\t<Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE</Filepath>",
-                                "\t</Mesh>",
-                });
-            defaultResource.Add("Materials",
-                new string[] {  "\t<Material>",
-                                    "\t\t<Name>"+DEFAULT_MATERIAL_NAME+"</Name>",
-                                    "\t\t<Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\Basic.fx</Filepath>",
-                                    "\t\t<Technique>BasicPositionColorTech</Technique>",
-                                "\t</Material>",
-                });
-
-            return defaultResource;
-        }
-
-        public Bitmap GetImage(string name)
-        {
-            if (!LoadedImages.ContainsKey(name))
-            {
-                LoadedImages[name] = LoadImage(name);
-            }
-
-            return LoadedImages[name];
-        }
-
-        private Bitmap LoadImage(string name)
-        {
-            XmlTextReader xmlReader = new XmlTextReader(RootResourcePath + "\\Textures\\Textures.xml");
-            while (xmlReader.Read())
-            {
-                FearLog.Log(xmlReader.Name, LogPriority.LOW);
-                if (xmlReader.Name.CompareTo("Name") == 0)
-                {
-                    xmlReader.Read();
-                    if (xmlReader.Value.CompareTo(name) == 0)
-                    {
-                        FearLog.Log("Loading image " + xmlReader.Value, LogPriority.HIGH);
-                        xmlReader.ReadToFollowing("Filepath");
-                        xmlReader.Read();
-                        return new Bitmap(xmlReader.Value);
-                    }
-                }
-            }
-            FearLog.Log("Failed to load image " + name, LogPriority.EXCEPTION);
-            return new Bitmap(128, 128);
+            loaders = new Dictionary<ResourceType, ResourceLoader>();
+            loaders[ResourceType.Material] = materialLoader;
+            loaders[ResourceType.Mesh] = meshLoader;
+            loaders[ResourceType.Texture] = textureLoader;
+        
+            loadedMaterials = new Dictionary<string, Material>();
+            loadedMeshes = new Dictionary<string, Mesh>();
+            loadedTextures = new Dictionary<string, Texture>();
         }
 
         public Material GetMaterial(string name)
         {
-            if (!LoadedMaterials.ContainsKey(name))
+            if (!loadedMaterials.ContainsKey(name))
             {
-                LoadedMaterials[name] = materialLoader.Load(RootResourcePath + "\\Materials\\Materials.xml", name, device);
-                if (LoadedMaterials[name] == null)
-                {
-                    FearLog.Log("Failed to load material " + name, LogPriority.EXCEPTION);
-                    return LoadedMaterials[DEFAULT_MATERIAL_NAME];
-                }
+                Resource newRes = LoadResource(name, ResourceType.Material, resourceDir.GetMaterialInformation(name));
+                loadedMaterials[name] = (Material)newRes;
             }
 
-            return LoadedMaterials[name];
+            return loadedMaterials[name];
         }
 
-        public MeshRenderable GetMesh(string name)
+        public Mesh GetMesh(string name)
         {
-            if (!LoadedMeshes.ContainsKey(name))
+            if (!loadedMeshes.ContainsKey(name))
             {
-                LoadedMeshes[name] = new MeshRenderable(device, meshLoader.Load(GetFilenameFromXML(RootResourcePath + "\\Meshes\\Meshes.xml", name)));
-                if (LoadedMeshes[name] == null)
-                {
-                    FearLog.Log("Failed to load mesh " + name, LogPriority.EXCEPTION);
-                    return LoadedMeshes[DEFAULT_MATERIAL_NAME];
-                }
+                Resource newRes = LoadResource(name, ResourceType.Mesh, resourceDir.GetMeshInformation(name));
+                loadedMeshes[name] = (Mesh)newRes;
             }
 
-            return LoadedMeshes[name];
+            return loadedMeshes[name];
         }
 
-        private string GetFilenameFromXML(string xmlFile, string name)
+        public Texture GetTexture(string name)
         {
-            string filepath = "";
-            XmlTextReader xmlReader = new XmlTextReader(xmlFile);
-            while (xmlReader.Read())
+            if (!loadedTextures.ContainsKey(name))
             {
-                FearLog.Log(xmlReader.Name, LogPriority.LOW);
-                if (xmlReader.Name.CompareTo("Name") == 0)
-                {
-                    xmlReader.Read();
-                    if (xmlReader.Value.CompareTo(name) == 0)
-                    {
-                        FearLog.Log("Loading mesh " + xmlReader.Value, LogPriority.HIGH);
-
-                        xmlReader.ReadToFollowing("Filepath");
-                        xmlReader.Read();
-                        filepath = xmlReader.Value;
-                    }
-                }
+                Resource newRes = LoadResource(name, ResourceType.Texture, resourceDir.GetTextureInformation(name));
+                loadedTextures[name] = (Texture)newRes;
             }
 
-            return filepath;
+            return loadedTextures[name];
+        }
+
+        private Resource LoadResource(string name, ResourceType type, ResourceInformation info)
+        {
+            Resource newResource = loaders[type].Load(info);
+            if (newResource.IsLoaded())
+            {
+                return newResource;
+            }
+
+            throw new UnableToLoadResourceException();
+        }
+
+        public int GetNumberOfLoadedResources(ResourceType type)
+        {
+            switch(type)
+            {
+                case ResourceType.Material:
+                    return loadedMaterials.Count;
+                case ResourceType.Mesh:
+                    return loadedMaterials.Count;
+                case ResourceType.Texture:
+                    return loadedMaterials.Count;
+                default:
+                    return 0;
+            }
         }
 
         public void Shutdown()
         {
-            foreach (Material mat in LoadedMaterials.Values)
+            foreach (Material mat in loadedMaterials.Values)
             {
-                mat.RenderEffect.Dispose();
+                mat.GetEffect().Dispose();
             }
+            foreach (Mesh mesh in loadedMeshes.Values)
+            {
+                mesh.Dispose();
+            }
+        }
+    }
+
+    public class UnableToLoadResourceException : Exception
+    {
+        public UnableToLoadResourceException()
+        {
+        }
+
+        public UnableToLoadResourceException(string message)
+            : base(message)
+        {
+        }
+
+        public UnableToLoadResourceException(string message, Exception inner)
+            : base(message, inner)
+        {
         }
     }
 }

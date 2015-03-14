@@ -85,6 +85,7 @@
     <Compile Include="MainEngineTests.cs" />
     <Compile Include="ResourceFileTests.cs" />
     <Compile Include="ResourceDirectoryTests.cs" />
+    <Compile Include="ResourceManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FearEngine\FearEngine.csproj">
