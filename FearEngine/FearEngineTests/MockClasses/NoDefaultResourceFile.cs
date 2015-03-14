@@ -1,8 +1,11 @@
-﻿namespace FearEngine.Resources.Managment
+﻿using FearEngine.Resources.Managment;
+
+namespace FearEngineTests
 {
-    public class MeshResourceFile : ResourceFile
+    public class NoDefaultResourceFile : ResourceFile
     {
-        public MeshResourceFile(string location, string defautFilePath) : base(location, defautFilePath)
+        public NoDefaultResourceFile(string location, string defautFilePath)
+            : base(location, defautFilePath)
         {
 
         }
@@ -14,7 +17,7 @@
 
         override protected string GetFilename()
         {
-            return "Meshes.xml";
+            return "ResourceFileWithoutDefault.xml";
         }
 
         override protected string GetDefaultName()

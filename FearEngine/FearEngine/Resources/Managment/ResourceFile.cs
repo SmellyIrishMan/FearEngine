@@ -13,25 +13,59 @@ namespace FearEngine.Resources.Managment
 
         string filePathElement = "Filepath";
 
-        public ResourceFile(string location, string defautFilePath)
-        {
-            filePath = location + "\\" + GetFilename();
-            System.IO.StreamWriter file = new StreamWriter(filePath);
-            file.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-            file.WriteLine("<" + GetRootElement() + ">");
-            file.WriteLine("\t<" + GetType() + ">");
-            file.WriteLine("\t\t<Name>" + GetDefaultName() + "</Name>");
-            file.WriteLine("\t\t<Filepath>" + defautFilePath + "</Filepath>");
-            file.WriteLine("\t</" + GetType() + ">");
-            file.WriteLine("</" + GetRootElement() + ">");
-            file.Close();
-        }
-
         abstract protected string GetFilename();
 
         abstract protected string GetType();
 
         abstract protected string GetDefaultName();
+
+        public ResourceFile(string location, string defautFilePath)
+        {
+            filePath = location + "\\" + GetFilename();
+            if (System.IO.File.Exists(filePath))
+            {
+                if (GetFilepathForDefault().Length > 0)
+                {
+                    return;
+                }
+                else
+                {
+                    AddDefaultMesh(defautFilePath);
+                }
+            }
+            else
+            {
+                System.IO.StreamWriter file = new StreamWriter(filePath);
+                file.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+                file.WriteLine("<" + GetRootElement() + ">");
+                file.WriteLine("\t<" + GetType() + ">");
+                file.WriteLine("\t\t<Name>" + GetDefaultName() + "</Name>");
+                file.WriteLine("\t\t<Filepath>" + defautFilePath + "</Filepath>");
+                file.WriteLine("\t</" + GetType() + ">");
+                file.WriteLine("</" + GetRootElement() + ">");
+                file.Close();
+            }
+        }
+
+        private void AddDefaultMesh(string defautFilePath)
+        {
+            string[] fullResourceFile = File.ReadAllLines(filePath);
+            List<string> lines = new List<string>();
+            lines.AddRange(fullResourceFile);
+            lines.InsertRange(2, CreateNewResourceEntry(defautFilePath));
+            File.WriteAllLines(filePath, lines.ToArray());
+        }
+
+        private IEnumerable<string> CreateNewResourceEntry(string defautFilePath)
+        {
+            List<string> newEntry = new List<string>();
+            newEntry.Add("\t<" + GetType() + ">");
+            newEntry.Add("\t\t<Name>" + GetDefaultName() + "</Name>");
+            newEntry.Add("\t\t<Filepath>" + defautFilePath + "</Filepath>");
+            newEntry.Add("\t<" + GetType() + ">");
+
+            return newEntry;
+        }
 
         private string GetRootElement()
         {

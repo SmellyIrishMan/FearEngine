@@ -9,18 +9,39 @@ namespace FearEngineTests
     public class ResourceFileTests
     {
         [TestMethod]
-        public void GetMeshFromFile()
+        public void CreateFileWithoutOverwritingExistingFile()
         {
             //Given
+            DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
+            string resourcesPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
+            string defaultMeshPath = resourcesPath + "\\Box.DAE";
 
             //When
+            NoDefaultResourceFile testFile = new NoDefaultResourceFile(resourcesPath, defaultMeshPath);
+            string filePath = testFile.GetFilepathByResourceName("DEFAULT_MESH");
 
             //Then
-            Assert.IsTrue(false);
+            Assert.IsTrue(filePath.CompareTo(defaultMeshPath) == 0);
         }
 
         [TestMethod]
-        public void GetMeshFromFileThatDoesNotExist()
+        public void AddDefaultMeshToFileWithoutDefaultMesh()
+        {
+            //Given
+            DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
+            string resourcesPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
+            string defaultMeshPath = resourcesPath + "\\Box.DAE";
+
+            //When
+            MeshResourceFile testFile = new MeshResourceFile(resourcesPath, defaultMeshPath);
+            string filePath = testFile.GetFilepathByResourceName("TEAPOT");
+
+            //Then
+            Assert.IsTrue(filePath.CompareTo("") != 0);
+        }
+
+        [TestMethod]
+        public void GetMeshThatDoesNotExistFromFile()
         {
             //Given
             string currentDir = System.Environment.CurrentDirectory;
@@ -35,7 +56,7 @@ namespace FearEngineTests
         }
 
         [TestMethod]
-        public void GetMeshFromFileThatDoesNotExistFallbackToDefault()
+        public void GetMeshThatDoesNotExistFromFileAndFallbackToDefault()
         {
             //Given
             string currentDir = System.Environment.CurrentDirectory;
