@@ -6,7 +6,7 @@ namespace FearEngine.Resources.Meshes
     {
         public struct PositionColor
         {
-            [VertexElement("SV_Position")]
+            [VertexElement("POSITION")]     //THIS MUST MATCH THE SEMANTIC NAME IN THE SHADER IN ORDER TO GET MATCHED CORRECTLY
             public Vector3 Position;
 
             [VertexElement("COLOR")]
@@ -15,7 +15,7 @@ namespace FearEngine.Resources.Meshes
 
         public struct PositionNormal
         {
-            [VertexElement("SV_Position")]
+            [VertexElement("POSITION")]     //THIS MUST MATCH THE SEMANTIC NAME IN THE SHADER IN ORDER TO GET MATCHED CORRECTLY
             public Vector3 Position;
 
             [VertexElement("NORMAL")]
@@ -24,7 +24,7 @@ namespace FearEngine.Resources.Meshes
 
         public struct PositionNormalTexture
         {
-            [VertexElement("SV_Position")]
+            [VertexElement("POSITION")]     //THIS MUST MATCH THE SEMANTIC NAME IN THE SHADER IN ORDER TO GET MATCHED CORRECTLY
             public Vector3 Position;
 
             [VertexElement("NORMAL")]

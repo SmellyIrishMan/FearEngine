@@ -18,16 +18,17 @@ namespace FearEngine.Resources.Meshes
             Matrix WVP = world * view * proj;
 
             //TODO This should be in the update loop and not here.
-            material.Effect.Parameters["gWorldViewProj"].SetValue(WVP);
+            material.SetParameterValue("gWorldViewProj", WVP);
 
             //TODO Change this all up so that we do it better... yeah
             if (material.Name.CompareTo("NormalLit") == 0)
             {
-                material.Effect.Parameters["gLightAmbient"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
-                material.Effect.Parameters["gLightDiffuse"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
-                material.Effect.Parameters["gLightDir"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                material.SetParameterValue("gLightAmbient", new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                material.SetParameterValue("gLightDiffuse", new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                material.SetParameterValue("gLightDir", new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
             }
-            material.Effect.CurrentTechnique.Passes[0].Apply();
+
+            material.Apply();
 
             device.SetVertexBuffer(mesh.GetVertexBuffer());
             device.SetVertexInputLayout(mesh.GetInputLayout());

@@ -5,7 +5,7 @@ cbuffer cbPerObject
 
 struct VertexIn
 {
-	float3 PosL  : SV_POSITION;
+	float3 PosL  : POSITION;
     float3 NormL : NORMAL;
 };
 

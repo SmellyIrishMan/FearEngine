@@ -41,7 +41,7 @@ namespace FearEngineTests
             Material material = (Material)loader.Load(info);
 
             //Then
-            Assert.IsTrue(material.Effect.Techniques.Count > 0);
+            Assert.IsTrue(material.IsLoaded());
 
             device.Dispose();
         }

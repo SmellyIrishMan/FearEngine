@@ -35,5 +35,10 @@ namespace FearEngine.Resources
         {
             get { return texture.Height; }
         }
+
+        public SharpDX.Direct3D11.ShaderResourceView ShaderView 
+        {
+            get { return textureView; }
+        }
     }
 }

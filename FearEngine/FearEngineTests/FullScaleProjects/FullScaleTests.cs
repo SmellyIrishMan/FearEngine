@@ -35,5 +35,19 @@ namespace FearEngineTests
             //When
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void TexturedCube()
+        {
+            //Given
+            FearGameFactory appFactory = new FearGameFactory();
+            FearGame game = new TextureCubeDemo();
+
+            //Then
+            appFactory.CreateAndRunFearGame(game);
+
+            //When
+            Assert.IsTrue(true);
+        }
     }
 }

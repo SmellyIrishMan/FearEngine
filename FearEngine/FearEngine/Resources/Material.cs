@@ -34,7 +34,7 @@ namespace FearEngine.Resources
 
         public void Dispose()
         {
-            Effect.Dispose();
+            effect.Dispose();
         }
 
         public string Name
@@ -43,10 +43,24 @@ namespace FearEngine.Resources
             private set { name = value; }
         }
 
-        public Effect Effect
+        public void Apply()
         {
-            get { return effect; }
-            private set { effect = value; }
+            effect.CurrentTechnique.Passes[0].Apply();
+        }
+
+        public void SetParameterValue(string p, SharpDX.Matrix value)
+        {
+            effect.Parameters[p].SetValue(value);
+        }
+
+        internal void SetParameterValue(string p, SharpDX.Vector4 value)
+        {
+            effect.Parameters[p].SetValue(value);
+        }
+
+        public void SetParameterResource(string p, Texture texture)
+        {
+            effect.Parameters[p].SetResource(texture.ShaderView);
         }
     }
 }

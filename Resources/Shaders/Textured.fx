@@ -3,7 +3,7 @@ cbuffer cbPerObject
 	float4x4 gWorldViewProj; 
 };
 
-Texture2D gDiffuseMap;
+Texture2D<float4> gAlbedo   : register(t0);
 
 SamplerState samAnisotropic
 {
@@ -39,7 +39,7 @@ VertexOut VS(VertexIn vIn)
 
 float4 PS(VertexOut pIn) : SV_TARGET
 {
-	float4 texColor = gDiffuseMap.Sample(samAnisotropic, pIn.Tex);
+	float4 texColor = gAlbedo.Sample(samAnisotropic, pIn.Tex);
     return texColor;
 }
 
