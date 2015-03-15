@@ -13,6 +13,8 @@ using FearEngine.Input;
 
 namespace FearEngine
 {
+    public delegate void EngineInitialisedHandler(FearEngineImpl engine);
+
     public class FearEngineImpl : Game
     {
         private FearGame game;
@@ -27,28 +29,27 @@ namespace FearEngine
         private const uint DEFAULT_WIDTH = 1280;
         private const uint DEFAULT_HEIGHT = 720;
 
+        public event EngineInitialisedHandler Initialised;
+
         public FearEngineImpl(FearGame gameImpl)
         {
             game = gameImpl;
         }
 
-        public void SetupApp(GraphicsDeviceManager deviceMan, FearResourceManager resMan, FearInput paramInput)
+        public void SetupDeviceManager(GraphicsDeviceManager deviceMan)
         {
             graphicsDeviceManager = deviceMan;
-            SetupDevice();
-
-            resourceManager = resMan;
-
-            input = paramInput;
-        }
-
-        private void SetupDevice()
-        {
             graphicsDeviceManager.DeviceCreationFlags = DeviceCreationFlags.Debug;
 
             graphicsDeviceManager.PreferredBackBufferFormat = Format.R8G8B8A8_UNorm_SRgb;
             graphicsDeviceManager.PreferredBackBufferWidth = (int)DEFAULT_WIDTH;
             graphicsDeviceManager.PreferredBackBufferHeight = (int)DEFAULT_HEIGHT;
+        }
+
+        internal void InjectDependencies(FearResourceManager resMan, FearInput fearInput)
+        {
+            resourceManager = resMan;
+            input = fearInput;
         }
 
         protected override void OnActivated(object sender, EventArgs args)
@@ -64,6 +65,12 @@ namespace FearEngine
         protected override void Initialize()
         {
             base.Initialize();
+
+            if (Initialised != null)
+            {
+                Initialised(this);
+            }
+
             Window.Title = "Fear Engine V1.0";
 
             FearLog.Initialise();

@@ -25,7 +25,7 @@ namespace BasicCube
     {
         FearEngineImpl fearEngine;
 
-        MeshRenderable cube;
+        Mesh cube;
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
 

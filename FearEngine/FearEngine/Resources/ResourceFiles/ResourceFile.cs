@@ -77,7 +77,7 @@ namespace FearEngine.Resources.Managment
             return GetType() + XMLRootElementSuffix;
         }
 
-        public ResourceInformation GetResouceInformationByName(string name, bool fallbackToDefault = false)
+        public ResourceInformation GetResourceInformationByName(string name, bool fallbackToDefault = false)
         {
             XmlTextReader xmlReader = SearchFileForResource(name);
 
@@ -88,7 +88,7 @@ namespace FearEngine.Resources.Managment
             }
             else if (fallbackToDefault)
             {
-                populatedInformation = GetResouceInformationByName(defaultResourceName);
+                populatedInformation = GetResourceInformationByName(defaultResourceName);
             }
 
             return populatedInformation;
@@ -144,7 +144,7 @@ namespace FearEngine.Resources.Managment
 
         private string GetFilepathForDefault()
         {
-            return GetResouceInformationByName(defaultResourceName).GetFilepath();
+            return GetResourceInformationByName(defaultResourceName).GetFilepath();
         }
 
         public string GetDefaultResourceName()

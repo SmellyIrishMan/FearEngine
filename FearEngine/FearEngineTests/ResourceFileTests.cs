@@ -23,7 +23,7 @@ namespace FearEngineTests
             MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
             
             //When
-            string filePath = testFile.GetResouceInformationByName("TEAPOT").GetFilepath();
+            string filePath = testFile.GetResourceInformationByName("TEAPOT").GetFilepath();
 
             //Then
             string originalFilePath = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Teapot.DAE";
@@ -37,7 +37,7 @@ namespace FearEngineTests
             NoDefaultResourceFile testFile = new NoDefaultResourceFile(GetResourceFolder());
 
             //When
-            string filePath = testFile.GetResouceInformationByName("DEFAULT").GetFilepath();
+            string filePath = testFile.GetResourceInformationByName("DEFAULT").GetFilepath();
 
             //Then
             Assert.IsTrue(filePath.CompareTo("") == 0);
@@ -50,7 +50,7 @@ namespace FearEngineTests
             MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
 
             //When
-            string filePath = testFile.GetResouceInformationByName("THISMESHDOESNOTEXIST").GetFilepath();
+            string filePath = testFile.GetResourceInformationByName("THISMESHDOESNOTEXIST").GetFilepath();
 
             //Then
             Assert.IsTrue(filePath.CompareTo("") == 0);
@@ -63,7 +63,7 @@ namespace FearEngineTests
             MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
 
             //When
-            string filePath = testFile.GetResouceInformationByName("THISMESHDOESNOTEXIST", true).GetFilepath();
+            string filePath = testFile.GetResourceInformationByName("THISMESHDOESNOTEXIST", true).GetFilepath();
 
             //Then
             string originalFilePath = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE";

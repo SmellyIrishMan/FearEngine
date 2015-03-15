@@ -16,20 +16,33 @@ namespace FearEngine
             FearEngineImpl engine = new FearEngineImpl(game);
 
             GraphicsDeviceManager graphicsMan = new GraphicsDeviceManager(engine);
+            engine.SetupDeviceManager(graphicsMan);
 
-            GraphicsDevice dev = graphicsMan.GraphicsDevice;
+            engine.Initialised += new EngineInitialisedHandler(OnEngineInitialised);
+            engine.Run();
 
+            return engine;
+        }
+
+        public void OnEngineInitialised(FearEngineImpl engine)
+        {
+            engine.Initialised -= new EngineInitialisedHandler(OnEngineInitialised);
+
+            GraphicsDevice device = engine.GetDevice();
+
+            ResourceDirectory resDir = CreateResourceDirectory();
+            FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(device), new MeshLoader(device), new TextureLoader(device));
+
+            engine.InjectDependencies(resMan, new FearInput(new MouseManager(engine), new KeyboardManager(engine)));
+        }
+
+        private static ResourceDirectory CreateResourceDirectory()
+        {
             DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
             resourceDir = resourceDir.Parent.Parent;
             string resPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
             ResourceDirectory resDir = new ResourceDirectory(resPath, new ResourceFileFactory());
-            FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(dev), new MeshLoader(dev), new TextureLoader(dev));
-
-            engine.SetupApp(graphicsMan, resMan, new FearInput(new MouseManager(engine), new KeyboardManager(engine)));
-
-            engine.Run();
-
-            return engine;
+            return resDir;
         }
     }
 }

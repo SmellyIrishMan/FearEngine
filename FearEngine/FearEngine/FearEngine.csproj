@@ -75,7 +75,6 @@
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
     <Compile Include="Resources\Loaders\MeshLoader.cs" />
-    <Compile Include="Resources\Managment\FearResourceManagerBackup.cs" />
     <Compile Include="Resources\Loaders\ResourceInformation.cs" />
     <Compile Include="Resources\Managment\Resource.cs" />
     <Compile Include="Resources\Managment\ResourceFileFactory.cs" />

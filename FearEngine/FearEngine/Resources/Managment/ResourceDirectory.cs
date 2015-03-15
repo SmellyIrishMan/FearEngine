@@ -20,26 +20,26 @@ namespace FearEngine.Resources.Managment
 
         public ResourceDirectory(string rootResourcePath, ResourceFileFactory fileFactory)
         {
-            if (System.IO.Directory.Exists(rootResourcePath))
-            {
-
-            }
-            else
+            if (!System.IO.Directory.Exists(rootResourcePath))
             {
                 FearLog.Log("No Resource Directory Found, Creating One", LogPriority.EXCEPTION);
                 System.IO.Directory.CreateDirectory(rootResourcePath);
-
-                resourcesPath = System.IO.Path.Combine(rootResourcePath, directoryName);
-                System.IO.Directory.CreateDirectory(resourcesPath);
-
-                var values = Enum.GetValues(typeof(ResourceType));
-
-                resourceFiles = new Dictionary<ResourceType, ResourceFile>();
-                foreach (ResourceType type in values)
-                {
-                    resourceFiles[type] = fileFactory.createResourceFile(type, resourcesPath);
-                }
             }
+
+            resourcesPath = System.IO.Path.Combine(rootResourcePath, directoryName);
+            if (!System.IO.Directory.Exists(resourcesPath))
+            {
+                System.IO.Directory.CreateDirectory(resourcesPath);
+            }
+
+            var values = Enum.GetValues(typeof(ResourceType));
+
+            resourceFiles = new Dictionary<ResourceType, ResourceFile>();
+            foreach (ResourceType type in values)
+            {
+                resourceFiles[type] = fileFactory.createResourceFile(type, resourcesPath);
+            }
+
             FearLog.Log("Current Resource Directory; " + rootResourcePath);
         }
 
@@ -60,17 +60,17 @@ namespace FearEngine.Resources.Managment
 
         public ResourceInformation GetMaterialInformation(string name)
         {
-            return resourceFiles[ResourceType.Material].GetResouceInformationByName(name);
+            return resourceFiles[ResourceType.Material].GetResourceInformationByName(name);
         }
 
         public ResourceInformation GetMeshInformation(string name)
         {
-            return resourceFiles[ResourceType.Mesh].GetResouceInformationByName(name);
+            return resourceFiles[ResourceType.Mesh].GetResourceInformationByName(name);
         }
 
         public ResourceInformation GetTextureInformation(string name)
         {
-            return resourceFiles[ResourceType.Texture].GetResouceInformationByName(name);
+            return resourceFiles[ResourceType.Texture].GetResourceInformationByName(name);
         }
 
     }

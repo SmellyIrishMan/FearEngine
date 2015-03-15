@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.Resources.Managment;
+using FearEngine.Resources.Managment.Loaders;
 
 namespace FearEngineTests
 {
@@ -19,6 +20,12 @@ namespace FearEngineTests
             Assert.IsTrue(resourceManager.GetNumberOfLoadedResources(ResourceType.Material) == 0);
             Assert.IsTrue(resourceManager.GetNumberOfLoadedResources(ResourceType.Mesh) == 0);
             Assert.IsTrue(resourceManager.GetNumberOfLoadedResources(ResourceType.Texture) == 0);
+        }
+
+        [TestMethod]
+        public void LoadAMaterial()
+        {
+            Assert.IsTrue(false);
         }
     }
 }
