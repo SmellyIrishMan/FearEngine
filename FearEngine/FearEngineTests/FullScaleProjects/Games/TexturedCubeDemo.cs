@@ -21,7 +21,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
             cube = fearEngine.GetResourceManager().GetMesh("BOX");
             material = fearEngine.GetResourceManager().GetMaterial("Textured");
-            material.SetParameterResource("gAlbedo", fearEngine.GetResourceManager().GetTexture("DEFAULT"));
+            material.SetParameterResource("gAlbedo", fearEngine.GetResourceManager().GetTexture("GammaGradient"));
         }
 
         public void Update(FearGameTime gameTime)
