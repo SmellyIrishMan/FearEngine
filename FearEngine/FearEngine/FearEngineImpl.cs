@@ -64,14 +64,14 @@ namespace FearEngine
 
         protected override void Initialize()
         {
+            Window.Title = "Fear Engine";
+
             base.Initialize();
 
             if (Initialised != null)
             {
                 Initialised(this);
             }
-
-            Window.Title = "Fear Engine V1.0";
 
             FearLog.Initialise();
 
