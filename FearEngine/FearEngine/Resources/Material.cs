@@ -6,15 +6,24 @@ namespace FearEngine.Resources
 {
     public class Material : Resource
     {
-        string name;
-        Effect effect;
+        private string name;
+        private Effect effect;
 
-        bool isLoaded = false;
+        private bool isLoaded;
+
+        public Material()
+        {
+            name = "";
+            effect = null;
+
+            isLoaded = false;
+        }
 
         public Material(string n, Effect e)
         {
             name = n;
             effect = e;
+
             isLoaded = true;
         }
 
@@ -23,14 +32,21 @@ namespace FearEngine.Resources
             return isLoaded;
         }
 
-        public string GetName()
+        public void Dispose()
         {
-            return name;
+            Effect.Dispose();
         }
 
-        public Effect GetEffect()
+        public string Name
         {
-            return effect;
+            get { return name; }
+            private set { name = value; }
+        }
+
+        public Effect Effect
+        {
+            get { return effect; }
+            private set { effect = value; }
         }
     }
 }

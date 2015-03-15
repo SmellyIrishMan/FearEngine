@@ -13,7 +13,7 @@ namespace FearEngineTests
         {
             //Given
             FearGameFactory appFactory = new FearGameFactory();
-            FearGame game = new BasicCubeGame();
+            FearGame game = new CubeDemo();
 
             //Then
             appFactory.CreateAndRunFearGame(game);
@@ -27,7 +27,7 @@ namespace FearEngineTests
         {
             //Given
             FearGameFactory appFactory = new FearGameFactory();
-            FearGame game = new BasicTeapotGame();
+            FearGame game = new TeapotDemo();
 
             //Then
             appFactory.CreateAndRunFearGame(game);

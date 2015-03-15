@@ -9,5 +9,7 @@ namespace FearEngine.Resources.Managment
     public interface Resource
     {
         bool IsLoaded();
+
+        void Dispose();
     }
 }

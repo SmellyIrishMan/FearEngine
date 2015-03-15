@@ -18,16 +18,16 @@ namespace FearEngine.Resources.Meshes
             Matrix WVP = world * view * proj;
 
             //TODO This should be in the update loop and not here.
-            material.GetEffect().Parameters["gWorldViewProj"].SetValue(WVP);
+            material.Effect.Parameters["gWorldViewProj"].SetValue(WVP);
 
             //TODO Change this all up so that we do it better... yeah
-            if (material.GetName().CompareTo("NormalLit") == 0)
+            if (material.Name.CompareTo("NormalLit") == 0)
             {
-                material.GetEffect().Parameters["gLightAmbient"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
-                material.GetEffect().Parameters["gLightDiffuse"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
-                material.GetEffect().Parameters["gLightDir"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                material.Effect.Parameters["gLightAmbient"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                material.Effect.Parameters["gLightDiffuse"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                material.Effect.Parameters["gLightDir"].SetValue(new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
             }
-            material.GetEffect().CurrentTechnique.Passes[0].Apply();
+            material.Effect.CurrentTechnique.Passes[0].Apply();
 
             device.SetVertexBuffer(mesh.GetVertexBuffer());
             device.SetVertexInputLayout(mesh.GetInputLayout());

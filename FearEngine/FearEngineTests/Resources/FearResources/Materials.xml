@@ -6,6 +6,11 @@
 		<Technique>BasicPositionColorTech</Technique>
 	</Material>
 	<Material>
+		<Name>Textured</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\Textured.fx</Filepath>
+		<Technique>TexturedNoLighting</Technique>
+	</Material>
+	<Material>
 		<Name>NormalLit</Name>
 		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
 		<Technique>BasicPositionNormalLightTech</Technique>

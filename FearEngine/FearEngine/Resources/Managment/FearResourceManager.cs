@@ -97,11 +97,15 @@ namespace FearEngine.Resources.Managment
         {
             foreach (Material mat in loadedMaterials.Values)
             {
-                mat.GetEffect().Dispose();
+                mat.Dispose();
             }
             foreach (Mesh mesh in loadedMeshes.Values)
             {
                 mesh.Dispose();
+            }
+            foreach (Texture tex in loadedTextures.Values)
+            {
+                tex.Dispose();
             }
         }
     }

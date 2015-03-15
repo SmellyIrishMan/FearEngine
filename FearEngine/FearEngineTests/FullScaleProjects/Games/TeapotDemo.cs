@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FearEngine;
+﻿using FearEngine;
 using FearEngine.Resources.Meshes;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {
-    public class BasicCubeGame : FearEngine.FearGame
+    public class TeapotDemo : FearEngine.FearGame
     {
         FearEngineImpl fearEngine;
 
@@ -19,7 +17,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
             meshRenderer = new MeshRenderer();
 
-            cube = fearEngine.GetResourceManager().GetMesh("BOX");
+            cube = fearEngine.GetResourceManager().GetMesh("TEAPOT");
             material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
         }
 

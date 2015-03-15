@@ -1,23 +1,25 @@
 ﻿using FearEngine.Resources.Managment;
 using FearEngine.Resources.Managment.Loaders;
-using SharpDX.Toolkit.Graphics;
 using System.Drawing;
 
 namespace FearEngine.Resources.Loaders
 {
     public class TextureLoader : ResourceLoader
     {
-        GraphicsDevice device;
+        SharpDX.Toolkit.Graphics.GraphicsDevice device;
 
-        public TextureLoader(GraphicsDevice dev)
+        public TextureLoader(SharpDX.Toolkit.Graphics.GraphicsDevice dev)
         {
             device = dev;
         }
 
         public Resource Load(ResourceInformation info)
         {
-            Texture texture = new Texture(new Bitmap(info.GetFilepath()));
-            return texture;
+            SharpDX.Toolkit.Graphics.Texture2D texture = SharpDX.Toolkit.Graphics.Texture2D.Load(device, info.GetFilepath());
+            SharpDX.Direct3D11.ShaderResourceView textureView = new SharpDX.Direct3D11.ShaderResourceView(device, texture);
+
+            Texture fearTexture = new Texture(texture, textureView);
+            return fearTexture;
         }
     }
 }
