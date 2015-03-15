@@ -2,14 +2,12 @@
 <MaterialList>
 	<Material>
 		<Name>DEFAULT</Name>
-		<Filepath></Filepath>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\Basic.fx</Filepath>
+		<Technique>BasicPositionColorTech</Technique>
 	</Material>
 	<Material>
-		<Name>DEFAULT</Name>
-		<Filepath></Filepath>
-	</Material>
-	<Material>
-		<Name>DEFAULT</Name>
-		<Filepath></Filepath>
+		<Name>NormalLit</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
+		<Technique>BasicPositionNormalLightTech</Technique>
 	</Material>
 </MaterialList>

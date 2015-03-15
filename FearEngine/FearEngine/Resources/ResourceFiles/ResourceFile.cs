@@ -24,7 +24,7 @@ namespace FearEngine.Resources.Managment
             filePath = location + "\\" + GetFilename();
             if (System.IO.File.Exists(filePath))
             {
-                if (GetFilepathForDefault().Length > 0)
+                if (GetResourceInformationByName(defaultResourceName).GetName().CompareTo(defaultResourceName) == 0)
                 {
                     return;
                 }

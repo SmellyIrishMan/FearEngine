@@ -79,6 +79,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ColladaMeshLoaderTest.cs" />
+    <Compile Include="FullScaleProjects\Games\BasicCubeGame.cs" />
+    <Compile Include="FullScaleProjects\Games\BasicTeapotGame.cs" />
     <Compile Include="MockClasses\MockFearGame.cs" />
     <Compile Include="MockClasses\NoDefaultResourceFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="ResourceFileTests.cs" />
     <Compile Include="ResourceDirectoryTests.cs" />
     <Compile Include="ResourceManagerTests.cs" />
+    <Compile Include="FullScaleProjects\FullScaleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FearEngine\FearEngine.csproj">
@@ -101,6 +104,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\FearResources\Materials.xml" />
+    <Content Include="Resources\FearResources\Meshes.xml" />
+    <Content Include="Resources\FearResources\Textures.xml" />
     <Content Include="Resources\Meshes.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

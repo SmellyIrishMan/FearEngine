@@ -21,11 +21,5 @@ namespace FearEngineTests
             Assert.IsTrue(resourceManager.GetNumberOfLoadedResources(ResourceType.Mesh) == 0);
             Assert.IsTrue(resourceManager.GetNumberOfLoadedResources(ResourceType.Texture) == 0);
         }
-
-        [TestMethod]
-        public void LoadAMaterial()
-        {
-            Assert.IsTrue(false);
-        }
     }
 }

@@ -2,14 +2,14 @@
 <MeshList>
 	<Mesh>
 		<Name>DEFAULT</Name>
-		<Filepath></Filepath>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Box.DAE</Filepath>
 	</Mesh>
+  <Mesh>
+    <Name>BOX</Name>
+    <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Box.DAE</Filepath>
+  </Mesh>
 	<Mesh>
-		<Name>DEFAULT</Name>
-		<Filepath></Filepath>
-	</Mesh>
-	<Mesh>
-		<Name>DEFAULT</Name>
-		<Filepath></Filepath>
+		<Name>TEAPOT</Name>
+		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Teapot.DAE</Filepath>
 	</Mesh>
 </MeshList>
