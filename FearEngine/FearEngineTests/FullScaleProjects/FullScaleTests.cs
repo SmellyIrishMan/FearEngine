@@ -9,6 +9,20 @@ namespace FearEngineTests
     public class FullScaleTests
     {
         [TestMethod]
+        public void BlankWindow()
+        {
+            //Given
+            FearGameFactory appFactory = new FearGameFactory();
+            FearGame game = new BlankWindowDemo();
+
+            //Then
+            appFactory.CreateAndRunFearGame(game);
+
+            //When
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
         public void BasicCube()
         {
             //Given

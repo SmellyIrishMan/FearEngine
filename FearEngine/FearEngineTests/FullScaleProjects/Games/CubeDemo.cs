@@ -30,8 +30,6 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Draw(FearGameTime gameTime)
         {
-            fearEngine.GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
-
             meshRenderer.RenderMesh(fearEngine.GetDevice(), cube, material, fearEngine.GetMainCamera());
         }
 

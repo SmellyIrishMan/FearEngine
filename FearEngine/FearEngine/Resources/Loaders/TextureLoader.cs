@@ -15,7 +15,6 @@ namespace FearEngine.Resources.Loaders
 
         public Resource Load(ResourceInformation info)
         {
-
             SharpDX.Toolkit.Graphics.Texture2D texture = SharpDX.Toolkit.Graphics.Texture2D.Load(device, info.GetFilepath());
             SharpDX.Direct3D11.ShaderResourceView textureView;
 

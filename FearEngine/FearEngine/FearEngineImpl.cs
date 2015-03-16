@@ -87,6 +87,8 @@ namespace FearEngine
 
         protected override void Draw(GameTime gameTime)
         {
+            GetDevice().Clear(new SharpDX.Color4((float)Math.Pow(0.2f, 2.2f), 0.0f, (float)Math.Pow(0.2f, 2.2f), 1.0f));
+
             game.Draw(new FearGameTime(gameTime));
 
             base.Draw(gameTime);

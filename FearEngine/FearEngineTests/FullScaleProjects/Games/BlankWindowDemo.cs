@@ -2,7 +2,7 @@
 
 namespace FearEngineTests
 {
-    public class MockFearGame : FearGame
+    public class BlankWindowDemo : FearGame
     {
         FearEngineImpl fearEngine;
 

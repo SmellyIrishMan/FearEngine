@@ -82,10 +82,9 @@
     <Compile Include="FullScaleProjects\Games\CubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TeapotDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TexturedCubeDemo.cs" />
-    <Compile Include="MockClasses\MockFearGame.cs" />
+    <Compile Include="FullScaleProjects\Games\BlankWindowDemo.cs" />
     <Compile Include="MockClasses\NoDefaultResourceFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MainEngineTests.cs" />
     <Compile Include="ResourceFileTests.cs" />
     <Compile Include="ResourceDirectoryTests.cs" />
     <Compile Include="ResourceManagerTests.cs" />
