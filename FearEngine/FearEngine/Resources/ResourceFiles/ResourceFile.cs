@@ -13,63 +13,69 @@ namespace FearEngine.Resources.Managment
 
         string filePath;
 
-        const string defaultResourceName = "DEFAULT";
+        ResourceInformation defaultInformation;
+
+        abstract protected ResourceInformation CreateFreshResourceInformation();
 
         abstract public string GetFilename();
 
         abstract protected string GetType();
 
-        public ResourceFile(string location)
+        public ResourceFile(string location, ResourceInformation defaultInfo)
         {
+            defaultInformation = defaultInfo;
+
             filePath = location + "\\" + GetFilename();
             if (System.IO.File.Exists(filePath))
             {
-                if (GetResourceInformationByName(defaultResourceName).GetName().CompareTo(defaultResourceName) == 0)
-                {
-                    return;
-                }
-                else
-                {
-                    AddDefaultMesh();
-                }
+                UpdateDefaultResourceInformation();
             }
             else
             {
-                System.IO.StreamWriter file = new StreamWriter(filePath);
-                file.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-                file.WriteLine("<" + GetRootElement() + ">");
-                file.WriteLine("\t<" + GetType() + ">");
-                file.WriteLine("\t\t<Name>" + defaultResourceName + "</Name>");
-                file.WriteLine("\t\t<Filepath></Filepath>");
-                file.WriteLine("\t</" + GetType() + ">");
-                file.WriteLine("</" + GetRootElement() + ">");
-                file.Close();
+                CreateFile();
             }
         }
 
-        private void AddDefaultMesh()
+        private void UpdateDefaultResourceInformation()
+        {
+            ResourceInformation existingInfo = GetResourceInformationByName(defaultInformation.GetName());
+            if (existingInfo.GetName().CompareTo(defaultInformation.GetName()) == 0)
+            {
+                return;
+            }
+            else
+            {
+                AddDefaultResource();
+            }
+        }
+
+        private void CreateFile()
+        {
+            System.IO.StreamWriter file = new StreamWriter(filePath);
+            file.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+            file.WriteLine("<" + GetRootElement() + ">");
+            file.WriteLine("</" + GetRootElement() + ">");
+            file.Close();
+
+            AddDefaultResource();
+        }
+
+        private void AddDefaultResource()
         {
             string[] fullResourceFile = File.ReadAllLines(filePath);
             List<string> lines = new List<string>();
             lines.AddRange(fullResourceFile);
-            lines.InsertRange(2, CreateDefaultResourceEntry());
-            try
-            {
-                File.WriteAllLines(filePath, lines.ToArray());
-            }
-            catch (Exception e)
-            { }
-        }
 
-        private IEnumerable<string> CreateDefaultResourceEntry()
-        {
             List<string> newEntry = new List<string>();
             newEntry.Add("\t<" + GetType() + ">");
-            newEntry.Add("\t\t<Name>" + defaultResourceName + "</Name>");
-            newEntry.Add("\t\t<Filepath></Filepath>");
+            foreach (string key in defaultInformation.GetInformationKeys())
+            {
+                newEntry.Add("\t\t<" + key + ">" + defaultInformation.GetString(key) + "</" + key + ">");
+            }
             newEntry.Add("\t</" + GetType() + ">");
 
-            return newEntry;
+            lines.InsertRange(2, newEntry);
+            File.WriteAllLines(filePath, lines.ToArray());
         }
 
         private string GetRootElement()
@@ -81,17 +87,17 @@ namespace FearEngine.Resources.Managment
         {
             XmlTextReader xmlReader = SearchFileForResource(name);
 
-            ResourceInformation populatedInformation = new ResourceInformation();
+            ResourceInformation info = CreateFreshResourceInformation();
             if (!xmlReader.EOF)
             {
-                populatedInformation = ParseInformationFromXMLBlock(xmlReader);
+                info = ParseInformationFromXMLBlock(xmlReader);
             }
             else if (fallbackToDefault)
             {
-                populatedInformation = GetResourceInformationByName(defaultResourceName);
+                info = GetResourceInformationByName(defaultInformation.GetName());
             }
 
-            return populatedInformation;
+            return info;
         }
 
         private XmlTextReader SearchFileForResource(string resourceNameToFind)
@@ -113,27 +119,27 @@ namespace FearEngine.Resources.Managment
 
         private ResourceInformation ParseInformationFromXMLBlock(XmlTextReader xmlReader)
         {
-            ResourceInformation populatedInformation = new ResourceInformation();
+            ResourceInformation populatedInfo = CreateFreshResourceInformation();
 
             string key = "Name";
             string value = xmlReader.Value;
-            populatedInformation.AddInformation(key, value);
+            populatedInfo.UpdateInformation(key, value);
 
             while (!ReachedEndOfResourceBlock(xmlReader))
             {
-                if (xmlReader.NodeType == XmlNodeType.Element)
+                if (xmlReader.NodeType == XmlNodeType.Element && populatedInfo.GetInformationKeys().Contains(xmlReader.Name))
                 {
                     key = xmlReader.Name;
                     xmlReader.Read();
                     value = xmlReader.Value;
-                    populatedInformation.AddInformation(key, value);
+                    populatedInfo.UpdateInformation(key, value);
                 }
 
                 xmlReader.Read();
             }
             xmlReader.Close();
 
-            return populatedInformation;
+            return populatedInfo;
         }
 
         private bool ReachedEndOfResourceBlock(XmlTextReader xmlReader)
@@ -144,12 +150,12 @@ namespace FearEngine.Resources.Managment
 
         private string GetFilepathForDefault()
         {
-            return GetResourceInformationByName(defaultResourceName).GetFilepath();
+            return GetResourceInformationByName(defaultInformation.GetName()).GetFilepath();
         }
 
         public string GetDefaultResourceName()
-        { 
-            return defaultResourceName;
+        {
+            return defaultInformation.GetName();
         }
     }
 }

@@ -1,23 +1,43 @@
-﻿using System;
+﻿using FearEngine.Logger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FearEngine.Resources.Managment.Loaders
 {
-    public class ResourceInformation
+    public abstract class ResourceInformation
     {
-        Dictionary<string, string> information;
+        private Dictionary<string, string> information;
 
         public ResourceInformation()
         {
             information = new Dictionary<string,string>();
 
-            information["Name"] = "";
+            information["Name"] = "DEFAULT";
             information["Filepath"] = "";
+            PopulateDefaultValues();
         }
 
-        public void AddInformation(string key, string value)
+        abstract protected void PopulateDefaultValues();
+
+        public List<string> GetInformationKeys()
+        {
+            return information.Keys.ToList();
+        }
+
+        protected void AddInformation(string key, string value)
+        {
+            if (information.ContainsKey(key))
+            {
+                FearLog.Log("Key already present. No information added.", LogPriority.HIGH);
+            }
+            else
+            {
+                information[key] = value;
+            }
+        }
+
+        public void UpdateInformation(string key, string value)
         {
             if (information.ContainsKey(key))
             {
@@ -25,7 +45,7 @@ namespace FearEngine.Resources.Managment.Loaders
             }
             else
             {
-                information.Add(key, value);
+                FearLog.Log("Key not found in Information layout. No information updated.", LogPriority.HIGH);
             }
         }
 
@@ -52,11 +72,6 @@ namespace FearEngine.Resources.Managment.Loaders
         internal bool GetBool(string key)
         {
             return Boolean.Parse(information[key]);
-        }
-
-        public List<string> GetPotentialInformationKeys()
-        {
-            return information.Keys.ToList();
         }
     }
 }

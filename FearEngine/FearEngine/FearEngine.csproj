@@ -79,9 +79,12 @@
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
     <Compile Include="Resources\Loaders\MeshLoader.cs" />
-    <Compile Include="Resources\Loaders\ResourceInformation.cs" />
+    <Compile Include="Resources\ResourceFiles\ResourceFileInformation\MeshResourceInformation.cs" />
+    <Compile Include="Resources\ResourceFiles\ResourceFileInformation\MaterialResourceInformation.cs" />
+    <Compile Include="Resources\ResourceFiles\ResourceFileInformation\TextureResourceInformation.cs" />
+    <Compile Include="Resources\ResourceFiles\ResourceFileInformation\ResourceInformation.cs" />
     <Compile Include="Resources\Managment\Resource.cs" />
-    <Compile Include="Resources\Managment\ResourceFileFactory.cs" />
+    <Compile Include="Resources\ResourceFiles\ResourceFileFactory.cs" />
     <Compile Include="Resources\Managment\ResourceType.cs" />
     <Compile Include="Resources\ResourceFiles\TextureResourceFile.cs" />
     <Compile Include="Resources\ResourceFiles\MaterialResourceFile.cs" />

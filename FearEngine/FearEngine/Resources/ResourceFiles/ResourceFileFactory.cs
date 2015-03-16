@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FearEngine.Resources.Managment.Loaders;
+using System;
 namespace FearEngine.Resources.Managment
 {
     public class ResourceFileFactory
@@ -9,13 +10,13 @@ namespace FearEngine.Resources.Managment
             switch(type)
             {
                 case ResourceType.Mesh:
-                    return new MeshResourceFile(path);
+                    return new MeshResourceFile(path, new MeshResourceInformation());
 
                 case ResourceType.Material:
-                    return new MaterialResourceFile(path);
+                    return new MaterialResourceFile(path, new MaterialResourceInformation());
 
                 case ResourceType.Texture:
-                    return new TextureResourceFile(path);
+                    return new TextureResourceFile(path, new TextureResourceInformation());
 
                 default:
                     throw new UnknownResourceType();

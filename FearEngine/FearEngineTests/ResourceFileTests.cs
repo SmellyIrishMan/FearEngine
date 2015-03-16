@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.Resources.Managment;
 using System.IO;
+using FearEngine.Resources.Managment.Loaders;
 
 namespace FearEngineTests
 {
@@ -20,7 +21,7 @@ namespace FearEngineTests
         public void CreateFileWithoutOverwritingExistingFile()
         {
             //Given
-            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
+            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder(), new MeshResourceInformation());
             
             //When
             string filePath = testFile.GetResourceInformationByName("TEAPOT").GetFilepath();
@@ -34,7 +35,7 @@ namespace FearEngineTests
         public void AddDefaultMeshToFileWithoutDefaultMesh()
         {
             //Given
-            NoDefaultResourceFile testFile = new NoDefaultResourceFile(GetResourceFolder());
+            NoDefaultResourceFile testFile = new NoDefaultResourceFile(GetResourceFolder(), new MeshResourceInformation());
 
             //When
             string filePath = testFile.GetResourceInformationByName("DEFAULT").GetFilepath();
@@ -47,7 +48,7 @@ namespace FearEngineTests
         public void GetMeshResourceThatDoesNotExist()
         {
             //Given
-            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
+            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder(), new MeshResourceInformation());
 
             //When
             string filePath = testFile.GetResourceInformationByName("THISMESHDOESNOTEXIST").GetFilepath();
@@ -60,7 +61,7 @@ namespace FearEngineTests
         public void GetMeshResourceThatDoesNotExistAndFallbackToDefault()
         {
             //Given
-            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder());
+            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder(), new MeshResourceInformation());
 
             //When
             string filePath = testFile.GetResourceInformationByName("THISMESHDOESNOTEXIST", true).GetFilepath();

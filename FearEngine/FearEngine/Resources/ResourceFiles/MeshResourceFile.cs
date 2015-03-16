@@ -1,10 +1,17 @@
-﻿namespace FearEngine.Resources.Managment
+﻿using FearEngine.Resources.Managment.Loaders;
+namespace FearEngine.Resources.Managment
 {
     public class MeshResourceFile : ResourceFile
     {
-        public MeshResourceFile(string location) : base(location)
+        public MeshResourceFile(string location, ResourceInformation defaultInfo)
+            : base(location, defaultInfo)
         {
 
+        }
+
+        override protected ResourceInformation CreateFreshResourceInformation()
+        {
+            return new MeshResourceInformation();
         }
 
         override protected string GetType()

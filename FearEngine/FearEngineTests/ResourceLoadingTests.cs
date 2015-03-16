@@ -14,9 +14,8 @@ namespace FearEngineTests
             //Given
             SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
             TextureLoader loader = new TextureLoader(device);
-            ResourceInformation info = new ResourceInformation();
-            info.AddInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png");
-            info.AddInformation("LinearData", "false");
+            ResourceInformation info = new TextureResourceInformation();
+            info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png");
 
             //When
             Texture texture = (Texture)loader.Load(info);
@@ -34,9 +33,9 @@ namespace FearEngineTests
             //Given
             SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
             TextureLoader loader = new TextureLoader(device);
-            ResourceInformation info = new ResourceInformation();
-            info.AddInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png");
-            info.AddInformation("LinearData", "false");
+            ResourceInformation info = new TextureResourceInformation();
+            info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png");
+            info.UpdateInformation("IsLinear", "false");
 
             //When
             Texture texture = (Texture)loader.Load(info);
@@ -54,9 +53,9 @@ namespace FearEngineTests
             //Given
             SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
             MaterialLoader loader = new MaterialLoader(device);
-            ResourceInformation info = new ResourceInformation();
-            info.AddInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\Textured.fx");
-            info.AddInformation("Technique", "TexturedNoLighting");
+            ResourceInformation info = new MaterialResourceInformation();
+            info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\Textured.fx");
+            info.UpdateInformation("Technique", "TexturedNoLighting");
 
             //When
             Material material = (Material)loader.Load(info);

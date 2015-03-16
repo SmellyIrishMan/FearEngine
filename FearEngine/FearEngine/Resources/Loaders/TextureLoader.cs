@@ -18,7 +18,7 @@ namespace FearEngine.Resources.Loaders
             SharpDX.Toolkit.Graphics.Texture2D texture = SharpDX.Toolkit.Graphics.Texture2D.Load(device, info.GetFilepath());
             SharpDX.Direct3D11.ShaderResourceView textureView;
 
-            bool isLinearData = info.GetBool("LinearData");
+            bool isLinearData = info.GetBool("IsLinear");
             if (isLinearData)
             {
                 textureView = new SharpDX.Direct3D11.ShaderResourceView(device, texture);
