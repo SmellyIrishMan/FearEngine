@@ -49,6 +49,11 @@ namespace FearEngine.Resources.Managment.Loaders
             return Int32.Parse(information[key]);
         }
 
+        internal bool GetBool(string key)
+        {
+            return Boolean.Parse(information[key]);
+        }
+
         public List<string> GetPotentialInformationKeys()
         {
             return information.Keys.ToList();

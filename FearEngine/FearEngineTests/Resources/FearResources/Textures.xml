@@ -3,9 +3,11 @@
   <Texture>
     <Name>DEFAULT</Name>
     <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png</Filepath>
+    <LinearData>false</LinearData>
   </Texture>
   <Texture>
     <Name>GammaGradient</Name>
     <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png</Filepath>
+    <LinearData>false</LinearData>
   </Texture>
 </TextureList>
