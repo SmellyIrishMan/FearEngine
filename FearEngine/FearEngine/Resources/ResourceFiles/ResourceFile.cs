@@ -36,19 +36,6 @@ namespace FearEngine.Resources.Managment
             }
         }
 
-        private void UpdateDefaultResourceInformation()
-        {
-            ResourceInformation existingInfo = GetResourceInformationByName(defaultInformation.GetName());
-            if (existingInfo.GetName().CompareTo(defaultInformation.GetName()) == 0)
-            {
-                return;
-            }
-            else
-            {
-                AddDefaultResource();
-            }
-        }
-
         private void CreateFile()
         {
             System.IO.StreamWriter file = new StreamWriter(filePath);
@@ -60,22 +47,70 @@ namespace FearEngine.Resources.Managment
             AddDefaultResource();
         }
 
+        private void UpdateDefaultResourceInformation()
+        {
+            ResourceInformation updatedInfo = GetResourceInformationByName(defaultInformation.GetName());
+            if (updatedInfo.GetName().CompareTo(defaultInformation.GetName()) == 0)
+            {
+                ReplaceCurrentDefault(updatedInfo);
+            }
+            else
+            {
+                AddDefaultResource();
+            }
+        }
+
+        private void ReplaceCurrentDefault(ResourceInformation updatedInfo)
+        {
+            List<string> lines = GetFileLines();
+
+            RemoveEntryByName(lines, defaultInformation.GetString("Name"));
+
+            List<string> newEntry = CreateFileEntryFromInfo(updatedInfo);
+            lines.InsertRange(2, newEntry);
+            File.WriteAllLines(filePath, lines.ToArray());
+        }
+
+        private void RemoveEntryByName(List<string> lines, string name)
+        {
+            int startingIndex = lines.IndexOf("      <Name>" + name + "</Name>");
+            if (startingIndex > 0)
+            {
+                startingIndex = startingIndex - 1;
+
+                int endIndex = lines.IndexOf("   </" + GetType() + ">", startingIndex);
+                endIndex = endIndex + 1;
+                lines.RemoveRange(startingIndex, endIndex - startingIndex);
+            }
+        }
+
+        private List<string> CreateFileEntryFromInfo(ResourceInformation info)
+        {
+            List<string> newEntry = new List<string>();
+            newEntry.Add("   <" + GetType() + ">");
+            foreach (string key in info.GetInformationKeys())
+            {
+                newEntry.Add("      <" + key + ">" + info.GetString(key) + "</" + key + ">");
+            }
+            newEntry.Add("   </" + GetType() + ">");
+            return newEntry;
+        }
+
         private void AddDefaultResource()
+        {
+            List<string> lines = GetFileLines();
+            List<string> newEntry = CreateFileEntryFromInfo(defaultInformation);
+
+            lines.InsertRange(2, newEntry);
+            File.WriteAllLines(filePath, lines.ToArray());
+        }
+
+        private List<string> GetFileLines()
         {
             string[] fullResourceFile = File.ReadAllLines(filePath);
             List<string> lines = new List<string>();
             lines.AddRange(fullResourceFile);
-
-            List<string> newEntry = new List<string>();
-            newEntry.Add("\t<" + GetType() + ">");
-            foreach (string key in defaultInformation.GetInformationKeys())
-            {
-                newEntry.Add("\t\t<" + key + ">" + defaultInformation.GetString(key) + "</" + key + ">");
-            }
-            newEntry.Add("\t</" + GetType() + ">");
-
-            lines.InsertRange(2, newEntry);
-            File.WriteAllLines(filePath, lines.ToArray());
+            return lines;
         }
 
         private string GetRootElement()

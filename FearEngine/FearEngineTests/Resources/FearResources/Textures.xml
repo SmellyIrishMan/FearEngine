@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <TextureList>
-  <Texture>
-    <Name>DEFAULT</Name>
-    <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png</Filepath>
-    <IsLinear>false</IsLinear>
-  </Texture>
-  <Texture>
-    <Name>GammaGradient</Name>
-    <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png</Filepath>
-    <IsLinear>false</IsLinear>
-  </Texture>
+   <Texture>
+      <Name>DEFAULT</Name>
+      <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png</Filepath>
+      <IsLinear>false</IsLinear>
+   </Texture>
+   <Texture>
+      <Name>GammaGradient</Name>
+      <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png</Filepath>
+      <IsLinear>false</IsLinear>
+   </Texture>
 </TextureList>

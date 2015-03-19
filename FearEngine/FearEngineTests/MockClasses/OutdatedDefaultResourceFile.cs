@@ -3,9 +3,9 @@ using FearEngine.Resources.Managment.Loaders;
 
 namespace FearEngineTests
 {
-    public class NoDefaultResourceFile : ResourceFile
+    public class OutdatedDefaultResourceFile : ResourceFile
     {
-        public NoDefaultResourceFile(string location, ResourceInformation defaultInfo)
+        public OutdatedDefaultResourceFile(string location, ResourceInformation defaultInfo)
             : base(location, defaultInfo)
         {
 
@@ -13,17 +13,18 @@ namespace FearEngineTests
 
         override protected ResourceInformation CreateFreshResourceInformation()
         {
-            return new MeshResourceInformation();
+            return new MaterialResourceInformation();
         }
 
         override protected string GetType()
         {
-            return "Mesh";
+            return "Material";
         }
 
         override public string GetFilename()
         {
-            return "ResourceFileWithoutDefault.xml";
+            return "ResourceFileWithOutdatedDefault.xml";
         }
     }
 }
+

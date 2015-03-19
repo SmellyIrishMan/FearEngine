@@ -83,6 +83,7 @@
     <Compile Include="FullScaleProjects\Games\TeapotDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TexturedCubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\BlankWindowDemo.cs" />
+    <Compile Include="MockClasses\OutdatedDefaultResourceFile.cs" />
     <Compile Include="MockClasses\NoDefaultResourceFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceFileTests.cs" />
@@ -105,6 +106,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\ResourceFileWithOutdatedDefault.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\FearResources\Materials.xml">
       <SubType>Designer</SubType>
     </Content>

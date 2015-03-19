@@ -70,5 +70,22 @@ namespace FearEngineTests
             string originalFilePath = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE";
             Assert.IsTrue(filePath.CompareTo(originalFilePath) == 0);
         }
+
+        [TestMethod]
+        public void UpdateDefaultInExistingResourceFile()
+        {
+            //Given
+            OutdatedDefaultResourceFile testFile = new OutdatedDefaultResourceFile(GetResourceFolder(), new MaterialResourceInformation());
+            MaterialResourceInformation defaultInfo = new MaterialResourceInformation();
+
+            //When
+            ResourceInformation updatedInformation = testFile.GetResourceInformationByName("DEFAULT");
+            string updatedFilePath = updatedInformation.GetFilepath();
+
+            //Then
+            string originalFilePath = "C:\\ThisAddressShouldStayTheSame";
+            Assert.IsTrue(updatedFilePath.CompareTo(originalFilePath) == 0);
+            Assert.IsTrue(updatedInformation.GetInformationKeys().Count == defaultInfo.GetInformationKeys().Count);
+        }
     }
 }

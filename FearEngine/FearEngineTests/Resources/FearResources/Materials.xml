@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <MaterialList>
-	<Material>
-		<Name>DEFAULT</Name>
-		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\Basic.fx</Filepath>
-		<Technique>BasicPositionColorTech</Technique>
-	</Material>
-	<Material>
-		<Name>Textured</Name>
-		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\Textured.fx</Filepath>
-		<Technique>TexturedNoLighting</Technique>
-	</Material>
-	<Material>
-		<Name>NormalLit</Name>
-		<Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
-		<Technique>BasicPositionNormalLightTech</Technique>
-	</Material>
+   <Material>
+      <Name>DEFAULT</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\Basic.fx</Filepath>
+      <Technique>BasicPositionColorTech</Technique>
+   </Material>
+   <Material>
+      <Name>Textured</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\Textured.fx</Filepath>
+      <Technique>TexturedNoLighting</Technique>
+   </Material>
+   <Material>
+      <Name>NormalLit</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
+      <Technique>BasicPositionNormalLightTech</Technique>
+   </Material>
 </MaterialList>
