@@ -15,10 +15,10 @@ namespace FearEngine.Resources.Managment.Loaders
         public Resource Load(ResourceInformation info)
         {
             EffectCompiler compiler = new EffectCompiler();
-            var effectResult = compiler.CompileFromFile(info.GetFilepath());
+            var effectResult = compiler.CompileFromFile(info.Filepath);
             if (effectResult.HasErrors)
             {
-                FearLog.Log("ERROR Compiling effect; " + info.GetFilepath(), LogPriority.EXCEPTION);
+                FearLog.Log("ERROR Compiling effect; " + info.Filepath, LogPriority.EXCEPTION);
                 foreach (SharpDX.Toolkit.Diagnostics.LogMessage message in effectResult.Logger.Messages)
                 {
                     FearLog.Log("\t" + message.Text, LogPriority.EXCEPTION);
@@ -31,7 +31,7 @@ namespace FearEngine.Resources.Managment.Loaders
                 Effect effect = new Effect(device, effectResult.EffectData);
                 effect.CurrentTechnique = effect.Techniques[info.GetString("Technique")];
 
-                Material mat = new Material(info.GetName(), effect);
+                Material mat = new Material(info.Name, effect);
                 return mat;
             }
         }

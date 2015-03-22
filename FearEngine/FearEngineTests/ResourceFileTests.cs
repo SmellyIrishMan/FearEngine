@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.Resources.Managment;
 using System.IO;
 using FearEngine.Resources.Managment.Loaders;
+using FearEngine.Resources.ResourceFiles;
 
 namespace FearEngineTests
 {
@@ -21,10 +22,10 @@ namespace FearEngineTests
         public void CreateFileWithoutOverwritingExistingFile()
         {
             //Given
-            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder(), new MeshResourceInformation());
+            MeshResourceFile testFile = new MeshResourceFile(new XMLResourceStorage(GetResourceFolder(), "Meshes.xml", ResourceType.Mesh));
             
             //When
-            string filePath = testFile.GetResourceInformationByName("TEAPOT").GetFilepath();
+            string filePath = testFile.GetResourceInformationByName("TEAPOT").Filepath;
 
             //Then
             string originalFilePath = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Teapot.DAE";
@@ -35,23 +36,10 @@ namespace FearEngineTests
         public void AddDefaultMeshToFileWithoutDefaultMesh()
         {
             //Given
-            NoDefaultResourceFile testFile = new NoDefaultResourceFile(GetResourceFolder(), new MeshResourceInformation());
+            ResourceFile noDefaultResourceFile = new MeshResourceFile(new XMLResourceStorage(GetResourceFolder(), "ResourceFileWithoutDefault.xml", ResourceType.Mesh));
 
             //When
-            string filePath = testFile.GetResourceInformationByName("DEFAULT").GetFilepath();
-
-            //Then
-            Assert.IsTrue(filePath.CompareTo("") == 0);
-        }
-
-        [TestMethod]
-        public void GetMeshResourceThatDoesNotExist()
-        {
-            //Given
-            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder(), new MeshResourceInformation());
-
-            //When
-            string filePath = testFile.GetResourceInformationByName("THISMESHDOESNOTEXIST").GetFilepath();
+            string filePath = noDefaultResourceFile.GetResourceInformationByName("DEFAULT").Filepath;
 
             //Then
             Assert.IsTrue(filePath.CompareTo("") == 0);
@@ -61,10 +49,10 @@ namespace FearEngineTests
         public void GetMeshResourceThatDoesNotExistAndFallbackToDefault()
         {
             //Given
-            MeshResourceFile testFile = new MeshResourceFile(GetResourceFolder(), new MeshResourceInformation());
+            MeshResourceFile testFile = new MeshResourceFile(new XMLResourceStorage(GetResourceFolder(), "Meshes.xml", ResourceType.Mesh));
 
             //When
-            string filePath = testFile.GetResourceInformationByName("THISMESHDOESNOTEXIST", true).GetFilepath();
+            string filePath = testFile.GetResourceInformationByName("THISMESHDOESNOTEXIST").Filepath;
 
             //Then
             string originalFilePath = "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Models\\Box.DAE";
@@ -75,17 +63,17 @@ namespace FearEngineTests
         public void UpdateDefaultInExistingResourceFile()
         {
             //Given
-            OutdatedDefaultResourceFile testFile = new OutdatedDefaultResourceFile(GetResourceFolder(), new MaterialResourceInformation());
+            ResourceFile outOfDateDefaultResourceFile = new MeshResourceFile(new XMLResourceStorage(GetResourceFolder(), "ResourceFileWithOutdatedDefault.xml", ResourceType.Material));
             MaterialResourceInformation defaultInfo = new MaterialResourceInformation();
 
             //When
-            ResourceInformation updatedInformation = testFile.GetResourceInformationByName("DEFAULT");
-            string updatedFilePath = updatedInformation.GetFilepath();
+            ResourceInformation updatedInformation = outOfDateDefaultResourceFile.GetResourceInformationByName("DEFAULT");
+            string updatedFilePath = updatedInformation.Filepath;
 
             //Then
             string originalFilePath = "C:\\ThisAddressShouldStayTheSame";
             Assert.IsTrue(updatedFilePath.CompareTo(originalFilePath) == 0);
-            Assert.IsTrue(updatedInformation.GetInformationKeys().Count == defaultInfo.GetInformationKeys().Count);
+            Assert.IsTrue(updatedInformation.InformationKeys.Count == defaultInfo.InformationKeys.Count);
         }
     }
 }

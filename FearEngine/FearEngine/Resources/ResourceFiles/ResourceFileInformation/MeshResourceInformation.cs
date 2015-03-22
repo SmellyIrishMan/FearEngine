@@ -11,6 +11,8 @@ namespace FearEngine.Resources.Managment.Loaders
         {
         }
 
+        override public ResourceType Type { get { return ResourceType.Mesh; } }
+
         override protected void PopulateDefaultValues()
         {
            

@@ -27,7 +27,10 @@ namespace FearEngineTests
 
             //Then
             Assert.IsTrue(System.IO.Directory.Exists(resourcesPath));
-            Assert.IsTrue(resDir.IsFullyFormed());
+
+            Assert.IsTrue(System.IO.File.Exists(resourcesPath + "\\FearResources\\Meshes.xml"));
+            Assert.IsTrue(System.IO.File.Exists(resourcesPath + "\\FearResources\\Materials.xml"));
+            Assert.IsTrue(System.IO.File.Exists(resourcesPath + "\\FearResources\\Textures.xml"));
         }
     }
 }

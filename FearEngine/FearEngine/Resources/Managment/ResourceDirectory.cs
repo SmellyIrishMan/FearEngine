@@ -43,21 +43,6 @@ namespace FearEngine.Resources.Managment
             FearLog.Log("Current Resource Directory; " + rootResourcePath);
         }
 
-        public bool IsFullyFormed()
-        {
-            foreach (ResourceFile file in resourceFiles.Values)
-            {
-                System.IO.File.Exists(resourcesPath + "\\" + file.GetFilename());
-            }
-
-            return true;
-        }
-
-        public string GetDefaultResourceName(ResourceType type)
-        {
-            return resourceFiles[type].GetDefaultResourceName();
-        }
-
         public ResourceInformation GetMaterialInformation(string name)
         {
             return resourceFiles[ResourceType.Material].GetResourceInformationByName(name);

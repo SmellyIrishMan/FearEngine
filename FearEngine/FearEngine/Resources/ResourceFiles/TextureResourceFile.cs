@@ -1,27 +1,16 @@
 ﻿using FearEngine.Resources.Managment.Loaders;
+using FearEngine.Resources.ResourceFiles;
+
 namespace FearEngine.Resources.Managment
 {
     public class TextureResourceFile : ResourceFile
     {
-        public TextureResourceFile(string location, ResourceInformation defaultInfo)
-            : base(location, defaultInfo)
+        public TextureResourceFile(ResourceStorage store)
+            : base(store)
         {
 
         }
 
-        override protected ResourceInformation CreateFreshResourceInformation()
-        {
-            return new TextureResourceInformation();
-        }
-
-        override protected string GetType()
-        {
-            return "Texture";
-        }
-
-        override public string GetFilename()
-        {
-            return "Textures.xml";
-        }
+        override protected ResourceType Type { get { return ResourceType.Texture; } }
     }
 }

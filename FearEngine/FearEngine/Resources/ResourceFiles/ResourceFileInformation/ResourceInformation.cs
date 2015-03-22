@@ -18,12 +18,12 @@ namespace FearEngine.Resources.Managment.Loaders
             PopulateDefaultValues();
         }
 
-        abstract protected void PopulateDefaultValues();
+        public List<string> InformationKeys { get { return information.Keys.ToList(); } }
+        public string Name                  { get { return information["Name"]; } }
+        public string Filepath              { get { return information["Filepath"]; } }
 
-        public List<string> GetInformationKeys()
-        {
-            return information.Keys.ToList();
-        }
+        abstract protected void PopulateDefaultValues();
+        abstract public ResourceType Type { get; }
 
         protected void AddInformation(string key, string value)
         {
@@ -47,16 +47,6 @@ namespace FearEngine.Resources.Managment.Loaders
             {
                 FearLog.Log("Key not found in Information layout. No information updated.", LogPriority.HIGH);
             }
-        }
-
-        public string GetName()
-        {
-            return information["Name"];
-        }
-
-        public string GetFilepath()
-        {
-            return information["Filepath"];
         }
 
         public string GetString(string key)

@@ -15,7 +15,7 @@ namespace FearEngine.Resources.Loaders
 
         public Resource Load(ResourceInformation info)
         {
-            SharpDX.Toolkit.Graphics.Texture2D texture = SharpDX.Toolkit.Graphics.Texture2D.Load(device, info.GetFilepath());
+            SharpDX.Toolkit.Graphics.Texture2D texture = SharpDX.Toolkit.Graphics.Texture2D.Load(device, info.Filepath);
             SharpDX.Direct3D11.ShaderResourceView textureView;
 
             bool isLinearData = info.GetBool("IsLinear");
@@ -31,7 +31,7 @@ namespace FearEngine.Resources.Loaders
                 imageInfo.Format = SharpDX.DXGI.Format.R8G8B8A8_UNorm_SRgb;
                 imageInfo.Filter = SharpDX.Direct3D11.FilterFlags.SRgb | SharpDX.Direct3D11.FilterFlags.None;
 
-                SharpDX.Direct3D11.Resource sRGBTexture = SharpDX.Direct3D11.Texture2D.FromFile(device, info.GetFilepath(), imageInfo);
+                SharpDX.Direct3D11.Resource sRGBTexture = SharpDX.Direct3D11.Texture2D.FromFile(device, info.Filepath, imageInfo);
                 textureView = new SharpDX.Direct3D11.ShaderResourceView(device, sRGBTexture);
             }
 

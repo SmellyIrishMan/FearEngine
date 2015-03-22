@@ -1,27 +1,16 @@
 ﻿using FearEngine.Resources.Managment.Loaders;
+using FearEngine.Resources.ResourceFiles;
+
 namespace FearEngine.Resources.Managment
 {
     public class MaterialResourceFile : ResourceFile
     {
-        public MaterialResourceFile(string location, ResourceInformation defaultInfo)
-            : base(location, defaultInfo)
+        public MaterialResourceFile(ResourceStorage store)
+            : base(store)
         {
 
         }
 
-        override protected ResourceInformation CreateFreshResourceInformation()
-        {
-            return new MaterialResourceInformation();
-        }
-
-        override protected string GetType()
-        {
-            return "Material";
-        }
-
-        override public string GetFilename()
-        {
-            return "Materials.xml";
-        }
+        override protected ResourceType Type { get { return ResourceType.Material; } }
     }
 }

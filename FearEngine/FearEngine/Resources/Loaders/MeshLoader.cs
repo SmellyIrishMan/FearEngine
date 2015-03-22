@@ -20,7 +20,7 @@ namespace FearEngine.Resources.Loaders
         {
             ColladaMeshLoader meshLoader = new ColladaMeshLoader();
 
-            Mesh mesh = new Mesh(device, meshLoader.Load(info.GetFilepath()));
+            Mesh mesh = new Mesh(device, meshLoader.Load(info.Filepath));
 
             return mesh;
         }
