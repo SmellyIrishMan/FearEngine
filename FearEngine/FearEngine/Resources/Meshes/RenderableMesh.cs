@@ -13,7 +13,7 @@ namespace FearEngine.Resources.Meshes
 
         private bool isLoaded = false;
 
-        public RenderableMesh(GraphicsDevice graphicsDevice, MeshInformation meshInfo)
+        public RenderableMesh(GraphicsDevice graphicsDevice, MeshData meshInfo)
         {
             vertexBuffer = Buffer.Vertex.New(graphicsDevice, meshInfo.GetVertices());
             indexBuffer = Buffer.Index.New(graphicsDevice, meshInfo.GetIndices());

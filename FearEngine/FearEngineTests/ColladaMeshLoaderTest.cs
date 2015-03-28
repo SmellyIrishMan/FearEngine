@@ -15,10 +15,10 @@ namespace FearEngineTests
             ColladaMeshLoader loader = new ColladaMeshLoader();
             
             //When
-            MeshInformation mesh = loader.Load("ThisFileDoesNotExist.DAE");
+            MeshData mesh = loader.Load("ThisFileDoesNotExist.DAE");
 
             //Then
-            MeshInformation newMesh = new MeshInformation();
+            MeshData newMesh = new MeshData();
             Assert.AreEqual(mesh, newMesh);
         }
 
@@ -29,7 +29,7 @@ namespace FearEngineTests
             ColladaMeshLoader loader = new ColladaMeshLoader();
 
             //When
-            MeshInformation mesh = loader.Load("Resources/Box.DAE");
+            MeshData mesh = loader.Load("Resources/Box.DAE");
             
             //Then
             Assert.IsTrue(mesh.GetIndexCount() == (uint)36);

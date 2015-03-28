@@ -3,7 +3,7 @@ using System;
 using Buffer = SharpDX.Toolkit.Graphics.Buffer;
 namespace FearEngine.Resources.Meshes
 {
-    public class MeshInformation
+    public class MeshData
     {
         private uint vertexCount;
         private uint indexCount;
@@ -11,13 +11,13 @@ namespace FearEngine.Resources.Meshes
         VertexInformation[] vertices;
         UInt32[] indices;
 
-        public MeshInformation()
+        public MeshData()
         {
             vertexCount = 0;
             indexCount = 0;
         }
 
-        public MeshInformation(VertexInformation[] verts, UInt32[] ind)
+        public MeshData(VertexInformation[] verts, UInt32[] ind)
         {
             vertices = verts;
             indices = ind;
@@ -66,7 +66,7 @@ namespace FearEngine.Resources.Meshes
 
         public override bool Equals(object obj)
         {
-            MeshInformation objB = obj as MeshInformation;
+            MeshData objB = obj as MeshData;
             if((System.Object)objB != null)
             {
                 if (vertexCount == objB.vertexCount && indexCount == objB.indexCount)

@@ -20,10 +20,10 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
 
         }
 
-        public MeshInformation Load(string filename) 
+        public MeshData Load(string filename) 
         {
             if (!IsFileValid(filename)){
-                return new MeshInformation();
+                return new MeshData();
             }
 
             meshData = Grendgine_Collada.Grendgine_Load_File(filename).Library_Geometries.Geometry[0].Mesh;
@@ -33,7 +33,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
 
             SwitchUpAxisFromZtoY();
 
-            return new MeshInformation(vertices, indices);
+            return new MeshData(vertices, indices);
         }
 
         private bool IsFileValid(string filename)
