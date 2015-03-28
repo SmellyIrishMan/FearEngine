@@ -1,4 +1,5 @@
-﻿using grendgine_collada;
+﻿using FearEngine.Resources.Meshes;
+using grendgine_collada;
 using System;
 using System.Collections.Generic;
 
@@ -6,45 +7,45 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
 {
     class SourceDataFactory
     {
-        private Dictionary<SourceType, List<String>> sourceTypeToString;
+        private Dictionary<VertexInfoType, List<String>> sourceTypeToString;
 
         public SourceDataFactory()
         {
-            sourceTypeToString = new Dictionary<SourceType, List<String>>();
+            sourceTypeToString = new Dictionary<VertexInfoType, List<String>>();
             populateSourceToStringTable();
         }
 
         private void populateSourceToStringTable()
         {
-            sourceTypeToString[SourceType.POSITION] = new List<string>(new String[] {
+            sourceTypeToString[VertexInfoType.POSITION] = new List<string>(new String[] {
                 "position" });
 
-            sourceTypeToString[SourceType.NORMAL] = new List<string>(new String[] {
+            sourceTypeToString[VertexInfoType.NORMAL] = new List<string>(new String[] {
                 "normal" });
 
-            sourceTypeToString[SourceType.TEXCOORD1] = new List<string>(new String[] {
+            sourceTypeToString[VertexInfoType.TEXCOORD1] = new List<string>(new String[] {
                 "map1" });
 
-            sourceTypeToString[SourceType.TEXCOORD2] = new List<string>(new String[] {
+            sourceTypeToString[VertexInfoType.TEXCOORD2] = new List<string>(new String[] {
                 "map2" });
         }
 
         public SourceData CreateSourceData(Grendgine_Collada_Source src)
         {
             SourceData data;
-            SourceType srcType = getSourceTypeFromId(src.ID);
+            VertexInfoType srcType = getSourceTypeFromId(src.ID);
             switch (srcType)
             {
-                case SourceType.POSITION:
+                case VertexInfoType.POSITION:
                     data = new SourceDataPositionImpl(src);
                     break;
-                case SourceType.NORMAL:
+                case VertexInfoType.NORMAL:
                     data = new SourceDataNormalImpl(src);
                     break;
-                case SourceType.TEXCOORD1:
+                case VertexInfoType.TEXCOORD1:
                     data = new SourceDataTexcoord1Impl(src);
                     break;
-                case SourceType.TEXCOORD2:
+                case VertexInfoType.TEXCOORD2:
                     data = new SourceDataTexcoord2Impl(src);
                     break;
                 default:
@@ -54,9 +55,9 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             return data;
         }
 
-        private SourceType getSourceTypeFromId(string scrId)
+        private VertexInfoType getSourceTypeFromId(string scrId)
         {
-            foreach (SourceType type in sourceTypeToString.Keys)
+            foreach (VertexInfoType type in sourceTypeToString.Keys)
             {
                 foreach (String matchString in sourceTypeToString[type])
                 {

@@ -1,4 +1,5 @@
-﻿using grendgine_collada;
+﻿using FearEngine.Resources.Meshes;
+using grendgine_collada;
 using SharpDX;
 
 namespace FearEngine.Resources.Managment.Loaders.Collada
@@ -7,9 +8,9 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
     {
         public SourceDataTexcoord2Impl(Grendgine_Collada_Source src) : base(src) { }
 
-        override public SourceType GetSourceType()
+        override public VertexInfoType GetVertInfoType()
         {
-            return SourceType.TEXCOORD2;
+            return VertexInfoType.TEXCOORD2;
         }
     }
 }

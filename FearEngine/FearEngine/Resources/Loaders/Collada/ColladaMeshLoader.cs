@@ -13,7 +13,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         Grendgine_Collada_Mesh meshData;
 
         UInt32[] indices;
-        VertexLayouts.PositionNormalTexture[] vertices;
+        VertexInformation[] vertices;
 
         public ColladaMeshLoader()
         {
@@ -56,24 +56,55 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         {
             List<SourceData> sourceData = LoadSourceData();
 
-            vertices = new VertexLayouts.PositionNormalTexture[GetNumberOfVerticesInMesh()];
+            PrepareVertices(sourceData);
+            PopulateVerticesInfo(sourceData);
+        }
 
+        private void PrepareVertices(List<SourceData> sourceData)
+        {
+            List<VertexInfoType> inputs = new List<VertexInfoType>();
+            foreach (SourceData source in sourceData)
+            {
+                inputs.Add(source.GetVertInfoType());
+            }
+
+            vertices = new VertexInformation[GetNumberOfVerticesInMesh()];
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] = new VertexInformation(inputs);
+            }
+        }
+
+        private void PopulateVerticesInfo(List<SourceData> sourceData)
+        {
+            VertexInfoType inputType;
+            int stride = 0;
             int[] triangles = meshData.Triangles[0].P.Value();
-
-            Vector2 newTexcoord;
-            int adjustedIndex = 0;
             int numOfTriangles = triangles.Length / sourceData.Count;
+
             for (int vertexIndex = 0; vertexIndex < numOfTriangles; vertexIndex++)
             {
-                adjustedIndex = vertexIndex * sourceData.Count;
-                vertices[vertexIndex].Position = sourceData[0].GetData()[triangles[adjustedIndex]];
-                vertices[vertexIndex].Normal = sourceData[1].GetData()[triangles[adjustedIndex + 1]];
-
-
-                newTexcoord.X = sourceData[2].GetData()[triangles[adjustedIndex + 2]].X;
-                newTexcoord.Y = sourceData[2].GetData()[triangles[adjustedIndex + 2]].Y;
-                vertices[vertexIndex].TexCoord = newTexcoord;
+                stride = vertexIndex * sourceData.Count;
+                foreach (SourceData source in sourceData)
+                {
+                    inputType = source.GetVertInfoType();
+                    vertices[vertexIndex].SetValue(inputType, source.Data[triangles[stride + GetOffsetForTriangleSourceInput(inputType)]]);
+                }
             }
+        }
+
+        private int GetOffsetForTriangleSourceInput(VertexInfoType inputType)
+        {
+            foreach (Grendgine_Collada_Input_Shared inp in meshData.Triangles[0].Input)
+            {
+                if (VertexInformation.MapSemanticStringToVertexInfoType(inp.Semantic.ToString()) == inputType)
+                {
+                    return inp.Offset;
+                }
+            }
+
+            FearLog.Log("Could not find an offset for the inputType " + inputType.ToString(), LogPriority.ALWAYS);
+            return 0;
         }
 
         private List<SourceData> LoadSourceData()
@@ -94,9 +125,9 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             Matrix adjustAxis = Matrix.RotationX(SharpDX.MathUtil.DegreesToRadians(-90));
             for (int vertexIndex = 0; vertexIndex < GetNumberOfVerticesInMesh(); vertexIndex++)
             {
-                vertices[vertexIndex].Position = Vector3.TransformNormal(vertices[vertexIndex].Position, adjustAxis);
-                vertices[vertexIndex].Normal = Vector3.TransformNormal(vertices[vertexIndex].Normal, adjustAxis);
-                vertices[vertexIndex].Normal.Normalize();
+                vertices[vertexIndex].SetValue(VertexInfoType.POSITION, Vector3.TransformNormal(vertices[vertexIndex].GetValue(VertexInfoType.POSITION), adjustAxis));
+                vertices[vertexIndex].SetValue(VertexInfoType.NORMAL, Vector3.TransformNormal(vertices[vertexIndex].GetValue(VertexInfoType.NORMAL), adjustAxis));
+                vertices[vertexIndex].GetValue(VertexInfoType.NORMAL).Normalize();
             }
         }
     }

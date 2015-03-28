@@ -1,18 +1,11 @@
-﻿using grendgine_collada;
+﻿using FearEngine.Resources.Meshes;
+using grendgine_collada;
 using SharpDX;
 using System;
 
 
 namespace FearEngine.Resources.Managment.Loaders.Collada
 {
-    enum SourceType
-    {
-        POSITION,
-        NORMAL,
-        TEXCOORD1,
-        TEXCOORD2
-    }
-
     abstract class SourceData
     {
         protected Vector3[] sourceData;
@@ -40,11 +33,11 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             }
         }
 
-        public Vector3[] GetData()
+        public Vector3[] Data
         {
-            return sourceData;
+            get { return sourceData; }
         }
 
-        abstract public SourceType GetSourceType();
+        abstract public VertexInfoType GetVertInfoType();
     }
 }

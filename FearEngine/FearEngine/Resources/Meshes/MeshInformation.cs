@@ -8,7 +8,7 @@ namespace FearEngine.Resources.Meshes
         private uint vertexCount;
         private uint indexCount;
 
-        VertexLayouts.PositionNormalTexture[] vertices;
+        VertexInformation[] vertices;
         UInt32[] indices;
 
         public MeshInformation()
@@ -17,7 +17,7 @@ namespace FearEngine.Resources.Meshes
             indexCount = 0;
         }
 
-        public MeshInformation(VertexLayouts.PositionNormalTexture[] verts, UInt32[] ind)
+        public MeshInformation(VertexInformation[] verts, UInt32[] ind)
         {
             vertices = verts;
             indices = ind;
@@ -43,7 +43,25 @@ namespace FearEngine.Resources.Meshes
 
         public VertexLayouts.PositionNormalTexture[] GetVertices()
         {
-            return vertices;
+           return CreateVertexStructureFromVertexInfo();
+        }
+
+        private VertexLayouts.PositionNormalTexture[] CreateVertexStructureFromVertexInfo()
+        {
+            VertexLayouts.PositionNormalTexture[] vertexData = new VertexLayouts.PositionNormalTexture[vertexCount];
+            for (int i = 0; i < vertexCount; i++)
+            {
+                vertexData[i].Position = vertices[i].GetValue(VertexInfoType.POSITION);
+                vertexData[i].Normal = vertices[i].GetValue(VertexInfoType.NORMAL);
+                vertexData[i].TexCoord = ConvertVec3ToVec2ByDroppingZ(vertices[i].GetValue(VertexInfoType.TEXCOORD1));
+            }
+
+            return vertexData;
+        }
+
+        private SharpDX.Vector2 ConvertVec3ToVec2ByDroppingZ(SharpDX.Vector3 vector3)
+        {
+            return new SharpDX.Vector2(vector3.X, vector3.Y);
         }
 
         public override bool Equals(object obj)

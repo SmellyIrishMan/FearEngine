@@ -118,6 +118,7 @@
     </Content>
     <Content Include="Resources\Meshes.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\ResourceFileWithoutDefault.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
