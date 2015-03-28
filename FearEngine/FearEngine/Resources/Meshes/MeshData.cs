@@ -8,8 +8,10 @@ namespace FearEngine.Resources.Meshes
         private uint vertexCount;
         private uint indexCount;
 
-        VertexInformation[] vertices;
+        VertexData[] vertices;
         UInt32[] indices;
+
+        PositionNormalTextureLayout layout;
 
         public MeshData()
         {
@@ -17,13 +19,15 @@ namespace FearEngine.Resources.Meshes
             indexCount = 0;
         }
 
-        public MeshData(VertexInformation[] verts, UInt32[] ind)
+        public MeshData(VertexData[] verts, UInt32[] ind)
         {
             vertices = verts;
             indices = ind;
 
             vertexCount = (uint)vertices.Length;
             indexCount = (uint)indices.Length;
+
+            layout = new PositionNormalTextureLayout();
         }
 
         public uint GetIndexCount()
@@ -41,27 +45,9 @@ namespace FearEngine.Resources.Meshes
             return indices;
         }
 
-        public VertexLayouts.PositionNormalTexture[] GetVertices()
+        public VertexData[] GetVertexData()
         {
-           return CreateVertexStructureFromVertexInfo();
-        }
-
-        private VertexLayouts.PositionNormalTexture[] CreateVertexStructureFromVertexInfo()
-        {
-            VertexLayouts.PositionNormalTexture[] vertexData = new VertexLayouts.PositionNormalTexture[vertexCount];
-            for (int i = 0; i < vertexCount; i++)
-            {
-                vertexData[i].Position = vertices[i].GetValue(VertexInfoType.POSITION);
-                vertexData[i].Normal = vertices[i].GetValue(VertexInfoType.NORMAL);
-                vertexData[i].TexCoord = ConvertVec3ToVec2ByDroppingZ(vertices[i].GetValue(VertexInfoType.TEXCOORD1));
-            }
-
-            return vertexData;
-        }
-
-        private SharpDX.Vector2 ConvertVec3ToVec2ByDroppingZ(SharpDX.Vector3 vector3)
-        {
-            return new SharpDX.Vector2(vector3.X, vector3.Y);
+            return vertices;
         }
 
         public override bool Equals(object obj)

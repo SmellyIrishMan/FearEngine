@@ -15,13 +15,13 @@ namespace FearEngine.Resources.Meshes
         BITANGENT,
     }
 
-    public class VertexInformation
+    public class VertexData
     {
         Dictionary<VertexInfoType, Vector3> inputs;
 
         private static Dictionary<List<String>, VertexInfoType> SemanticNameToVertexInfoMap;
 
-        public VertexInformation(List<VertexInfoType> vertexInputs)
+        public VertexData(List<VertexInfoType> vertexInputs)
         {
             inputs = new Dictionary<VertexInfoType, Vector3>();
 

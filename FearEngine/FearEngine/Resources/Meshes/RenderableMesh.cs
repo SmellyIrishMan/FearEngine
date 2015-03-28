@@ -7,19 +7,23 @@ namespace FearEngine.Resources.Meshes
     {
         private Buffer vertexBuffer;
         private Buffer indexBuffer;
-
-        //TODO This should probably be generalised outside of the mesh.
-        VertexInputLayout inputLayout;
+        private PositionNormalTextureLayout vertLayout;
 
         private bool isLoaded = false;
 
-        public RenderableMesh(GraphicsDevice graphicsDevice, MeshData meshInfo)
+        public RenderableMesh(GraphicsDevice graphicsDevice, MeshData meshData, PositionNormalTextureLayout layout)
         {
-            vertexBuffer = Buffer.Vertex.New(graphicsDevice, meshInfo.GetVertices());
-            indexBuffer = Buffer.Index.New(graphicsDevice, meshInfo.GetIndices());
+            CreateVertexBuffer(graphicsDevice, meshData, layout);
+            indexBuffer = Buffer.Index.New(graphicsDevice, meshData.GetIndices());
 
-            inputLayout = VertexInputLayout.New(0, typeof(VertexLayouts.PositionNormalTexture));
+            vertLayout = layout;
+
             isLoaded = true;
+        }
+
+        private void CreateVertexBuffer(GraphicsDevice graphicsDevice, MeshData meshData, PositionNormalTextureLayout layout)
+        {
+            vertexBuffer = Buffer.Vertex.New(graphicsDevice, layout.GetVertices(meshData.GetVertexData(), meshData.GetVertexCount()));
         }
 
         public Buffer GetVertexBuffer()
@@ -27,14 +31,19 @@ namespace FearEngine.Resources.Meshes
             return vertexBuffer;
         }
 
-        public VertexInputLayout GetInputLayout()
+        internal int GetVertexStride()
         {
-            return inputLayout;
+            return vertLayout.GetStride();
         }
 
         public Buffer GetIndexBuffer()
         {
             return indexBuffer;
+        }
+
+        public VertexInputLayout GetInputLayout()
+        {
+            return vertLayout.GetInputLayout();
         }
 
         public void Dispose()
@@ -47,11 +56,6 @@ namespace FearEngine.Resources.Meshes
         public bool IsLoaded()
         {
             return isLoaded;
-        }
-
-        internal int GetVertexStride()
-        {
-            return System.Runtime.InteropServices.Marshal.SizeOf(typeof(VertexLayouts.PositionNormalTexture));
         }
     }
 }

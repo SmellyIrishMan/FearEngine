@@ -13,7 +13,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         Grendgine_Collada_Mesh meshData;
 
         UInt32[] indices;
-        VertexInformation[] vertices;
+        VertexData[] vertices;
 
         public ColladaMeshLoader()
         {
@@ -68,10 +68,10 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
                 inputs.Add(source.GetVertInfoType());
             }
 
-            vertices = new VertexInformation[GetNumberOfVerticesInMesh()];
+            vertices = new VertexData[GetNumberOfVerticesInMesh()];
             for (int i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = new VertexInformation(inputs);
+                vertices[i] = new VertexData(inputs);
             }
         }
 
@@ -97,7 +97,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         {
             foreach (Grendgine_Collada_Input_Shared inp in meshData.Triangles[0].Input)
             {
-                if (VertexInformation.MapSemanticStringToVertexInfoType(inp.Semantic.ToString()) == inputType)
+                if (VertexData.MapSemanticStringToVertexInfoType(inp.Semantic.ToString()) == inputType)
                 {
                     return inp.Offset;
                 }
