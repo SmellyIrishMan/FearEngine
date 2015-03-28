@@ -30,7 +30,7 @@ namespace FearEngine.Resources.Meshes
 
             material.Apply();
 
-            device.SetVertexBuffer(mesh.GetVertexBuffer());
+            device.SetVertexBuffer(0, mesh.GetVertexBuffer(), mesh.GetVertexStride());
             device.SetVertexInputLayout(mesh.GetInputLayout());
 
             device.SetIndexBuffer(mesh.GetIndexBuffer(), true);

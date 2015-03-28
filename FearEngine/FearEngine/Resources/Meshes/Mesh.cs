@@ -5,7 +5,7 @@ namespace FearEngine.Resources.Meshes
 {
     public class Mesh : Resource
     {
-        private Buffer<VertexLayouts.PositionNormalTexture> vertexBuffer;
+        private Buffer vertexBuffer;
         private Buffer indexBuffer;
 
         //TODO This should probably be generalised outside of the mesh.
@@ -18,11 +18,11 @@ namespace FearEngine.Resources.Meshes
             vertexBuffer = Buffer.Vertex.New(graphicsDevice, meshInfo.GetVertices());
             indexBuffer = Buffer.Index.New(graphicsDevice, meshInfo.GetIndices());
 
-            inputLayout = VertexInputLayout.FromBuffer(0, vertexBuffer);
+            inputLayout = VertexInputLayout.New(0, typeof(VertexLayouts.PositionNormalTexture));
             isLoaded = true;
         }
 
-        public Buffer<VertexLayouts.PositionNormalTexture> GetVertexBuffer()
+        public Buffer GetVertexBuffer()
         {
             return vertexBuffer;
         }
@@ -47,6 +47,11 @@ namespace FearEngine.Resources.Meshes
         public bool IsLoaded()
         {
             return isLoaded;
+        }
+
+        internal int GetVertexStride()
+        {
+            return System.Runtime.InteropServices.Marshal.SizeOf(typeof(VertexLayouts.PositionNormalTexture));
         }
     }
 }
