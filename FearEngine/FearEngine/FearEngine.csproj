@@ -106,7 +106,7 @@
     <Compile Include="Resources\Loaders\Collada\SourceDataFactory.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataPositionImpl.cs" />
     <Compile Include="Resources\Loaders\MaterialLoader.cs" />
-    <Compile Include="Resources\Meshes\Mesh.cs" />
+    <Compile Include="Resources\Meshes\RenderableMesh.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />
     <Compile Include="Resources\Meshes\VertexLayouts.cs" />

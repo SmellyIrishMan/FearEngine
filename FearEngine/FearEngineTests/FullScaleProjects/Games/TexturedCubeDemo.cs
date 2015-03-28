@@ -9,7 +9,7 @@ namespace FearEngineTests.FullScaleProjects.Games
     {
         FearEngineImpl fearEngine;
 
-        Mesh cube;
+        RenderableMesh cube;
         MeshRenderer meshRenderer;
         FearEngine.Resources.Material material;
 

@@ -9,7 +9,7 @@ namespace FearEngine.Resources.Meshes
         public MeshRenderer()
         {}
 
-        public void RenderMesh(GraphicsDevice device, Mesh mesh, Material material, Camera cam)
+        public void RenderMesh(GraphicsDevice device, RenderableMesh mesh, Material material, Camera cam)
         {
             Matrix world = Matrix.Identity;
 

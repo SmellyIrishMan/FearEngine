@@ -16,7 +16,7 @@ namespace FearEngine.Resources.Managment
         private ResourceDirectory resourceDir;
         private Dictionary<string, Texture> loadedTextures;
         private Dictionary<string, Material> loadedMaterials;
-        private Dictionary<string, Mesh> loadedMeshes;
+        private Dictionary<string, RenderableMesh> loadedMeshes;
 
         private Dictionary<ResourceType, ResourceLoader> loaders;
 
@@ -30,7 +30,7 @@ namespace FearEngine.Resources.Managment
             loaders[ResourceType.Texture] = textureLoader;
         
             loadedMaterials = new Dictionary<string, Material>();
-            loadedMeshes = new Dictionary<string, Mesh>();
+            loadedMeshes = new Dictionary<string, RenderableMesh>();
             loadedTextures = new Dictionary<string, Texture>();
         }
 
@@ -45,12 +45,12 @@ namespace FearEngine.Resources.Managment
             return loadedMaterials[name];
         }
 
-        public Mesh GetMesh(string name)
+        public RenderableMesh GetMesh(string name)
         {
             if (!loadedMeshes.ContainsKey(name))
             {
                 Resource newRes = LoadResource(name, ResourceType.Mesh, resourceDir.GetMeshInformation(name));
-                loadedMeshes[name] = (Mesh)newRes;
+                loadedMeshes[name] = (RenderableMesh)newRes;
             }
 
             return loadedMeshes[name];
@@ -99,7 +99,7 @@ namespace FearEngine.Resources.Managment
             {
                 mat.Dispose();
             }
-            foreach (Mesh mesh in loadedMeshes.Values)
+            foreach (RenderableMesh mesh in loadedMeshes.Values)
             {
                 mesh.Dispose();
             }

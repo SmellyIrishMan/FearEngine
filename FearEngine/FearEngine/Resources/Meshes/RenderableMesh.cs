@@ -3,7 +3,7 @@ using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Meshes
 {
-    public class Mesh : Resource
+    public class RenderableMesh : Resource
     {
         private Buffer vertexBuffer;
         private Buffer indexBuffer;
@@ -13,7 +13,7 @@ namespace FearEngine.Resources.Meshes
 
         private bool isLoaded = false;
 
-        public Mesh(GraphicsDevice graphicsDevice, MeshInformation meshInfo)
+        public RenderableMesh(GraphicsDevice graphicsDevice, MeshInformation meshInfo)
         {
             vertexBuffer = Buffer.Vertex.New(graphicsDevice, meshInfo.GetVertices());
             indexBuffer = Buffer.Index.New(graphicsDevice, meshInfo.GetIndices());
