@@ -30,8 +30,6 @@ namespace FearEngine.Resources.Meshes
             {
                 inputs[input] = new Vector3();
             }
-
-            CreateSemanticMapToVertexInfoTypeMap();
         }
 
         public void SetValue(VertexInfoType type, Vector3 value)
@@ -46,6 +44,11 @@ namespace FearEngine.Resources.Meshes
 
         public static VertexInfoType MapSemanticStringToVertexInfoType(string semantic)
         {
+            if (SemanticNameToVertexInfoMap == null)
+            {
+                CreateSemanticMapToVertexInfoTypeMap();
+            }
+
             foreach (List<string> semanticNames in SemanticNameToVertexInfoMap.Keys)
             {
                 if (semanticNames.Contains(semantic))
@@ -57,7 +60,7 @@ namespace FearEngine.Resources.Meshes
             throw new SemanticNameNotFoundException();
         }
 
-        private void CreateSemanticMapToVertexInfoTypeMap()
+        private static void CreateSemanticMapToVertexInfoTypeMap()
         {
             SemanticNameToVertexInfoMap = new Dictionary<List<String>, VertexInfoType>();
 

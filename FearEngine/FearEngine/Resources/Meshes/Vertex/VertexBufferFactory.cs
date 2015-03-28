@@ -7,17 +7,24 @@ namespace FearEngine.Resources.Meshes
     public class VertexBufferFactory
     {
         PNTVertexBuffer pntVertBuff;
+        PNTTVertexBuffer pnttVertBuff;
 
         public VertexBufferFactory()
         {
             pntVertBuff = new PNTVertexBuffer();
+            pnttVertBuff = new PNTTVertexBuffer();
         }
 
         public SharpDX.Toolkit.Graphics.Buffer CreateVertexBuffer(GraphicsDevice graphicsDevice, MeshData meshData, VertexLayout layout)
         {
-            if(layout.GetType() == typeof(PositionNormalTextureLayout))
+            if (layout.GetType() == typeof(PositionNormalTextureLayout))
             {
                 return pntVertBuff.CreateBufferFromMeshData(graphicsDevice, meshData);
+            }
+
+            if (layout.GetType() == typeof(PositionNormalTangentTextureLayout))
+            {
+                return pnttVertBuff.CreateBufferFromMeshData(graphicsDevice, meshData);
             }
 
             throw new UnableToCreateVertexBufferException();

@@ -79,16 +79,20 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         {
             VertexInfoType inputType;
             int stride = 0;
-            int[] triangles = meshData.Triangles[0].P.Value();
-            int numOfTriangles = triangles.Length / sourceData.Count;
+            const int VERTICES_IN_A_TRIANGLE = 3;
 
-            for (int vertexIndex = 0; vertexIndex < numOfTriangles; vertexIndex++)
+            int[] sourceIndexes = meshData.Triangles[0].P.Value();
+            int numOfVerticies = sourceIndexes.Length / sourceData.Count;
+            int indexesPerVertex = sourceIndexes.Length / meshData.Triangles[0].Count / VERTICES_IN_A_TRIANGLE;
+
+            for (int vertexIndex = 0; vertexIndex < numOfVerticies; vertexIndex++)
             {
-                stride = vertexIndex * sourceData.Count;
+                stride = vertexIndex * indexesPerVertex;
                 foreach (SourceData source in sourceData)
                 {
                     inputType = source.GetVertInfoType();
-                    vertices[vertexIndex].SetValue(inputType, source.Data[triangles[stride + GetOffsetForTriangleSourceInput(inputType)]]);
+                    int sourceIndex = sourceIndexes[stride + GetOffsetForTriangleSourceInput(inputType)];
+                    vertices[vertexIndex].SetValue(inputType, source.Data[sourceIndex]);
                 }
             }
         }
@@ -112,12 +116,30 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             List<SourceData> sourceData = new List<SourceData>();
 
             SourceDataFactory soureDataFactory = new SourceDataFactory();
+
             foreach (Grendgine_Collada_Source source in meshData.Source)
             {
-                sourceData.Add(soureDataFactory.CreateSourceData(source));
+                sourceData.Add(soureDataFactory.CreateSourceData(source, GetVertexInputTypeForSource(source.ID)));
             }
 
             return sourceData;
+        }
+
+        private VertexInfoType GetVertexInputTypeForSource(string sourceId)
+        {
+            foreach (Grendgine_Collada_Input_Shared inp in meshData.Triangles[0].Input)
+            {
+                if (inp.source.Contains(sourceId))
+                {
+                    return VertexData.MapSemanticStringToVertexInfoType(inp.Semantic.ToString());
+                }
+                else if (sourceId.Contains("positions"))
+                {
+                    return VertexInfoType.POSITION;
+                }
+            }
+
+            throw new FearEngine.Resources.Managment.Loaders.Collada.SourceDataFactory.UnknownSourceTypeException();
         }
 
         private void SwitchUpAxisFromZtoY()

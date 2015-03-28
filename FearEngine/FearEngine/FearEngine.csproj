@@ -77,8 +77,12 @@
     <Compile Include="FearGameTime.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Input\FearInput.cs" />
+    <Compile Include="Resources\Loaders\Collada\SourceDataBiTangentImpl.cs" />
+    <Compile Include="Resources\Loaders\Collada\SourceDataTangentImpl.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
     <Compile Include="Resources\Loaders\MeshLoader.cs" />
+    <Compile Include="Resources\Meshes\Vertex\PNTTVertexBuffer.cs" />
+    <Compile Include="Resources\Meshes\Vertex\Layouts\PositionNormalTangentTextureLayout.cs.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\UnableToDetermineMeshLayout.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayout.cs" />
     <Compile Include="Resources\Meshes\Vertex\PNTVertexBuffer.cs" />

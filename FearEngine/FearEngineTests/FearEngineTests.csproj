@@ -79,6 +79,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ColladaMeshLoaderTest.cs" />
+    <Compile Include="FullScaleProjects\Games\NormalMappedMeshDemo.cs" />
     <Compile Include="FullScaleProjects\Games\CubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TeapotDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TexturedCubeDemo.cs" />

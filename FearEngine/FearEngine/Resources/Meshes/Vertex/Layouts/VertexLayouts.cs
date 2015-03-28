@@ -35,15 +35,37 @@ namespace FearEngine.Resources.Meshes
             public Vector2 TexCoord;
         }
 
+        public struct PositionNormalTangentTexture
+        {
+            [VertexElement("POSITION")]     //THIS MUST MATCH THE SEMANTIC NAME IN THE SHADER IN ORDER TO GET MATCHED CORRECTLY
+            public Vector3 Position;
+
+            [VertexElement("NORMAL")]
+            public Vector3 Normal;
+
+            [VertexElement("TANGENT")]
+            public Vector3 Tangent;
+
+            [VertexElement("TEXCOORD0")]
+            public Vector2 TexCoord;
+        }
+
         internal static VertexLayout DetermineLayout(MeshData meshData)
         {
             if(meshData.Inputs.Contains(VertexInfoType.POSITION))
             {
                 if(meshData.Inputs.Contains(VertexInfoType.NORMAL))
                 {
-                    if(meshData.Inputs.Contains(VertexInfoType.TEXCOORD1))
+                    if (meshData.Inputs.Contains(VertexInfoType.TEXCOORD1))
                     {
-                        return new PositionNormalTextureLayout();
+                        if (meshData.Inputs.Contains(VertexInfoType.TANGENT))
+                        {
+                            return new PositionNormalTangentTextureLayout();
+                        }
+                        else
+                        {
+                            return new PositionNormalTextureLayout();
+                        }
                     }
                 }
             }

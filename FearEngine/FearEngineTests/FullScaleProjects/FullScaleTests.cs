@@ -63,5 +63,19 @@ namespace FearEngineTests
             //When
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void NormalMappedMesh()
+        {
+            //Given
+            FearGameFactory appFactory = new FearGameFactory();
+            FearGame game = new NormalMappedMeshDemo();
+
+            //Then
+            appFactory.CreateAndRunFearGame(game);
+
+            //When
+            Assert.IsTrue(true);
+        }
     }
 }
