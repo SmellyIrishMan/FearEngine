@@ -1,4 +1,5 @@
 ﻿using FearEngine.Resources.Managment;
+using FearEngine.Resources.Meshes.Vertex.Layouts;
 using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Meshes
@@ -7,16 +8,16 @@ namespace FearEngine.Resources.Meshes
     {
         private Buffer vertexBuffer;
         private Buffer indexBuffer;
-        private PositionNormalTextureLayout vertLayout;
+        private VertexLayout vertLayout;
 
         private bool isLoaded = false;
 
-        public RenderableMesh(GraphicsDevice graphicsDevice, MeshData meshData, PositionNormalTextureLayout layout)
+        public RenderableMesh(GraphicsDevice graphicsDevice, MeshData meshData, VertexBufferFactory vertBuffFactory)
         {
-            vertexBuffer = layout.CreateVertexBuffer(graphicsDevice, meshData);
+            vertLayout = VertexLayouts.DetermineLayout(meshData);
+            vertexBuffer = vertBuffFactory.CreateVertexBuffer(graphicsDevice, meshData, vertLayout);
+            
             indexBuffer = Buffer.Index.New(graphicsDevice, meshData.GetIndices());
-
-            vertLayout = layout;
 
             isLoaded = true;
         }

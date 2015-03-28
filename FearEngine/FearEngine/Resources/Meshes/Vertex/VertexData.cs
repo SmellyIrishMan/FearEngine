@@ -18,6 +18,7 @@ namespace FearEngine.Resources.Meshes
     public class VertexData
     {
         Dictionary<VertexInfoType, Vector3> inputs;
+        public List<VertexInfoType> Inputs { get { return new List<VertexInfoType>(inputs.Keys); } }
 
         private static Dictionary<List<String>, VertexInfoType> SemanticNameToVertexInfoMap;
 

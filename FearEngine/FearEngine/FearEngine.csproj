@@ -79,8 +79,12 @@
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
     <Compile Include="Resources\Loaders\MeshLoader.cs" />
-    <Compile Include="Resources\Meshes\PositionNormalTextureLayout.cs" />
-    <Compile Include="Resources\Meshes\VertexData.cs" />
+    <Compile Include="Resources\Meshes\Vertex\Layouts\UnableToDetermineMeshLayout.cs" />
+    <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayout.cs" />
+    <Compile Include="Resources\Meshes\Vertex\PNTVertexBuffer.cs" />
+    <Compile Include="Resources\Meshes\Vertex\Layouts\PositionNormalTextureLayout.cs" />
+    <Compile Include="Resources\Meshes\Vertex\VertexBufferFactory.cs" />
+    <Compile Include="Resources\Meshes\Vertex\VertexData.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileInformation\MeshResourceInformation.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileInformation\MaterialResourceInformation.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileInformation\ResourceInformationFactory.cs" />
@@ -110,7 +114,7 @@
     <Compile Include="Resources\Meshes\RenderableMesh.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />
-    <Compile Include="Resources\Meshes\VertexLayouts.cs" />
+    <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayouts.cs" />
     <Compile Include="Resources\Material.cs" />
     <Compile Include="Resources\Meshes\MeshData.cs" />
     <Compile Include="Resources\Loaders\Collada\ColladaMeshLoader.cs" />

@@ -10,17 +10,19 @@ namespace FearEngine.Resources.Loaders
     public class MeshLoader : ResourceLoader
     {
         GraphicsDevice device;
+        ColladaMeshLoader loader;
+        VertexBufferFactory vertBuffFactory;
 
-        public MeshLoader(GraphicsDevice dev)
+        public MeshLoader(GraphicsDevice dev, ColladaMeshLoader l, VertexBufferFactory fac)
         {
             device = dev;
+            loader = l;
+            vertBuffFactory = fac;
         }
 
         public Resource Load(ResourceInformation info)
         {
-            ColladaMeshLoader meshLoader = new ColladaMeshLoader();
-
-            RenderableMesh mesh = new RenderableMesh(device, meshLoader.Load(info.Filepath), new PositionNormalTextureLayout());
+            RenderableMesh mesh = new RenderableMesh(device, loader.Load(info.Filepath), vertBuffFactory);
 
             return mesh;
         }

@@ -1,5 +1,6 @@
 ﻿using SharpDX.Toolkit.Graphics;
 using System;
+using System.Collections.Generic;
 using Buffer = SharpDX.Toolkit.Graphics.Buffer;
 namespace FearEngine.Resources.Meshes
 {
@@ -11,7 +12,7 @@ namespace FearEngine.Resources.Meshes
         VertexData[] vertices;
         UInt32[] indices;
 
-        PositionNormalTextureLayout layout;
+        public List<VertexInfoType> Inputs { get { return vertices[0].Inputs; } }
 
         public MeshData()
         {
@@ -26,8 +27,6 @@ namespace FearEngine.Resources.Meshes
 
             vertexCount = (uint)vertices.Length;
             indexCount = (uint)indices.Length;
-
-            layout = new PositionNormalTextureLayout();
         }
 
         public uint GetIndexCount()

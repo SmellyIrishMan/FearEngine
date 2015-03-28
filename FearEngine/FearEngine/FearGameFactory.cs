@@ -2,6 +2,8 @@
 using FearEngine.Resources.Loaders;
 using FearEngine.Resources.Managment;
 using FearEngine.Resources.Managment.Loaders;
+using FearEngine.Resources.Managment.Loaders.Collada;
+using FearEngine.Resources.Meshes;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.Toolkit.Input;
@@ -31,7 +33,8 @@ namespace FearEngine
             GraphicsDevice device = engine.GetDevice();
 
             ResourceDirectory resDir = CreateResourceDirectory();
-            FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(device), new MeshLoader(device), new TextureLoader(device));
+            MeshLoader meshLoader = new MeshLoader(device, new ColladaMeshLoader(), new VertexBufferFactory());
+            FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(device), meshLoader, new TextureLoader(device));
 
             engine.InjectDependencies(resMan, new FearInput(new MouseManager(engine), new KeyboardManager(engine)));
         }

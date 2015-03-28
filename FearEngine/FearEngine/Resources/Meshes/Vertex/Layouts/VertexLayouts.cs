@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using FearEngine.Resources.Meshes.Vertex.Layouts;
+using SharpDX;
 using SharpDX.Toolkit.Graphics;
 namespace FearEngine.Resources.Meshes
 {
@@ -32,6 +33,22 @@ namespace FearEngine.Resources.Meshes
 
             [VertexElement("TEXCOORD0")]
             public Vector2 TexCoord;
+        }
+
+        internal static VertexLayout DetermineLayout(MeshData meshData)
+        {
+            if(meshData.Inputs.Contains(VertexInfoType.POSITION))
+            {
+                if(meshData.Inputs.Contains(VertexInfoType.NORMAL))
+                {
+                    if(meshData.Inputs.Contains(VertexInfoType.TEXCOORD1))
+                    {
+                        return new PositionNormalTextureLayout();
+                    }
+                }
+            }
+
+            throw new UnableToDetermineMeshLayout();
         }
     }
 }
