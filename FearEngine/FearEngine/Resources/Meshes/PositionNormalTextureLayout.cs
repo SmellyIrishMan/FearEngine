@@ -13,6 +13,11 @@ namespace FearEngine.Resources.Meshes
             PositionNormalTextureLayout.stride = System.Runtime.InteropServices.Marshal.SizeOf(typeof(VertexLayouts.PositionNormalTexture));
         }
 
+        internal Buffer CreateVertexBuffer(GraphicsDevice graphicsDevice, MeshData meshData)
+        {
+            return Buffer.Vertex.New(graphicsDevice, GetVertices(meshData.GetVertexData(), meshData.GetVertexCount()));
+        }
+
         public VertexLayouts.PositionNormalTexture[] GetVertices(VertexData[] data, uint count)
         {
             VertexLayouts.PositionNormalTexture[] vertexData = new VertexLayouts.PositionNormalTexture[count];

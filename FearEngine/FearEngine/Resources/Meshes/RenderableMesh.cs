@@ -13,17 +13,12 @@ namespace FearEngine.Resources.Meshes
 
         public RenderableMesh(GraphicsDevice graphicsDevice, MeshData meshData, PositionNormalTextureLayout layout)
         {
-            CreateVertexBuffer(graphicsDevice, meshData, layout);
+            vertexBuffer = layout.CreateVertexBuffer(graphicsDevice, meshData);
             indexBuffer = Buffer.Index.New(graphicsDevice, meshData.GetIndices());
 
             vertLayout = layout;
 
             isLoaded = true;
-        }
-
-        private void CreateVertexBuffer(GraphicsDevice graphicsDevice, MeshData meshData, PositionNormalTextureLayout layout)
-        {
-            vertexBuffer = Buffer.Vertex.New(graphicsDevice, layout.GetVertices(meshData.GetVertexData(), meshData.GetVertexCount()));
         }
 
         public Buffer GetVertexBuffer()
