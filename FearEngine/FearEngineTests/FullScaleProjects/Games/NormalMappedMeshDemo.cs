@@ -20,8 +20,7 @@ namespace FearEngineTests.FullScaleProjects.Games
             meshRenderer = new MeshRenderer();
 
             mesh = fearEngine.GetResourceManager().GetMesh("DIFFERENTCUBE");
-            material = fearEngine.GetResourceManager().GetMaterial("Textured");
-            material.SetParameterResource("gAlbedo", fearEngine.GetResourceManager().GetTexture("GammaGradient"));
+            material = fearEngine.GetResourceManager().GetMaterial("NormalMapped");
         }
 
         public void Update(FearGameTime gameTime)

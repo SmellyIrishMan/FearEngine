@@ -11,8 +11,13 @@
       <Technique>TexturedNoLighting</Technique>
    </Material>
    <Material>
+      <Name>NormalMapped</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\NormalMapped.fx</Filepath>
+      <Technique>NormalMappingNoLighting</Technique>
+   </Material>
+   <Material>
       <Name>NormalLit</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\BasicPositionNormalLight.fx</Filepath>
       <Technique>BasicPositionNormalLightTech</Technique>
-   </Material>
+   </Material> 
 </MaterialList>
