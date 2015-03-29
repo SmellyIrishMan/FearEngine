@@ -82,8 +82,8 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             const int VERTICES_IN_A_TRIANGLE = 3;
 
             int[] sourceIndexes = meshData.Triangles[0].P.Value();
-            int numOfVerticies = sourceIndexes.Length / sourceData.Count;
             int indexesPerVertex = sourceIndexes.Length / meshData.Triangles[0].Count / VERTICES_IN_A_TRIANGLE;
+            int numOfVerticies = sourceIndexes.Length / indexesPerVertex;
 
             for (int vertexIndex = 0; vertexIndex < numOfVerticies; vertexIndex++)
             {
