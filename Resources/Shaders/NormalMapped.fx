@@ -61,7 +61,7 @@ float4 PS(VertexOut pIn) : SV_TARGET
 	
 	float4 albedo = gAlbedo.Sample(samAnisotropic, pIn.Tex);
 	
-	finalColor = albedo * lightIntensity;
+	finalColor = albedo * gDirLight.Diffuse * lightIntensity;
 	
     return finalColor;
 }
