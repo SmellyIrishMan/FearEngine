@@ -90,6 +90,7 @@
     <Compile Include="ResourceManagerTests.cs" />
     <Compile Include="FullScaleProjects\FullScaleTests.cs" />
     <Compile Include="ResourceLoadingTests.cs" />
+    <Compile Include="VertexDataTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FearEngine\FearEngine.csproj">

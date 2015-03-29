@@ -34,12 +34,22 @@ namespace FearEngine.Resources.Meshes
 
         public void SetValue(VertexInfoType type, Vector3 value)
         {
-            inputs[type] = value;
+            if (inputs.ContainsKey(type))
+            {
+                inputs[type] = value;
+            }
         }
 
         public Vector3 GetValue(VertexInfoType type)
         {
-            return inputs[type];
+            if (inputs.ContainsKey(type))
+            {
+                return inputs[type];
+            }
+            else
+            {
+                return Vector3.Zero;
+            }
         }
 
         public static VertexInfoType MapSemanticStringToVertexInfoType(string semantic)
