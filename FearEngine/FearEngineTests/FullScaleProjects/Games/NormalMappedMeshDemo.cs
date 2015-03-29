@@ -20,7 +20,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
             meshRenderer = new MeshRenderer();
 
-            mesh = fearEngine.GetResourceManager().GetMesh("DIFFERENTCUBE");
+            mesh = fearEngine.GetResourceManager().GetMesh("PLANE");
             material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
             drawNormalsMaterial = fearEngine.GetResourceManager().GetMaterial("DrawNormals");
         }
