@@ -49,7 +49,16 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
 
         private uint GetNumberOfVerticesInMesh()
         {
-            return (uint)meshData.Triangles[0].Count * (uint)meshData.Triangles[0].Input.Length;
+            int[] sourceIndexes = meshData.Triangles[0].P.Value();
+            int numOfVerticies = sourceIndexes.Length / GetIndexesPerVertex();
+
+            return (uint)numOfVerticies;
+        }
+
+        private int GetIndexesPerVertex()
+        {
+            const int VERTICES_IN_A_TRIANGLE = 3;
+            return meshData.Triangles[0].P.Value().Length / meshData.Triangles[0].Count / VERTICES_IN_A_TRIANGLE;
         }
 
         private void BuildVertexArray()
@@ -79,11 +88,10 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         {
             VertexInfoType inputType;
             int stride = 0;
-            const int VERTICES_IN_A_TRIANGLE = 3;
 
             int[] sourceIndexes = meshData.Triangles[0].P.Value();
-            int indexesPerVertex = sourceIndexes.Length / meshData.Triangles[0].Count / VERTICES_IN_A_TRIANGLE;
-            int numOfVerticies = sourceIndexes.Length / indexesPerVertex;
+            int indexesPerVertex = GetIndexesPerVertex();
+            uint numOfVerticies = GetNumberOfVerticesInMesh();
 
             for (int vertexIndex = 0; vertexIndex < numOfVerticies; vertexIndex++)
             {
@@ -150,6 +158,8 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
                 vertices[vertexIndex].SetValue(VertexInfoType.POSITION, Vector3.TransformNormal(vertices[vertexIndex].GetValue(VertexInfoType.POSITION), adjustAxis));
                 vertices[vertexIndex].SetValue(VertexInfoType.NORMAL, Vector3.TransformNormal(vertices[vertexIndex].GetValue(VertexInfoType.NORMAL), adjustAxis));
                 vertices[vertexIndex].GetValue(VertexInfoType.NORMAL).Normalize();
+                vertices[vertexIndex].SetValue(VertexInfoType.TANGENT, Vector3.TransformNormal(vertices[vertexIndex].GetValue(VertexInfoType.TANGENT), adjustAxis));
+                vertices[vertexIndex].GetValue(VertexInfoType.TANGENT).Normalize();
             }
         }
     }
