@@ -1,4 +1,5 @@
 ﻿using FearEngine.Cameras;
+using FearEngine.Lighting;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
@@ -20,13 +21,7 @@ namespace FearEngine.Resources.Meshes
             //TODO This should be in the update loop and not here.
             material.SetParameterValue("gWorldViewProj", WVP);
 
-            //TODO Change this all up so that we do it better... yeah
-            if (material.Name.CompareTo("NormalLit") == 0)
-            {
-                material.SetParameterValue("gLightAmbient", new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
-                material.SetParameterValue("gLightDiffuse", new Vector4(0.2f, 0.05f, 0.6f, 0.0f));
-                material.SetParameterValue("gLightDir", new Vector4(-0.05f, -0.05f, -0.05f, 0.0f));
-            }
+            SetupLights(material);
 
             material.Apply();
 
@@ -36,6 +31,19 @@ namespace FearEngine.Resources.Meshes
             device.SetIndexBuffer(mesh.GetIndexBuffer(), true);
 
             device.DrawIndexed(PrimitiveType.TriangleList, mesh.GetIndexBuffer().ElementCount);
+        }
+
+        private void SetupLights(Material material)
+        {
+            LightTypes.DirectionalLight testLight = new LightTypes.DirectionalLight();
+
+            testLight.Ambient = new SharpDX.Vector4(0.05f, 0.05f, 0.05f, 0.0f);
+            testLight.Diffuse = new SharpDX.Vector4(0.05f, 0.05f, 0.05f, 0.0f);
+            testLight.Specular = new SharpDX.Vector4(0.05f, 0.05f, 0.05f, 0.0f);
+            testLight.Direction = new SharpDX.Vector3(-0.05f, -0.05f, -0.05f);
+            testLight.pad = 0;
+            
+            material.SetParameterValue("gDirLight", testLight);
         }
     }
 }

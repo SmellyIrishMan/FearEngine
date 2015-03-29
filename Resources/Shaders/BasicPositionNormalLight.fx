@@ -1,8 +1,8 @@
+#include "HelperFiles/Lighting.fx"
+
 cbuffer cbPerFrame
 {
-	float4 gLightAmbient; 
-	float4 gLightDiffuse; 
-	float3 gLightDir; 
+	DirectionalLight gDirLight;
 };
 
 cbuffer cbPerObject
@@ -35,11 +35,11 @@ VertexOut VS(VertexIn vin)
 
 float4 PS(VertexOut pin) : SV_Target
 {
-	float4 finalColor = gLightAmbient;
-	float3 dirToLight = -gLightDir;
+	float4 finalColor = gDirLight.Ambient;
+	float3 dirToLight = -gDirLight.Direction;
 	float lightIntensity = saturate(dot(pin.NormW, dirToLight));
 
-	finalColor += gLightDiffuse * lightIntensity;
+	finalColor += gDirLight.Diffuse * lightIntensity;
 
     return finalColor;
 }

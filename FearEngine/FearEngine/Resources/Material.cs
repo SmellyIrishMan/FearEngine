@@ -1,4 +1,5 @@
-﻿using FearEngine.Resources.Managment;
+﻿using FearEngine.Lighting;
+using FearEngine.Resources.Managment;
 using SharpDX.Toolkit.Graphics;
 using System;
 
@@ -58,9 +59,19 @@ namespace FearEngine.Resources
             effect.Parameters[p].SetValue(value);
         }
 
+        public void SetParameterValue(string p, LightTypes.DirectionalLight testLight)
+        {
+            if (effect.Parameters[p] != null)
+            {
+                effect.Parameters[p].SetValue<LightTypes.DirectionalLight>(testLight);
+            }
+        }
+
         public void SetParameterResource(string p, Texture texture)
         {
             effect.Parameters[p].SetResource(texture.ShaderView);
         }
+
+
     }
 }
