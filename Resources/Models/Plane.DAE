@@ -3,23 +3,23 @@
   <asset>
     <contributor>
       <author>Andy</author>
-      <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2013_static</authoring_tool>
+      <authoring_tool>OpenCOLLADA for 3ds Max;  ;  </authoring_tool>
     </contributor>
-    <created>2014-09-06T11:13:30</created>
-    <modified>2014-09-06T11:13:30</modified>
+    <created>2015-03-29T11:54:27</created>
+    <modified>2015-03-29T11:54:27</modified>
     <unit name="inch" meter="0.0254"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="ColorEffectR28G28B177">
+    <effect id="ColorEffectR135G110B8">
       <profile_COMMON>
         <technique sid="common">
           <phong>
             <ambient>
-              <color>0.1098039 0.1098039 0.6941177 1</color>
+              <color>0.5294118 0.4313726 0.03137255 1</color>
             </ambient>
             <diffuse>
-              <color>0.1098039 0.1098039 0.6941177 1</color>
+              <color>0.5294118 0.4313726 0.03137255 1</color>
             </diffuse>
             <specular>
               <color>1 1 1 1</color>
@@ -42,51 +42,73 @@
     </effect>
   </library_effects>
   <library_materials>
-    <material id="ColorEffectR28G28B177-material" name="ColorEffectR28G28B177-material">
-      <instance_effect url="#ColorEffectR28G28B177"/>
+    <material id="ColorEffectR135G110B8-material" name="ColorEffectR135G110B8-material">
+      <instance_effect url="#ColorEffectR135G110B8"/>
     </material>
   </library_materials>
   <library_geometries>
-    <geometry id="geom-SimplePlane" name="SimplePlane">
+    <geometry id="geom-Plane001" name="Plane001">
       <mesh>
-        <source id="geom-SimplePlane-positions">
-          <float_array id="geom-SimplePlane-positions-array" count="12">-0.5 -0.5 0 0.5 -0.5 0 -0.5 0.5 0 0.5 0.5 0</float_array>
+        <source id="geom-Plane001-positions">
+          <float_array id="geom-Plane001-positions-array" count="27">-1 -1 0 0 -1 0 1 -1 0 -1 0 0 0 0 0 1 0 0 -1 1 0 0 1 0 1 1 0</float_array>
           <technique_common>
-            <accessor source="#geom-SimplePlane-positions-array" count="4" stride="3">
+            <accessor source="#geom-Plane001-positions-array" count="9" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <source id="geom-SimplePlane-normals">
-          <float_array id="geom-SimplePlane-normals-array" count="12">0 0 1 0 0 1 0 0 1 0 0 1</float_array>
+        <source id="geom-Plane001-normals">
+          <float_array id="geom-Plane001-normals-array" count="27">0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1</float_array>
           <technique_common>
-            <accessor source="#geom-SimplePlane-normals-array" count="4" stride="3">
+            <accessor source="#geom-Plane001-normals-array" count="9" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <source id="geom-SimplePlane-map1">
-          <float_array id="geom-SimplePlane-map1-array" count="24">0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 0 1 1 0</float_array>
+        <source id="geom-Plane001-map1">
+          <float_array id="geom-Plane001-map1-array" count="45">0 0 0 0.5 0 0 1 0 0 0 0 0 0.5 0 0 1 0 0 0 0 0 0.5 0 0 1 0 0 0 0.5 0 0.5 0.5 0 1 0.5 0 0 1 0 0.5 1 0 1 1 0</float_array>
           <technique_common>
-            <accessor source="#geom-SimplePlane-map1-array" count="8" stride="3">
+            <accessor source="#geom-Plane001-map1-array" count="15" stride="3">
               <param name="S" type="float"/>
               <param name="T" type="float"/>
               <param name="P" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <vertices id="geom-SimplePlane-vertices">
-          <input semantic="POSITION" source="#geom-SimplePlane-positions"/>
+        <source id="geom-Plane001-map1-textangents">
+          <float_array id="geom-Plane001-map1-textangents-array" count="27">1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane001-map1-textangents-array" count="9" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Plane001-map1-texbinormals">
+          <float_array id="geom-Plane001-map1-texbinormals-array" count="27">0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane001-map1-texbinormals-array" count="9" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Plane001-vertices">
+          <input semantic="POSITION" source="#geom-Plane001-positions"/>
         </vertices>
-        <triangles material="ColorMaterial" count="2">
-          <input semantic="VERTEX" source="#geom-SimplePlane-vertices" offset="0"/>
-          <input semantic="NORMAL" source="#geom-SimplePlane-normals" offset="1"/>
-          <input semantic="TEXCOORD" source="#geom-SimplePlane-map1" offset="2" set="0"/>
-          <p>2 0 6 0 1 4 3 2 7 1 3 5 3 2 7 0 1 4</p>
+        <triangles material="ColorMaterial" count="8">
+          <input semantic="VERTEX" source="#geom-Plane001-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Plane001-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Plane001-map1" offset="2" set="0"/>
+          <input semantic="TEXTANGENT" source="#geom-Plane001-map1-textangents" offset="3" set="1"/>
+          <input semantic="TEXBINORMAL" source="#geom-Plane001-map1-texbinormals" offset="3" set="1"/>
+          <p>3 0 9 0 0 1 6 1 4 2 10 2 1 3 7 3 4 2 10 2 0 1 6 1 4 2 10 2 1 3 7 3 5 4 11 4 2 5 8 5 5 4 11 4 1 3 7 3 6 6 12 6 3 0 9 0 7 7 13 7 4 2 10 2 7 7 13 7 3 0 9 0 7 7 13 7 4 2 10 2 8 8 14 8 5 4 11 4 8 8 14 8 4 2 10 2</p>
         </triangles>
       </mesh>
       <extra>
@@ -94,11 +116,11 @@
           <max_plane>
             <density>1</density>
             <generateuvs>1</generateuvs>
-            <lenght>1</lenght>
-            <lenghtsegments>1</lenghtsegments>
+            <lenght>2</lenght>
+            <lenghtsegments>2</lenghtsegments>
             <scale>1</scale>
-            <width>1</width>
-            <widthsegments>1</widthsegments>
+            <width>2</width>
+            <widthsegments>2</widthsegments>
           </max_plane>
         </technique>
       </extra>
@@ -118,18 +140,14 @@
       <node name="EnvironmentAmbientLight">
         <instance_light url="#EnvironmentAmbientLight"/>
       </node>
-      <node id="node-SimplePlane" name="SimplePlane">
-        <rotate>-1 0 0 -90.00001</rotate>
-        <node>
-          <matrix>1 0 0 0 0 0 1 0 0 -1 0 0 0 0 0 1</matrix>
-          <instance_geometry url="#geom-SimplePlane">
-            <bind_material>
-              <technique_common>
-                <instance_material symbol="ColorMaterial" target="#ColorEffectR28G28B177-material"/>
-              </technique_common>
-            </bind_material>
-          </instance_geometry>
-        </node>
+      <node id="node-Plane001" name="Plane001">
+        <instance_geometry url="#geom-Plane001">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="ColorMaterial" target="#ColorEffectR135G110B8-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
         <extra>
           <technique profile="OpenCOLLADA">
             <cast_shadows>1</cast_shadows>

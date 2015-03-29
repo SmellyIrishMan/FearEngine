@@ -5,6 +5,10 @@
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Box.DAE</Filepath>
    </Mesh>
    <Mesh>
+      <Name>PLANE</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Plane.DAE</Filepath>
+   </Mesh>
+   <Mesh>
       <Name>BOX</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Models\Box.DAE</Filepath>
    </Mesh>
