@@ -1,16 +1,21 @@
+#include "HelperFiles/Lighting.fx"
+#include "HelperFiles/Texturing.fx"
+#include "HelperFiles/NormalMapping.fx"
+
+cbuffer cbPerFrame
+{
+	DirectionalLight gDirLight;
+};
+
 cbuffer cbPerObject
 {
+	float4x4 gWorld;
+	float4x4 gWorldInvTranspose;
 	float4x4 gWorldViewProj; 
 };
 
-SamplerState samAnisotropic
-{
-	Filter = ANISOTROPIC;
-	MaxAnisotropy = 4;
-	
-	AddressU = WRAP;
-	AddressV = WRAP;
-};
+Texture2D<float4> gAlbedo   : register(t0);
+Texture2D<float4> gNormal   : register(t1);
 
 struct VertexIn
 {
@@ -22,10 +27,10 @@ struct VertexIn
 
 struct VertexOut
 {
-	float4 PosH  : SV_POSITION;
-	float3 NormalL  : NORMAL;
-	float3 TangentL : TANGENT;
-	float2 Tex	 : TEXCOORD0;
+	float4 PosH  	: SV_POSITION;
+	float3 NormalW  : NORMAL;
+	float3 TangentW : TANGENT;
+	float2 Tex	 	: TEXCOORD0;
 };
 
 VertexOut VS(VertexIn vIn)
@@ -34,8 +39,9 @@ VertexOut VS(VertexIn vIn)
 	
 	// Transform to homogeneous clip space.
 	vOut.PosH = mul(float4(vIn.PosL, 1.0f), gWorldViewProj);
-	vOut.NormalL = vIn.NormalL;
-	vOut.TangentL = vIn.TangentL;
+	
+	vOut.NormalW = mul(vIn.NormalL, (float3x3)gWorldInvTranspose);
+	vOut.TangentW = mul(vIn.TangentL, (float3x3)gWorld);
 	vOut.Tex = vIn.Tex;
     
     return vOut;
@@ -43,7 +49,21 @@ VertexOut VS(VertexIn vIn)
 
 float4 PS(VertexOut pIn) : SV_TARGET
 {
-    return float4(pIn.TangentL, 1.0);
+	pIn.NormalW = normalize(pIn.NormalW);
+	
+	float3 normalMapSample = gNormal.Sample(samAnisotropic, pIn.Tex).rgb;
+	float3 bumpedNormalW = NormalSampleToWorldSpace(normalMapSample, pIn.NormalW, pIn.TangentW);
+	
+	float4 finalColor = gDirLight.Ambient;
+	
+	float3 dirToLight = -gDirLight.Direction;
+	float lightIntensity = saturate(dot(bumpedNormalW, dirToLight));
+	
+	float4 albedo = gAlbedo.Sample(samAnisotropic, pIn.Tex);
+	
+	finalColor = albedo * lightIntensity;
+	
+    return finalColor;
 }
 
 technique11 NormalMappingNoLighting

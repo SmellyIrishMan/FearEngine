@@ -21,8 +21,12 @@ namespace FearEngineTests.FullScaleProjects.Games
             meshRenderer = new MeshRenderer();
 
             mesh = fearEngine.GetResourceManager().GetMesh("PLANE");
-            material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
-            drawNormalsMaterial = fearEngine.GetResourceManager().GetMaterial("DrawNormals");
+            
+            //drawNormalsMaterial = fearEngine.GetResourceManager().GetMaterial("DrawNormals");
+            material = fearEngine.GetResourceManager().GetMaterial("NormalMapped");
+
+            material.SetParameterResource("gAlbedo", fearEngine.GetResourceManager().GetTexture("GravelCobble"));
+            material.SetParameterResource("gNormal", fearEngine.GetResourceManager().GetTexture("GravelCobbleNormal"));            
         }
 
         public void Update(FearGameTime gameTime)
@@ -33,7 +37,7 @@ namespace FearEngineTests.FullScaleProjects.Games
         public void Draw(FearGameTime gameTime)
         {
             meshRenderer.RenderMesh(fearEngine.GetDevice(), mesh, material, fearEngine.GetMainCamera());
-            meshRenderer.RenderMesh(fearEngine.GetDevice(), mesh, drawNormalsMaterial, fearEngine.GetMainCamera());
+            //meshRenderer.RenderMesh(fearEngine.GetDevice(), mesh, drawNormalsMaterial, fearEngine.GetMainCamera());
         }
 
         public void Shutdown()

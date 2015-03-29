@@ -1,18 +1,11 @@
+#include "HelperFiles/Texturing.fx"
+
 cbuffer cbPerObject
 {
 	float4x4 gWorldViewProj; 
 };
 
 Texture2D<float4> gAlbedo   : register(t0);
-
-SamplerState samAnisotropic
-{
-	Filter = ANISOTROPIC;
-	MaxAnisotropy = 4;
-	
-	AddressU = WRAP;
-	AddressV = WRAP;
-};
 
 struct VertexIn
 {

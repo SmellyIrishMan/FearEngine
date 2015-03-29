@@ -19,6 +19,9 @@ namespace FearEngine.Resources.Meshes
             Matrix WVP = world * view * proj;
 
             //TODO This should be in the update loop and not here.
+
+            material.SetParameterValue("gWorld", world);
+            material.SetParameterValue("gWorldInvTranspose", Matrix.Transpose(Matrix.Invert(world)));
             material.SetParameterValue("gWorldViewProj", WVP);
 
             SetupLights(material);

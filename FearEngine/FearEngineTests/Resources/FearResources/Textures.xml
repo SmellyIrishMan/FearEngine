@@ -2,12 +2,22 @@
 <TextureList>
    <Texture>
       <Name>DEFAULT</Name>
-      <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png</Filepath>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\DefaultTexture.png</Filepath>
       <IsLinear>false</IsLinear>
    </Texture>
    <Texture>
       <Name>GammaGradient</Name>
-      <Filepath>C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png</Filepath>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\GammaGradient.png</Filepath>
       <IsLinear>false</IsLinear>
+   </Texture>
+   <Texture>
+      <Name>GravelCobble</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\GravelCobble0004_S.jpg</Filepath>
+      <IsLinear>false</IsLinear>
+   </Texture>
+   <Texture>
+      <Name>GravelCobbleNormal</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\GravelCobble0004_S_NormalMap.jpg</Filepath>
+      <IsLinear>true</IsLinear>
    </Texture>
 </TextureList>
