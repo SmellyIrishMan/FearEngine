@@ -24,8 +24,8 @@ namespace FearEngine.Resources.Meshes
             if (material.Name.CompareTo("NormalLit") == 0)
             {
                 material.SetParameterValue("gLightAmbient", new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
-                material.SetParameterValue("gLightDiffuse", new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
-                material.SetParameterValue("gLightDir", new Vector4(0.05f, 0.05f, 0.05f, 0.0f));
+                material.SetParameterValue("gLightDiffuse", new Vector4(0.2f, 0.05f, 0.6f, 0.0f));
+                material.SetParameterValue("gLightDir", new Vector4(-0.05f, -0.05f, -0.05f, 0.0f));
             }
 
             material.Apply();
