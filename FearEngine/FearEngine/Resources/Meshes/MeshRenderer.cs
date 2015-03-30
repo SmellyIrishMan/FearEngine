@@ -41,7 +41,7 @@ namespace FearEngine.Resources.Meshes
             LightTypes.DirectionalLight testLight = new LightTypes.DirectionalLight();
 
             testLight.Ambient = new SharpDX.Vector4(0.05f, 0.05f, 0.05f, 0.0f);
-            testLight.Diffuse = new SharpDX.Vector4(0.05f, 0.05f, 0.05f, 0.0f);
+            testLight.Diffuse = new SharpDX.Vector4(1.0f, 1.0f, 1.0f, 0.0f);
             testLight.Specular = new SharpDX.Vector4(0.05f, 0.05f, 0.05f, 0.0f);
             testLight.Direction = new SharpDX.Vector3(-0.5f, -1.0f, -0.25f);
             testLight.Direction.Normalize();

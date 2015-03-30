@@ -17,7 +17,7 @@
    </Texture>
    <Texture>
       <Name>GravelCobbleNormal</Name>
-      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\GravelCobble0004_S_NormalMap.jpg</Filepath>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\GravelCobble0004_S_NRM.bmp</Filepath>
       <IsLinear>true</IsLinear>
    </Texture>
 </TextureList>
