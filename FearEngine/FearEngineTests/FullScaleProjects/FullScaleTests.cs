@@ -37,20 +37,6 @@ namespace FearEngineTests
         }
 
         [TestMethod]
-        public void BasicTeapot()
-        {
-            //Given
-            FearGameFactory appFactory = new FearGameFactory();
-            FearGame game = new TeapotDemo();
-
-            //Then
-            appFactory.CreateAndRunFearGame(game);
-
-            //When
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
         public void TexturedCube()
         {
             //Given

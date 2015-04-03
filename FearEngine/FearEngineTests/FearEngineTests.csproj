@@ -82,7 +82,6 @@
     <Compile Include="FullScaleProjects\Games\NormalMappedMeshDemo.cs" />
     <Compile Include="FullScaleProjects\Games\CubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\SimpleSceneDemo.cs" />
-    <Compile Include="FullScaleProjects\Games\TeapotDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TexturedCubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\BlankWindowDemo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

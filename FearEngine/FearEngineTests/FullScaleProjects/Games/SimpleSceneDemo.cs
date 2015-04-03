@@ -21,13 +21,14 @@ namespace FearEngineTests.FullScaleProjects.Games
 
             scene = new Scene(new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
 
-            teapot = new GameObject("CreateASceneTeapot");
+            teapot = new GameObject("Teapot");
             teapot.AddUpdatable(new ContinuousRotationAroundY(0.001f));
 
             Mesh mesh = fearEngine.GetResourceManager().GetMesh("TEAPOT");
             Material material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
 
             SceneObject litTeapot = new SceneObject(teapot, mesh, material);
+
             scene.AddSceneObject(litTeapot);
         }
 
