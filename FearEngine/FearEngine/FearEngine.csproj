@@ -76,6 +76,7 @@
     <Compile Include="FearGame.cs" />
     <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="HelperClasses\MethodTimer.cs" />
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Lighting\DirectionalLight.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataBiTangentImpl.cs" />

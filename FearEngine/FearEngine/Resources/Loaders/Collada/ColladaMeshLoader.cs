@@ -1,5 +1,6 @@
 ﻿using FearEngine.Logger;
 using FearEngine.Resources.Meshes;
+using FearEngineTests.HelperClasses;
 using grendgine_collada;
 using SharpDX;
 using System;
@@ -10,10 +11,13 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
     public class ColladaMeshLoader
     {
         private const bool switchFromZUpToYUp = true;
-        Grendgine_Collada_Mesh meshData;
+        private Grendgine_Collada_Mesh meshData;
 
-        UInt32[] indices;
-        VertexData[] vertices;
+        private VertexData[] vertices;
+        private uint numOfVertices;
+        private uint indicesPerVertex;
+
+        private UInt32[] indices;
 
         public ColladaMeshLoader()
         {
@@ -27,6 +31,8 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             }
 
             meshData = Grendgine_Collada.Grendgine_Load_File(filename).Library_Geometries.Geometry[0].Mesh;
+            indicesPerVertex = CalcIndexesPerVertex();
+            numOfVertices = CalcNumberOfVerticesInMesh();
 
             BuildIndicesArray();
             BuildVertexArray();
@@ -41,24 +47,24 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             return System.IO.File.Exists(filename);
         }
 
-        private void BuildIndicesArray()
-        {
-            indices = new UInt32[GetNumberOfVerticesInMesh()];
-            for (int i = 0; i < indices.Length; i++) { indices[i] = (uint)i; }
-        }
-
-        private uint GetNumberOfVerticesInMesh()
+        private uint CalcNumberOfVerticesInMesh()
         {
             int[] sourceIndexes = meshData.Triangles[0].P.Value();
-            int numOfVerticies = sourceIndexes.Length / GetIndexesPerVertex();
+            uint numOfVerticies = (uint)sourceIndexes.Length / indicesPerVertex;
 
-            return (uint)numOfVerticies;
+            return numOfVerticies;
         }
 
-        private int GetIndexesPerVertex()
+        private uint CalcIndexesPerVertex()
         {
             const int VERTICES_IN_A_TRIANGLE = 3;
-            return meshData.Triangles[0].P.Value().Length / meshData.Triangles[0].Count / VERTICES_IN_A_TRIANGLE;
+            return (uint)(meshData.Triangles[0].P.Value().Length / meshData.Triangles[0].Count / VERTICES_IN_A_TRIANGLE);
+        }
+
+        private void BuildIndicesArray()
+        {
+            indices = new UInt32[numOfVertices];
+            for (int i = 0; i < indices.Length; i++) { indices[i] = (uint)i; }
         }
 
         private void BuildVertexArray()
@@ -77,7 +83,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
                 inputs.Add(source.GetVertInfoType());
             }
 
-            vertices = new VertexData[GetNumberOfVerticesInMesh()];
+            vertices = new VertexData[numOfVertices];
             for (int i = 0; i < vertices.Length; i++)
             {
                 vertices[i] = new VertexData(inputs);
@@ -90,12 +96,10 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
             int stride = 0;
 
             int[] sourceIndexes = meshData.Triangles[0].P.Value();
-            int indexesPerVertex = GetIndexesPerVertex();
-            uint numOfVerticies = GetNumberOfVerticesInMesh();
 
-            for (int vertexIndex = 0; vertexIndex < numOfVerticies; vertexIndex++)
+            for (int vertexIndex = 0; vertexIndex < numOfVertices; vertexIndex++)
             {
-                stride = vertexIndex * indexesPerVertex;
+                stride = vertexIndex * (int)indicesPerVertex;
                 foreach (SourceData source in sourceData)
                 {
                     inputType = source.GetVertInfoType();
@@ -153,7 +157,8 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
         private void SwitchUpAxisFromZtoY()
         {
             Matrix adjustAxis = Matrix.RotationX(SharpDX.MathUtil.DegreesToRadians(-90));
-            for (int vertexIndex = 0; vertexIndex < GetNumberOfVerticesInMesh(); vertexIndex++)
+
+            for (int vertexIndex = 0; vertexIndex < vertices.Length; vertexIndex++)
             {
                 vertices[vertexIndex].SetValue(VertexInfoType.POSITION, Vector3.TransformNormal(vertices[vertexIndex].GetValue(VertexInfoType.POSITION), adjustAxis));
                 vertices[vertexIndex].SetValue(VertexInfoType.NORMAL, Vector3.TransformNormal(vertices[vertexIndex].GetValue(VertexInfoType.NORMAL), adjustAxis));
