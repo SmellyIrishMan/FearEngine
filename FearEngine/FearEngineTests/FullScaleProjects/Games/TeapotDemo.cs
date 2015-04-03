@@ -1,34 +1,37 @@
 ﻿using FearEngine;
+using FearEngine.GameObjects;
+using FearEngine.Resources;
 using FearEngine.Resources.Meshes;
+using FearEngine.Scene;
+using SharpDX.Toolkit;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {
     public class TeapotDemo : FearEngine.FearGame
     {
-        FearEngineImpl fearEngine;
-
-        RenderableMesh cube;
-        MeshRenderer meshRenderer;
-        FearEngine.Resources.Material material;
+        Scene scene;
 
         public void Startup(FearEngineImpl engine)
         {
-            fearEngine = engine;
+            scene = new Scene(new MeshRenderer(engine.GetDevice()), engine.GetMainCamera());
 
-            meshRenderer = new MeshRenderer();
+            GameObject teapot = new GameObject("Teapot");
+            Mesh mesh = engine.GetResourceManager().GetMesh("TEAPOT");
+            Material material = engine.GetResourceManager().GetMaterial("NormalLit");
 
-            cube = fearEngine.GetResourceManager().GetMesh("TEAPOT");
-            material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
+            SceneObject litCube = new SceneObject(teapot, mesh, material);
+
+            scene.AddSceneObject(litCube);
         }
 
-        public void Update(FearGameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
         }
 
-        public void Draw(FearGameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
-            meshRenderer.RenderMesh(fearEngine.GetDevice(), cube, material, fearEngine.GetMainCamera());
+            scene.Render( gameTime );
         }
 
         public void Shutdown()

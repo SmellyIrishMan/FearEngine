@@ -1,29 +1,30 @@
-﻿using FearEngine.Input;
+﻿using FearEngine.GameObjects;
+using FearEngine.Input;
 using SharpDX;
 using SharpDX.Toolkit;
 
 namespace FearEngine.Cameras
 {
-    public class Camera : GameObject
+    public class Camera
     {
-        public Matrix View { get; private set;  }
+        private GameObject gameObj;
+
+        public Matrix View { get; private set; }
         public Matrix Projection { get; private set; }
 
-        readonly Updateable movementComponent;
-
-        public Camera(string name, Transform transform, Updateable movement, float aspect)
-            : base(name, transform)
+        public Camera(GameObject gObj, float aspect)
         {
-            movementComponent = movement;
+            gameObj = gObj;
 
             Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, aspect, 0.01f, 1000.0f);
-            View = Matrix.LookAtLH(Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);
+            View = Matrix.LookAtLH(gameObj.Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);
+
+            gObj.Transform.Changed += OnTransformChanged;
         }
 
-        public override void Update(GameTime gameTime)
+        void OnTransformChanged(Transform newTransform)
         {
-            movementComponent.Update(this, gameTime);
-            View = Matrix.LookAtLH(Transform.Position, Transform.Position + Transform.Forward, Vector3.UnitY);
+            View = Matrix.LookAtLH(newTransform.Position, newTransform.Position + newTransform.Forward, Vector3.UnitY);
         }
     }
 }

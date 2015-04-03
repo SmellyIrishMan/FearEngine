@@ -7,6 +7,7 @@ cbuffer cbPerFrame
 
 cbuffer cbPerObject
 {
+	float4x4 gWorldInvTranspose; 
 	float4x4 gWorldViewProj; 
 };
 
@@ -28,7 +29,7 @@ VertexOut VS(VertexIn vin)
 	
 	// Transform to homogeneous clip space.
 	vout.PosH = mul(float4(vin.PosL, 1.0f), gWorldViewProj);
-    vout.NormW = vin.NormL;
+    vout.NormW = mul(vin.NormL, (float3x3)gWorldInvTranspose);
     
     return vout;
 }

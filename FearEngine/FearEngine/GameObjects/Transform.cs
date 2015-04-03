@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using SharpDX;
 
-namespace FearEngine
+namespace FearEngine.GameObjects
 {
     public class Transform
     {
@@ -12,6 +12,10 @@ namespace FearEngine
         public Vector3 Up { get; private set; }
 
         private Vector3 YawPitchRoll;
+
+        public delegate void TransformChangedHandler(Transform newTransform);
+
+        public event TransformChangedHandler Changed;
 
         public Transform()
         {
@@ -25,20 +29,21 @@ namespace FearEngine
         public void MoveTo(Vector3 position)
         {
             Position = position;
+            NotifyNewTransform();
         }
 
         public void Pitch(float radians)
         {
             YawPitchRoll.Y += radians;
-
             UpdateRotation();
+            NotifyNewTransform();
         }
 
         public void Yaw(float radians)
         {
             YawPitchRoll.X += radians;
-
             UpdateRotation();
+            NotifyNewTransform();
         }
 
         private void UpdateRotation()
@@ -47,6 +52,14 @@ namespace FearEngine
             Right = Vector3.Transform(Vector3.Right, Rotation);
             Up = Vector3.Transform(Vector3.Up, Rotation);
             Forward = Vector3.Transform(Vector3.ForwardLH, Rotation);
+        }
+
+        private void NotifyNewTransform()
+        {
+            if (Changed != null)
+            {
+                Changed(this);
+            }
         }
     }
 }

@@ -69,15 +69,15 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraControllerComponent.cs" />
+    <Compile Include="Cameras\CameraControllerComponent.cs" />
     <Compile Include="Cameras\Camera.cs" />
     <Compile Include="FearGameFactory.cs" />
     <Compile Include="FearEngineImpl.cs" />
     <Compile Include="FearGame.cs" />
-    <Compile Include="FearGameTime.cs" />
-    <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="Input\FearInput.cs" />
-    <Compile Include="Lighting\LightTypes.cs" />
+    <Compile Include="Lighting\DirectionalLight.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataBiTangentImpl.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataTangentImpl.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
@@ -107,7 +107,8 @@
     <Compile Include="Resources\Managment\ResourceLoader.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileStorage\XMLResourceStorage.cs" />
     <Compile Include="Resources\Texture.cs" />
-    <Compile Include="Updateable.cs" />
+    <Compile Include="Scene\Scene.cs" />
+    <Compile Include="GameObjects\Updateable.cs" />
     <Compile Include="Logger\FearLog.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataTexcoord2Impl.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataTexcoord1Impl.cs" />
@@ -116,7 +117,8 @@
     <Compile Include="Resources\Loaders\Collada\SourceDataFactory.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataPositionImpl.cs" />
     <Compile Include="Resources\Loaders\MaterialLoader.cs" />
-    <Compile Include="Resources\Meshes\RenderableMesh.cs" />
+    <Compile Include="Resources\Meshes\Mesh.cs" />
+    <Compile Include="Scene\SceneObject.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayouts.cs" />
@@ -124,7 +126,7 @@
     <Compile Include="Resources\Meshes\MeshData.cs" />
     <Compile Include="Resources\Loaders\Collada\ColladaMeshLoader.cs" />
     <Compile Include="Resources\Managment\FearResourceManager.cs" />
-    <Compile Include="Transform.cs" />
+    <Compile Include="GameObjects\Transform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

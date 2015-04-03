@@ -77,5 +77,19 @@ namespace FearEngineTests
             //When
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void SimpleScene()
+        {
+            //Given
+            FearGameFactory appFactory = new FearGameFactory();
+            FearGame game = new SimpleSceneDemo();
+
+            //Then
+            appFactory.CreateAndRunFearGame(game);
+
+            //When
+            Assert.IsTrue(true);
+        }
     }
 }

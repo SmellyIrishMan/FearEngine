@@ -22,7 +22,7 @@ namespace FearEngine.Resources.Loaders
 
         public Resource Load(ResourceInformation info)
         {
-            RenderableMesh mesh = new RenderableMesh(device, loader.Load(info.Filepath), vertBuffFactory);
+            Mesh mesh = new Mesh(device, loader.Load(info.Filepath), vertBuffFactory);
 
             return mesh;
         }

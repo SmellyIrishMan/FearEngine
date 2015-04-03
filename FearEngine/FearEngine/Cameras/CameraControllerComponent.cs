@@ -1,4 +1,5 @@
-﻿using FearEngine.Input;
+﻿using FearEngine.GameObjects;
+using FearEngine.Input;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;

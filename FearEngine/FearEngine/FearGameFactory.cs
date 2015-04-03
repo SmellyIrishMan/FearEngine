@@ -15,7 +15,7 @@ namespace FearEngine
     {
         public FearEngineImpl CreateAndRunFearGame(FearGame game)
         {
-            FearEngineImpl engine = new FearEngineImpl(game);
+            FearEngineImpl engine = new FearEngineImpl(game, game.GetType().Name);
 
             GraphicsDeviceManager graphicsMan = new GraphicsDeviceManager(engine);
             engine.SetupDeviceManager(graphicsMan);

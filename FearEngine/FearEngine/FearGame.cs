@@ -1,12 +1,13 @@
-﻿namespace FearEngine
+﻿using SharpDX.Toolkit;
+namespace FearEngine
 {
     public interface FearGame
     {
         void Startup(FearEngineImpl engine);
 
-        void Update(FearGameTime gameTime);
+        void Update(GameTime gameTime);
 
-        void Draw(FearGameTime gameTime);
+        void Draw(GameTime gameTime);
 
         void Shutdown();
     }

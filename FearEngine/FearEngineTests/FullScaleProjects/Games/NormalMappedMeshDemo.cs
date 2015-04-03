@@ -2,42 +2,42 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine;
 using FearEngine.Resources.Meshes;
+using SharpDX.Toolkit;
+using FearEngine.GameObjects;
+using FearEngine.Resources;
+using FearEngine.Scene;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {
     public class NormalMappedMeshDemo : FearEngine.FearGame
     {
-        FearEngineImpl fearEngine;
-
-        RenderableMesh mesh;
-        MeshRenderer meshRenderer;
-        FearEngine.Resources.Material material;
-        FearEngine.Resources.Material drawNormalsMaterial;
+        Scene scene;
 
         public void Startup(FearEngineImpl engine)
         {
-            fearEngine = engine;
+            scene = new Scene(new MeshRenderer(engine.GetDevice()), engine.GetMainCamera());
 
-            meshRenderer = new MeshRenderer();
+            GameObject teapot = new GameObject("FloorPlane");
+            Mesh mesh = engine.GetResourceManager().GetMesh("PLANE");
+            Material material = engine.GetResourceManager().GetMaterial("NormalMapped");
+            material.SetParameterResource("gAlbedo", engine.GetResourceManager().GetTexture("GravelCobble"));
+            material.SetParameterResource("gNormal", engine.GetResourceManager().GetTexture("GravelCobbleNormal"));
 
-            mesh = fearEngine.GetResourceManager().GetMesh("PLANE");
-            
             //drawNormalsMaterial = fearEngine.GetResourceManager().GetMaterial("DrawNormals");
-            material = fearEngine.GetResourceManager().GetMaterial("NormalMapped");
 
-            material.SetParameterResource("gAlbedo", fearEngine.GetResourceManager().GetTexture("GravelCobble"));
-            material.SetParameterResource("gNormal", fearEngine.GetResourceManager().GetTexture("GravelCobbleNormal"));            
+            SceneObject litCube = new SceneObject(teapot, mesh, material);
+
+            scene.AddSceneObject(litCube);
         }
 
-        public void Update(FearGameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
         }
 
-        public void Draw(FearGameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
-            meshRenderer.RenderMesh(fearEngine.GetDevice(), mesh, material, fearEngine.GetMainCamera());
-            //meshRenderer.RenderMesh(fearEngine.GetDevice(), mesh, drawNormalsMaterial, fearEngine.GetMainCamera());
+            scene.Render( gameTime );
         }
 
         public void Shutdown()

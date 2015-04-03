@@ -10,6 +10,8 @@ using SharpDX.Toolkit;
 using FearEngine.Resources.Managment;
 using SharpDX;
 using FearEngine.Input;
+using FearEngine.GameObjects;
+using System.Collections.Generic;
 
 namespace FearEngine
 {
@@ -18,12 +20,14 @@ namespace FearEngine
     public class FearEngineImpl : Game
     {
         private FearGame game;
+        private string title;
 
         private GraphicsDeviceManager graphicsDeviceManager;
 
         private FearInput input;
         private FearResourceManager resourceManager;
 
+        private List<GameObject> gameObjects;   //This gameObjects list should be taken somewhere else. Like some factory that creates gameObjects, tracks them, updates them.
         private Camera mainCamera;
 
         private const uint DEFAULT_WIDTH = 1280;
@@ -33,7 +37,15 @@ namespace FearEngine
 
         public FearEngineImpl(FearGame gameImpl)
         {
+            title = "Fear Engine";
+
             game = gameImpl;
+            gameObjects = new List<GameObject>();
+        }
+
+        public FearEngineImpl(FearGame gameImpl, string t) : this(gameImpl)
+        {
+            title = t;
         }
 
         public void SetupDeviceManager(GraphicsDeviceManager deviceMan)
@@ -64,7 +76,7 @@ namespace FearEngine
 
         protected override void Initialize()
         {
-            Window.Title = "Fear Engine";
+            Window.Title = title;
 
             base.Initialize();
 
@@ -80,7 +92,12 @@ namespace FearEngine
 
             Transform cameraTransform = new Transform();
             cameraTransform.MoveTo(new Vector3(1, 2, -5));
-            mainCamera = new Camera("MainCamera", cameraTransform, new CameraControllerComponent(input), GetDevice().GetViewport(0).AspectRatio);
+
+            GameObject cameraObject = new GameObject("MainCamera", cameraTransform);
+            cameraObject.AddUpdatable(new CameraControllerComponent(input));
+            gameObjects.Add(cameraObject);
+
+            mainCamera = new Camera(cameraObject, GetDevice().GetViewport(0).AspectRatio);
 
             game.Startup(this);
         }
@@ -89,7 +106,7 @@ namespace FearEngine
         {
             GetDevice().Clear(new SharpDX.Color4((float)Math.Pow(0.2f, 2.2f), 0.0f, (float)Math.Pow(0.2f, 2.2f), 1.0f));
 
-            game.Draw(new FearGameTime(gameTime));
+            game.Draw(gameTime);
 
             base.Draw(gameTime);
         }
@@ -98,11 +115,14 @@ namespace FearEngine
         {
             input.Update(gameTime);
 
-            mainCamera.Update(gameTime);
+            foreach (GameObject gameObj in gameObjects)
+            {
+                gameObj.Update(gameTime);
+            }
 
             base.Update(gameTime);
 
-            game.Update(new FearGameTime(gameTime));
+            game.Update(gameTime);
         }
 
         public GraphicsDevice GetDevice()

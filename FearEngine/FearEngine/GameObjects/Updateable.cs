@@ -1,6 +1,5 @@
 ﻿using SharpDX.Toolkit;
-
-namespace FearEngine
+namespace FearEngine.GameObjects
 {
     public interface Updateable
     {

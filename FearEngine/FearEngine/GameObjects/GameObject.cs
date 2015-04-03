@@ -1,6 +1,8 @@
-﻿using SharpDX.Toolkit;
+﻿using FearEngine.GameObjects;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
 using System.Collections.Generic;
-namespace FearEngine
+namespace FearEngine.GameObjects
 {
     public class GameObject
     {
@@ -10,12 +12,16 @@ namespace FearEngine
         public string Name { get; private set; }
         public Transform Transform { get; private set; }
 
+        private List<Updateable> updaters;
+
         public GameObject(string name)
         {
             AssignUniqueID();
 
             Name = name;
             Transform = new Transform();
+
+            updaters = new List<Updateable>();
         }
 
         public GameObject(string name, Transform transform) 
@@ -24,15 +30,23 @@ namespace FearEngine
             Transform = transform;
         }
 
-        //TODO IF WE MOVE TO AN ENTITY SYSTEM APPROACH THEN THIS NEEDS TO BE REMOVED. OBJECTS SHOULD ONLY HAVE COMPONENTS.
-        virtual public void Update(GameTime gameTime)
+        public void Update( GameTime gameTime )
         {
+            foreach (Updateable updater in updaters)
+            {
+                updater.Update(this, gameTime);
+            }
         }
 
         private void AssignUniqueID()
         {
             ID = UIDGenerator;
             UIDGenerator++;
+        }
+
+        public void AddUpdatable(Updateable updater)
+        {
+            updaters.Add(updater);
         }
     }
 }

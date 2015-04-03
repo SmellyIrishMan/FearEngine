@@ -2,36 +2,39 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine;
 using FearEngine.Resources.Meshes;
+using SharpDX.Toolkit;
+using FearEngine.GameObjects;
+using FearEngine.Scene;
+using FearEngine.Resources;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {
     public class TextureCubeDemo : FearEngine.FearGame
     {
-        FearEngineImpl fearEngine;
-
-        RenderableMesh cube;
-        MeshRenderer meshRenderer;
-        FearEngine.Resources.Material material;
+        Scene scene;
 
         public void Startup(FearEngineImpl engine)
         {
-            fearEngine = engine;
+            scene = new Scene(new MeshRenderer(engine.GetDevice()), engine.GetMainCamera());
 
-            meshRenderer = new MeshRenderer();
+            GameObject cube = new GameObject("Cube");
+            Mesh mesh = engine.GetResourceManager().GetMesh("BOX");
+            Material material = engine.GetResourceManager().GetMaterial("Textured");
+            material.SetParameterResource("gAlbedo", engine.GetResourceManager().GetTexture("GammaGradient"));
 
-            cube = fearEngine.GetResourceManager().GetMesh("BOX");
-            material = fearEngine.GetResourceManager().GetMaterial("Textured");
-            material.SetParameterResource("gAlbedo", fearEngine.GetResourceManager().GetTexture("GammaGradient"));
+            SceneObject litCube = new SceneObject(cube, mesh, material);
+
+            scene.AddSceneObject(litCube);
         }
 
-        public void Update(FearGameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
         }
 
-        public void Draw(FearGameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
-            meshRenderer.RenderMesh(fearEngine.GetDevice(), cube, material, fearEngine.GetMainCamera());
+            scene.Render( gameTime );
         }
 
         public void Shutdown()
