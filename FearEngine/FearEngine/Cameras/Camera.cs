@@ -15,11 +15,10 @@ namespace FearEngine.Cameras
         public Camera(GameObject gObj, float aspect)
         {
             gameObj = gObj;
+            gameObj.Transform.Changed += OnTransformChanged;
 
             Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, aspect, 0.01f, 1000.0f);
             View = Matrix.LookAtLH(gameObj.Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);
-
-            gObj.Transform.Changed += OnTransformChanged;
         }
 
         void OnTransformChanged(Transform newTransform)

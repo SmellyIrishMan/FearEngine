@@ -5,13 +5,17 @@ namespace FearEngine.GameObjects
 {
     public class Transform
     {
-        public Quaternion Rotation { get; private set; }
-        public Vector3 Position { get; private set; }
-        public Vector3 Forward { get; private set; }
-        public Vector3 Right { get; private set; }
-        public Vector3 Up { get; private set; }
+        Quaternion rotation;
+        Vector3 position;
+        Vector3 forward;
+        Vector3 right;
+        Vector3 up;
 
-        private Vector3 YawPitchRoll;
+        public Quaternion Rotation { get { return rotation; } }
+        public Vector3 Position { get { return position; } }
+        public Vector3 Forward { get { return forward; } }
+        public Vector3 Right { get { return right; } }
+        public Vector3 Up { get { return up; } }
 
         public delegate void TransformChangedHandler(Transform newTransform);
 
@@ -19,39 +23,36 @@ namespace FearEngine.GameObjects
 
         public Transform()
         {
-            Rotation = Quaternion.Identity;
-            Position = Vector3.Zero;
-            Forward = Vector3.ForwardLH;
-            Right = Vector3.Right;
-            Up = Vector3.Up;
+            rotation = Quaternion.Identity;
+            position = Vector3.Zero;
+            forward = Vector3.ForwardLH;
+            right = Vector3.Right;
+            up = Vector3.Up;
         }
 
-        public void MoveTo(Vector3 position)
+        public void MoveTo(Vector3 pos)
         {
-            Position = position;
+            position = pos;
             NotifyNewTransform();
         }
 
-        public void Pitch(float radians)
+        public void Rotate(Quaternion quaternion)
         {
-            YawPitchRoll.Y += radians;
-            UpdateRotation();
+            rotation = rotation * quaternion;
+        }
+
+        public void SetRotation(Quaternion quat)
+        {
+            rotation = quat;
+            UpdateLocalDirections();
             NotifyNewTransform();
         }
 
-        public void Yaw(float radians)
+        private void UpdateLocalDirections()
         {
-            YawPitchRoll.X += radians;
-            UpdateRotation();
-            NotifyNewTransform();
-        }
-
-        private void UpdateRotation()
-        {
-            Rotation = Quaternion.RotationYawPitchRoll(YawPitchRoll.X, YawPitchRoll.Y, YawPitchRoll.Z);
-            Right = Vector3.Transform(Vector3.Right, Rotation);
-            Up = Vector3.Transform(Vector3.Up, Rotation);
-            Forward = Vector3.Transform(Vector3.ForwardLH, Rotation);
+            right = Vector3.Transform(Vector3.Right, Rotation);
+            up = Vector3.Transform(Vector3.Up, Rotation);
+            forward = Vector3.Transform(Vector3.ForwardLH, Rotation);
         }
 
         private void NotifyNewTransform()

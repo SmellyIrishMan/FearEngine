@@ -1,17 +1,18 @@
-﻿namespace FearEngine.GameObjects.Updateables
+﻿using SharpDX;
+namespace FearEngine.GameObjects.Updateables
 {
     public class ContinuousRotationAroundY : Updateable
     {
-        private float speed = 0.1f;
+        private float speed;
 
-        public ContinuousRotationAroundY(float spd)
+        public ContinuousRotationAroundY(float spd = 1.0f)
         {
             speed = spd;
         }
 
         public void Update(GameObject owner, SharpDX.Toolkit.GameTime gameTime)
         {
-            owner.Transform.Yaw((float)gameTime.TotalGameTime.TotalSeconds * speed);
+            owner.Transform.Rotate(Quaternion.RotationAxis(Vector3.UnitY, (float)gameTime.ElapsedGameTime.TotalSeconds * speed));
         }
     }
 }

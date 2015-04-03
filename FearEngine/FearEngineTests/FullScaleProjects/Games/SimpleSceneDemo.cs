@@ -22,7 +22,7 @@ namespace FearEngineTests.FullScaleProjects.Games
             scene = new Scene(new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
 
             teapot = new GameObject("Teapot");
-            teapot.AddUpdatable(new ContinuousRotationAroundY(0.001f));
+            teapot.AddUpdatable(new ContinuousRotationAroundY());
 
             Mesh mesh = fearEngine.GetResourceManager().GetMesh("TEAPOT");
             Material material = fearEngine.GetResourceManager().GetMaterial("NormalLit");
