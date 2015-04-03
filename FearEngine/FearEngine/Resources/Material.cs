@@ -51,7 +51,15 @@ namespace FearEngine.Resources
 
         public void SetParameterValue(string p, SharpDX.Matrix value)
         {
-            if (hasParameter(p))
+            if (HasParameter(p))
+            {
+                effect.Parameters[p].SetValue(value);
+            }
+        }
+
+        internal void SetParameterValue(string p, SharpDX.Vector3 value)
+        {
+            if (HasParameter(p))
             {
                 effect.Parameters[p].SetValue(value);
             }
@@ -59,7 +67,7 @@ namespace FearEngine.Resources
 
         internal void SetParameterValue(string p, SharpDX.Vector4 value)
         {
-            if (hasParameter(p))
+            if (HasParameter(p))
             {
                 effect.Parameters[p].SetValue(value);
             }
@@ -67,7 +75,7 @@ namespace FearEngine.Resources
 
         public void SetParameterValue(string p, FearEngine.Lighting.DirectionalLight testLight)
         {
-            if (hasParameter(p))
+            if (HasParameter(p))
             {
                 effect.Parameters[p].SetValue<FearEngine.Lighting.DirectionalLight>(testLight);
             }
@@ -75,13 +83,13 @@ namespace FearEngine.Resources
 
         public void SetParameterResource(string p, Texture texture)
         {
-            if (hasParameter(p))
+            if (HasParameter(p))
             {
                 effect.Parameters[p].SetResource(texture.ShaderView);
             }
         }
 
-        private bool hasParameter(string param)
+        private bool HasParameter(string param)
         {
             return effect.Parameters[param] != null;
         }

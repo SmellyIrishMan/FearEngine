@@ -50,6 +50,27 @@ struct Material
 	float4 Reflect;
 };
 
+void ComputeLightingFactorsForDirectionalLight( 
+	DirectionalLight light, 
+	float3 normW, 
+	float3 toEye,
+	float specularPower,
+	out float diffuseFactor,
+	out float specularFactor)
+{
+	float3 directionToLight = -light.Direction;
+	diffuseFactor = dot(directionToLight, normW);
+	specularFactor = 0.0f;
+	
+	// Flatten to avoid dynamic branching.
+	[flatten]
+	if( diffuseFactor > 0.0f )
+	{
+		float3 reflectionDirection = reflect(light.Direction, normW);
+		specularFactor = pow(max(dot(reflectionDirection, toEye), 0.0f), specularPower);
+	}
+}
+
 //---------------------------------------------------------------------------------------
 // Computes the ambient, diffuse, and specular terms in the lighting equation
 // from a directional light.  We need to output the terms separately because

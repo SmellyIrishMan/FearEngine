@@ -3,10 +3,12 @@
 cbuffer cbPerFrame
 {
 	DirectionalLight gDirLight;
+	float3 gEyeW;
 };
 
 cbuffer cbPerObject
 {
+	float4x4 gWorld;
 	float4x4 gWorldInvTranspose; 
 	float4x4 gWorldViewProj; 
 };
@@ -20,27 +22,42 @@ struct VertexIn
 struct VertexOut
 {
 	float4 PosH  : SV_POSITION;
+	float3 PosW	 : POSITION;
     float3 NormW : NORMAL;
 };
 
-VertexOut VS(VertexIn vin)
+VertexOut VS(VertexIn vIn)
 {
-	VertexOut vout;
+	VertexOut vOut;
 	
 	// Transform to homogeneous clip space.
-	vout.PosH = mul(float4(vin.PosL, 1.0f), gWorldViewProj);
-    vout.NormW = mul(vin.NormL, (float3x3)gWorldInvTranspose);
+	vOut.PosH = mul(float4(vIn.PosL, 1.0f), gWorldViewProj);
+	
+	vOut.PosW = mul(float4(vIn.PosL, 1.0f), gWorld).xyz;
+    vOut.NormW = mul(vIn.NormL, (float3x3)gWorldInvTranspose);
     
-    return vout;
+    return vOut;
 }
 
-float4 PS(VertexOut pin) : SV_Target
+float4 PS(VertexOut pIn) : SV_Target
 {
-	float4 finalColor = gDirLight.Ambient;
-	float3 dirToLight = -gDirLight.Direction;
-	float lightIntensity = saturate(dot(pin.NormW, dirToLight));
+	float diffuseIntensity;
+	float specularIntensity;
+	float specularPow = 30.0f;
+	
+	float3 directionToEye = normalize(gEyeW - pIn.PosW);
+	
+	ComputeLightingFactorsForDirectionalLight(
+		gDirLight,
+		pIn.NormW,
+		directionToEye,
+		specularPow,
+		diffuseIntensity,
+		specularIntensity);
 
-	finalColor += gDirLight.Diffuse * lightIntensity;
+	float4 finalColor = gDirLight.Ambient;
+	finalColor += gDirLight.Diffuse * diffuseIntensity;
+	finalColor += gDirLight.Specular * specularIntensity;
 
     return finalColor;
 }

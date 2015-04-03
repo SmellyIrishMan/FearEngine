@@ -11,6 +11,7 @@ namespace FearEngine.Cameras
 
         public Matrix View { get; private set; }
         public Matrix Projection { get; private set; }
+        public Vector3 Position { get { return gameObj.Transform.Position; } }
 
         public Camera(GameObject gObj, float aspect)
         {
