@@ -6,6 +6,11 @@
       <IsLinear>false</IsLinear>
    </Texture>
    <Texture>
+      <Name>UVChecker</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\UVChecker.png</Filepath>
+      <IsLinear>false</IsLinear>
+   </Texture>
+   <Texture>
       <Name>GammaGradient</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\GammaGradient.png</Filepath>
       <IsLinear>false</IsLinear>
