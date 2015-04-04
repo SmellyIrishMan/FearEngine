@@ -13,7 +13,8 @@ namespace FearEngineTests.FullScaleProjects.Games
     {
         FearEngineImpl fearEngine;
 
-        GameObject teapot;
+        GameObject teapotPhong;
+        GameObject teapotPBR;
         Scene scene;
 
         public void Startup(FearEngineImpl engine)
@@ -22,20 +23,32 @@ namespace FearEngineTests.FullScaleProjects.Games
 
             scene = new Scene(new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
 
-            teapot = new GameObject("Teapot");
-            teapot.AddUpdatable(new ContinuousRotationAroundY());
+            float seperation = 6.0f;
+
+            teapotPhong = new GameObject("TeapotPhong");
+            teapotPhong.Transform.MoveTo(teapotPhong.Transform.Position + (teapotPhong.Transform.Right * seperation));
+            teapotPhong.AddUpdatable(new ContinuousRotationAroundY());
+
+            teapotPBR = new GameObject("TeapotPBR");
+            teapotPBR.Transform.MoveTo(teapotPhong.Transform.Position + (-teapotPhong.Transform.Right * seperation));
+            teapotPBR.AddUpdatable(new ContinuousRotationAroundY());
 
             Mesh mesh = fearEngine.GetResourceManager().GetMesh("TEAPOT");
-            Material material = fearEngine.GetResourceManager().GetMaterial("PBR_GGX");
 
-            SceneObject litTeapot = new SceneObject(teapot, mesh, material);
+            Material phong = fearEngine.GetResourceManager().GetMaterial("NormalLit");
+            Material pbr = fearEngine.GetResourceManager().GetMaterial("PBR_GGX");
 
-            scene.AddSceneObject(litTeapot);
+            SceneObject phongTeapot = new SceneObject(teapotPhong, mesh, phong);
+            SceneObject pbrTeapot = new SceneObject(teapotPBR, mesh, pbr);
+
+            scene.AddSceneObject(phongTeapot);
+            scene.AddSceneObject(pbrTeapot);
         }
 
         public void Update(GameTime gameTime)
         {
-            teapot.Update(gameTime);
+            teapotPhong.Update(gameTime);
+            teapotPBR.Update(gameTime);
         }
 
         public void Draw(GameTime gameTime)

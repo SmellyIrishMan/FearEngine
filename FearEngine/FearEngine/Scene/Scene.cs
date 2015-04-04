@@ -11,7 +11,7 @@ namespace FearEngine.Scene
 {
     public class Scene
     {
-        private List<DirectionalLight> lights;
+        private HashSet<DirectionalLight> lights;
 
         private HashSet<SceneObject> sceneObjects;
 
@@ -27,7 +27,7 @@ namespace FearEngine.Scene
             meshRenderer = meshRend;
             camera = cam;
 
-            lights = new List<DirectionalLight>();
+            lights = new HashSet<DirectionalLight>();
 
             sceneObjects = new HashSet<SceneObject>();
             meshes = new HashSet<Mesh>();
