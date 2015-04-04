@@ -79,6 +79,8 @@
     <Compile Include="HelperClasses\MethodTimer.cs" />
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Lighting\DirectionalLight.cs" />
+    <Compile Include="Resources\Materials\DefaultPerObjectMaterialParameters.cs" />
+    <Compile Include="Resources\Materials\DefaultPerFrameMaterialParameters.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataBiTangentImpl.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataTangentImpl.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
@@ -123,7 +125,7 @@
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayouts.cs" />
-    <Compile Include="Resources\Material.cs" />
+    <Compile Include="Resources\Materials\Material.cs" />
     <Compile Include="Resources\Meshes\MeshData.cs" />
     <Compile Include="Resources\Loaders\Collada\ColladaMeshLoader.cs" />
     <Compile Include="Resources\Managment\FearResourceManager.cs" />

@@ -58,10 +58,23 @@ namespace FearEngine.Scene
 
         public void Render(GameTime gameTime)
         {
+            SetupMaterialsForScene();
+
             foreach(SceneObject sceneObj in sceneObjects)
             {
                 SetupMaterialForGameObject(sceneObj.Material, sceneObj.GameObject);
                 meshRenderer.RenderMeshWithMaterial(sceneObj.Mesh, sceneObj.Material);
+            }
+        }
+
+        private void SetupMaterialsForScene()
+        {
+            DefaultPerFrameMaterialParameters frameParams = new DefaultPerFrameMaterialParameters(
+                camera.Position, defaultLight);
+
+            foreach (Material material in materials)
+            {
+                frameParams.ApplyToMaterial(material);
             }
         }
 
@@ -73,12 +86,12 @@ namespace FearEngine.Scene
             Matrix proj = camera.Projection;
             Matrix WVP = world * view * proj;
 
-            material.SetParameterValue("gWorld", world);
-            material.SetParameterValue("gWorldInvTranspose", Matrix.Transpose(Matrix.Invert(world)));
-            material.SetParameterValue("gWorldViewProj", WVP);
+            DefaultPerObjectMaterialParameters objectParams = new DefaultPerObjectMaterialParameters(
+                world,
+                Matrix.Transpose(Matrix.Invert(world)),
+                WVP);
 
-            material.SetParameterValue("gEyeW", camera.Position);
-            material.SetParameterValue("gDirLight", defaultLight);
+            objectParams.ApplyToMaterial(material);
         }
 
         private void AddLight( Lighting.DirectionalLight light )
