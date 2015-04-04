@@ -45,12 +45,20 @@ float4 PS(VertexOut pIn) : SV_Target
 	float diffuseIntensity = ComputeDiffuseForDirectionalLight(gDirLight, pIn.NormW);
 	
 	float roughness = 0.2f;
-	float refractiveIndex = 0.15f;
+	float reflectanceAtNormalIncidence = 0.15f;
 	float3 directionToEye = normalize(gEyeW - pIn.PosW);
-	float specularIntensity = LightingFuncGGX_REF(pIn.NormW, directionToEye, -gDirLight.Direction, roughness, refractiveIndex);
+	float specularIntensity = LightingFuncGGX_REF(
+		pIn.NormW, 
+		directionToEye, 
+		-gDirLight.Direction, 
+		roughness, 
+		reflectanceAtNormalIncidence);
 
-	float4 finalColor = gDirLight.Diffuse * diffuseIntensity;
-	finalColor += float4(0.85f, 0.95f, 0.85f, 1.0f) * specularIntensity;
+	float4 specColor = float4(0.9f, 0.9f, 0.9f, 1.0f);
+	
+	//Need to make sure this is normalised for it to be PBR. 
+	//We can't output more light than we bring in.
+	float4 finalColor = diffuseIntensity * (gDirLight.Diffuse + (specColor * specularIntensity));
 
     return finalColor;
 }

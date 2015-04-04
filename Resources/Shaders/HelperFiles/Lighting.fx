@@ -47,7 +47,7 @@ float ComputeDiffuseForDirectionalLight(
 	float3 normW)
 {
 	float3 directionToLight = -light.Direction;
-	return dot(directionToLight, normW);
+	return saturate(dot(directionToLight, normW));
 }
 
 void ComputeLightingFactorsForDirectionalLight( 
