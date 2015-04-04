@@ -49,9 +49,8 @@ float4 PS(VertexOut pIn) : SV_Target
 	float3 directionToEye = normalize(gEyeW - pIn.PosW);
 	float specularIntensity = LightingFuncGGX_REF(pIn.NormW, directionToEye, -gDirLight.Direction, roughness, refractiveIndex);
 
-	float4 finalColor = gDirLight.Ambient;
-	finalColor += gDirLight.Diffuse * diffuseIntensity;
-	finalColor += gDirLight.Specular * specularIntensity;
+	float4 finalColor = gDirLight.Diffuse * diffuseIntensity;
+	finalColor += float4(0.85f, 0.95f, 0.85f, 1.0f) * specularIntensity;
 
     return finalColor;
 }

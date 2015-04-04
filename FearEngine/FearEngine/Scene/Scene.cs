@@ -40,9 +40,7 @@ namespace FearEngine.Scene
         {
             defaultLight = new FearEngine.Lighting.DirectionalLight();
 
-            defaultLight.Ambient = new SharpDX.Vector4(0.0f, 0.0f, 0.0f, 0.0f);
             defaultLight.Diffuse = new SharpDX.Vector4(0.8f, 0.8f, 0.8f, 0.0f);
-            defaultLight.Specular = new SharpDX.Vector4(0.8f, 0.95f, 0.8f, 0.0f);
             defaultLight.Direction = new SharpDX.Vector3(-0.5f, -1.0f, -0.25f);
             defaultLight.Direction.Normalize();
             defaultLight.pad = 0;

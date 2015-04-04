@@ -54,14 +54,12 @@ float4 PS(VertexOut pIn) : SV_TARGET
 	float3 normalMapSample = gNormal.Sample(samAnisotropic, pIn.Tex).rgb;
 	float3 bumpedNormalW = NormalSampleToWorldSpace(normalMapSample, pIn.NormalW, pIn.TangentW);
 	
-	float4 finalColor = gDirLight.Ambient;
-	
 	float3 dirToLight = -gDirLight.Direction;
 	float lightIntensity = saturate(dot(bumpedNormalW, dirToLight));
 	
 	float4 albedo = gAlbedo.Sample(samAnisotropic, pIn.Tex);
 	
-	finalColor = albedo * gDirLight.Diffuse * lightIntensity;
+	float4 finalColor = albedo * gDirLight.Diffuse * lightIntensity;
 	
     return finalColor;
 }
