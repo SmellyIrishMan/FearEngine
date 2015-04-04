@@ -21,6 +21,11 @@
       <Technique>BasicPositionNormalLightTech</Technique>
    </Material>
    <Material>
+      <Name>PBR_GGX</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\PBR_GGX_FilmicWorlds.fx</Filepath>
+      <Technique>PBR_GGX_FilmicWorlds</Technique>
+   </Material>
+   <Material>
       <Name>DrawNormals</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\DrawNormals.fx</Filepath>
       <Technique>DrawNormalsTech</Technique>

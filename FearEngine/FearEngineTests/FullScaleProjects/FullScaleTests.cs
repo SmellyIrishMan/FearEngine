@@ -77,5 +77,19 @@ namespace FearEngineTests
             //When
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void ShaderModelComparisonScene()
+        {
+            //Given
+            FearGameFactory appFactory = new FearGameFactory();
+            FearGame game = new ShaderModelComparisonDemo();
+
+            //Then
+            appFactory.CreateAndRunFearGame(game);
+
+            //When
+            Assert.IsTrue(true);
+        }
     }
 }

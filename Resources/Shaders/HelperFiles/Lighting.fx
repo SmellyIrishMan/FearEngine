@@ -50,6 +50,14 @@ struct Material
 	float4 Reflect;
 };
 
+float ComputeDiffuseForDirectionalLight( 
+	DirectionalLight light, 
+	float3 normW)
+{
+	float3 directionToLight = -light.Direction;
+	return dot(directionToLight, normW);
+}
+
 void ComputeLightingFactorsForDirectionalLight( 
 	DirectionalLight light, 
 	float3 normW, 
@@ -58,8 +66,8 @@ void ComputeLightingFactorsForDirectionalLight(
 	out float diffuseFactor,
 	out float specularFactor)
 {
-	float3 directionToLight = -light.Direction;
-	diffuseFactor = dot(directionToLight, normW);
+	diffuseFactor = ComputeDiffuseForDirectionalLight(light, normW);
+	
 	specularFactor = 0.0f;
 	
 	// Flatten to avoid dynamic branching.
