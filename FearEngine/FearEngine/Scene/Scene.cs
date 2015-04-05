@@ -22,6 +22,8 @@ namespace FearEngine.Scene
         private Camera camera;
         private Lighting.DirectionalLight defaultLight;
 
+        private bool shadowsEnabled = false;
+
         public Scene(MeshRenderer meshRend, Camera cam)
         {
             meshRenderer = meshRend;
@@ -108,6 +110,11 @@ namespace FearEngine.Scene
         private void AddMaterial(Material material)
         {
             materials.Add(material);
+        }
+
+        public void EnableShadows()
+        {
+            shadowsEnabled = true;
         }
     }
 }

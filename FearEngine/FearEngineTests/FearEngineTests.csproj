@@ -82,6 +82,7 @@
     <Compile Include="FullScaleProjects\Games\NormalMappedMeshDemo.cs" />
     <Compile Include="FullScaleProjects\Games\CubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\ShaderModelComparisonDemo.cs" />
+    <Compile Include="FullScaleProjects\Games\ShadowsDemo.cs" />
     <Compile Include="FullScaleProjects\Games\SimpleSceneDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TexturedCubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\BlankWindowDemo.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="ResourceManagerTests.cs" />
     <Compile Include="FullScaleProjects\FullScaleTests.cs" />
     <Compile Include="ResourceLoadingTests.cs" />
+    <Compile Include="ShadowMapping\DepthTextureCreation.cs" />
     <Compile Include="VertexDataTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -58,6 +58,10 @@ float4 PS(VertexOut pIn) : SV_Target
 	
 	//Need to make sure this is normalised for it to be PBR. 
 	//We can't output more light than we bring in.
+	
+	//Use lumens from lights
+	//Use an albedo for the color of the object
+	//Divide that albedo by pi. As per Karis UE4 paper.
 	float4 finalColor = diffuseIntensity * (gDirLight.Diffuse + (specColor * specularIntensity));
 
     return finalColor;

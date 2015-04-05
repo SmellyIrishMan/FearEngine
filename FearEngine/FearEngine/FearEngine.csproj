@@ -122,6 +122,7 @@
     <Compile Include="Resources\Loaders\MaterialLoader.cs" />
     <Compile Include="Resources\Meshes\Mesh.cs" />
     <Compile Include="Scene\SceneObject.cs" />
+    <Compile Include="Shadows\ShadowMap.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayouts.cs" />
