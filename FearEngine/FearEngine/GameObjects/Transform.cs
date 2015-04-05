@@ -6,12 +6,16 @@ namespace FearEngine.GameObjects
     public class Transform
     {
         Quaternion rotation;
+
+        Vector3 scale;
+        
         Vector3 position;
         Vector3 forward;
         Vector3 right;
         Vector3 up;
 
         public Quaternion Rotation { get { return rotation; } }
+        public Vector3 Scale { get { return scale; } }
         public Vector3 Position { get { return position; } }
         public Vector3 Forward { get { return forward; } }
         public Vector3 Right { get { return right; } }
@@ -24,6 +28,9 @@ namespace FearEngine.GameObjects
         public Transform()
         {
             rotation = Quaternion.Identity;
+
+            scale = Vector3.One;
+
             position = Vector3.Zero;
             forward = Vector3.ForwardLH;
             right = Vector3.Right;
@@ -61,6 +68,11 @@ namespace FearEngine.GameObjects
             {
                 Changed(this);
             }
+        }
+
+        public void SetScale(float p)
+        {
+            scale = new Vector3(p);
         }
     }
 }

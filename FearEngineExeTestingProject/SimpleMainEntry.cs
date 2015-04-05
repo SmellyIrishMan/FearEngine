@@ -4,9 +4,27 @@ using FearEngine.Resources;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scene;
 using SharpDX.Toolkit;
-namespace FearEngineTests.FullScaleProjects.Games
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ShadowTesting
 {
-    class ShadowsDemo : FearEngine.FearGame
+    class SimpleMainEntry
+    {
+        static int Main(string[] args)
+        {
+            FearGameFactory appFactory = new FearGameFactory();
+            FearGame game = new TestGame();
+            appFactory.CreateAndRunFearGame(game);
+
+            return 0;
+        }
+    }
+
+    class TestGame : FearEngine.FearGame
     {
         FearEngineImpl fearEngine;
 

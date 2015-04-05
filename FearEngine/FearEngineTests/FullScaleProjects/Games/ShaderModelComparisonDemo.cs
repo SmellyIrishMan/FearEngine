@@ -21,7 +21,7 @@ namespace FearEngineTests.FullScaleProjects.Games
         {
             fearEngine = engine;
 
-            scene = new Scene(new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
+            scene = new Scene(null, null, new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
 
             float seperation = 6.0f;
 

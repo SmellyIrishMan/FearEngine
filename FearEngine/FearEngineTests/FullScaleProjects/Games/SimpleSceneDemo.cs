@@ -19,7 +19,7 @@ namespace FearEngineTests.FullScaleProjects.Games
         {
             fearEngine = engine;
 
-            scene = new Scene(new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
+            scene = new Scene(null, null, new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
 
             teapot = new GameObject("Teapot");
             teapot.AddUpdatable(new ContinuousRotationAroundY());

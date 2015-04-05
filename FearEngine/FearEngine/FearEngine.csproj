@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Cameras\CameraControllerComponent.cs" />
     <Compile Include="Cameras\Camera.cs" />
+    <Compile Include="DeviceState\DeviceStateFactory.cs" />
     <Compile Include="FearGameFactory.cs" />
     <Compile Include="FearEngineImpl.cs" />
     <Compile Include="FearGame.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Resources\Loaders\MaterialLoader.cs" />
     <Compile Include="Resources\Meshes\Mesh.cs" />
     <Compile Include="Scene\SceneObject.cs" />
+    <Compile Include="Shadows\BasicShadowTechnique.cs" />
     <Compile Include="Shadows\ShadowMap.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />

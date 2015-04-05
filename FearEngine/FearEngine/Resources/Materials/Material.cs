@@ -1,11 +1,12 @@
 ﻿using FearEngine.Lighting;
 using FearEngine.Resources.Managment;
+using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
 using System;
 
 namespace FearEngine.Resources
 {
-    public class Material : Resource
+    public class Material : FearEngine.Resources.Managment.Resource
     {
         private string name;
         private Effect effect;
@@ -86,6 +87,14 @@ namespace FearEngine.Resources
             if (HasParameter(p))
             {
                 effect.Parameters[p].SetResource(texture.ShaderView);
+            }
+        }
+
+        public void SetParameterResource(string p, ShaderResourceView shaderResView)
+        {
+            if (HasParameter(p))
+            {
+                effect.Parameters[p].SetResource(shaderResView);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using SharpDX.Direct3D;
+﻿using FearEngine.RenderTargets;
+using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
 
@@ -8,11 +9,13 @@ namespace FearEngine.Shadows
     {
         private SharpDX.Viewport viewport;
 
-        private SharpDX.Direct3D11.Texture2D depthTexture;
         private DepthStencilView depthMapDSV;
         private ShaderResourceView depthMapSRV;
 
+        private RenderTarget renderTarget;
+
         public ShaderResourceView ResourceView { get { return depthMapSRV; } }
+        public RenderTarget RenderTarget { get { return renderTarget; } }
 
         private int mipLevels = 1; //Mips will screw with the readings from the depth texture.
 
@@ -20,34 +23,24 @@ namespace FearEngine.Shadows
         {
             viewport = new SharpDX.Viewport(0, 0, width, height, 0.0f, 1.0f);
 
+            SharpDX.Direct3D11.Device dev = (SharpDX.Direct3D11.Device)device;
+            FormatSupport support = dev.CheckFormatSupport(SharpDX.DXGI.Format.R32_Typeless);
+            support = dev.CheckFormatSupport(SharpDX.DXGI.Format.D32_Float);
+            support = dev.CheckFormatSupport(SharpDX.DXGI.Format.R32_Float);
+            
+
             Texture2DDescription depthTexDesc = FillOutDepthTextureDescription();
-            depthTexture = new SharpDX.Direct3D11.Texture2D(device, depthTexDesc);
+            SharpDX.Direct3D11.Texture2D depthTexture = new SharpDX.Direct3D11.Texture2D(device, depthTexDesc);
 
             DepthStencilViewDescription dsvDesc = FillOutDSVDescription();
             depthMapDSV = new DepthStencilView(device, depthTexture, dsvDesc);
 
             ShaderResourceViewDescription srvDesc = FillOutSRVDescription();
             depthMapSRV = new ShaderResourceView(device, depthTexture, srvDesc);
-        }
 
-        private ShaderResourceViewDescription FillOutSRVDescription()
-        {
- 	        ShaderResourceViewDescription desc = new ShaderResourceViewDescription();
-            desc.Format = SharpDX.DXGI.Format.R24_UNorm_X8_Typeless;
-            desc.Dimension = ShaderResourceViewDimension.Texture2D;
-            desc.Texture2D.MipLevels = mipLevels;
-            desc.Texture2D.MostDetailedMip = 0;
-            return desc;
-        }
+            renderTarget = new RenderTarget("ShadowMap", null, depthMapDSV, viewport);
 
-        private DepthStencilViewDescription FillOutDSVDescription()
-        {
-            DepthStencilViewDescription desc = new DepthStencilViewDescription();
-            desc.Flags = DepthStencilViewFlags.None;
-            desc.Format = SharpDX.DXGI.Format.D24_UNorm_S8_UInt;
-            desc.Dimension = DepthStencilViewDimension.Texture2D;
-            desc.Texture2D.MipSlice = 0;
-            return desc;
+            depthTexture.Dispose();
         }
 
         private Texture2DDescription FillOutDepthTextureDescription()
@@ -66,13 +59,32 @@ namespace FearEngine.Shadows
             desc.OptionFlags = SharpDX.Direct3D11.ResourceOptionFlags.None;
 
             return desc;
-        }   
+        }
+
+        private DepthStencilViewDescription FillOutDSVDescription()
+        {
+            DepthStencilViewDescription desc = new DepthStencilViewDescription();
+            desc.Flags = DepthStencilViewFlags.None;
+            desc.Format = SharpDX.DXGI.Format.D24_UNorm_S8_UInt;
+            desc.Dimension = DepthStencilViewDimension.Texture2D;
+            desc.Texture2D.MipSlice = 0;
+            return desc;
+        }
+
+        private ShaderResourceViewDescription FillOutSRVDescription()
+        {
+            ShaderResourceViewDescription desc = new ShaderResourceViewDescription();
+            desc.Format = SharpDX.DXGI.Format.R24_UNorm_X8_Typeless;
+            desc.Dimension = ShaderResourceViewDimension.Texture2D;
+            desc.Texture2D.MipLevels = mipLevels;
+            desc.Texture2D.MostDetailedMip = 0;
+            return desc;
+        }
 
         public void Dispose()
         {
             depthMapSRV.Dispose();
             depthMapDSV.Dispose();
-            depthTexture.Dispose();
         }
     }
 }

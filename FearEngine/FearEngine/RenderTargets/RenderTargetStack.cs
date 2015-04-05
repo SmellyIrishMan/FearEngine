@@ -32,6 +32,11 @@ namespace FearEngine.RenderTargets
             {
                 renderTarget = device.GetRenderTargets(out depthStencil)[0];
             }
+            else
+            {
+                renderTarget = new RenderTargetView(device, device.BackBuffer);
+                depthStencil = new DepthStencilView(device, device.DepthStencilBuffer);
+            }
             
             ViewportF viewport = device.GetViewport(0);
 
@@ -39,28 +44,32 @@ namespace FearEngine.RenderTargets
             renderTargetStack.Push(currentRt);
         }
 
-        public void PushRenderTarget(RenderTarget target)
+        public void PushRenderTargetAndSwitch(RenderTarget target)
         {
-            target = SwitchRenderTarget(target);
-
             renderTargetStack.Push(target);
+            SwitchToTopRenderTarget();
         }
 
-        private RenderTarget SwitchRenderTarget(RenderTarget target)
+        private void SwitchToTopRenderTarget()
         {
+            RenderTarget target = renderTargetStack.Peek();
             device.SetViewport(target.Viewport);
             device.SetRenderTargets(target.DepthStencil, target.RenderTargetView);
 
-            device.Clear(target.DepthStencil, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1.0f, 0);
-            device.Clear(new SharpDX.Color4(SRGBLinearConverter.SRGBtoLinear(0.2f), 0.0f, SRGBLinearConverter.SRGBtoLinear(0.2f), 1.0f));
-            return target;
+            if (target.DepthStencil != null)
+            {
+                device.Clear(target.DepthStencil, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1.0f, 0);
+            }
+            if (target.RenderTargetView != null)
+            {
+                device.Clear(target.RenderTargetView, new SharpDX.Color4(SRGBLinearConverter.SRGBtoLinear(0.2f), 0.0f, SRGBLinearConverter.SRGBtoLinear(0.2f), 1.0f));
+            }
         }
 
         public void PopRenderTargetAndSwitch()
         {
             renderTargetStack.Pop();
-
-            SwitchRenderTarget(renderTargetStack.Peek());
+            SwitchToTopRenderTarget();
         }
     }
 }
