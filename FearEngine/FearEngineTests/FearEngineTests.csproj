@@ -93,6 +93,8 @@
     <Compile Include="FullScaleProjects\FullScaleTests.cs" />
     <Compile Include="ResourceLoadingTests.cs" />
     <Compile Include="ShadowMapping\DepthTextureCreation.cs" />
+    <Compile Include="SRGBToLinearTests.cs" />
+    <Compile Include="RenderTargetStackTests.cs" />
     <Compile Include="VertexDataTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@ using SharpDX;
 using FearEngine.Input;
 using FearEngine.GameObjects;
 using System.Collections.Generic;
+using FearEngine.HelperClasses;
 
 namespace FearEngine
 {
@@ -104,7 +105,7 @@ namespace FearEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            GetDevice().Clear(new SharpDX.Color4((float)Math.Pow(0.2f, 2.2f), 0.0f, (float)Math.Pow(0.2f, 2.2f), 1.0f));
+            GetDevice().Clear(new SharpDX.Color4(SRGBLinearConverter.SRGBtoLinear(0.2f), 0.0f, SRGBLinearConverter.SRGBtoLinear(0.2f), 1.0f));
 
             game.Draw(gameTime);
 

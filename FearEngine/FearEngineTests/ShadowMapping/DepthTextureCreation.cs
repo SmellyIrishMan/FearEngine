@@ -11,11 +11,14 @@ namespace FearEngineTests.ShadowMapping
         [TestMethod]
         public void CreateBasicShadowMap()
         {
+            //Given
             ShadowMap map = new ShadowMap(GraphicsDevice.New(), 1, 1);
 
-            map.Dispose();
+            //When
 
-            Assert.IsTrue(true);
+            //Then
+            Assert.IsTrue(map.ResourceView != null);
+            map.Dispose();
         }
     }
 }

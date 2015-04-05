@@ -77,8 +77,11 @@
     <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="HelperClasses\MethodTimer.cs" />
+    <Compile Include="HelperClasses\SRGBLinearConverter.cs" />
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Lighting\DirectionalLight.cs" />
+    <Compile Include="RenderTargets\RenderTarget.cs" />
+    <Compile Include="RenderTargets\RenderTargetStack.cs" />
     <Compile Include="Resources\Materials\DefaultPerObjectMaterialParameters.cs" />
     <Compile Include="Resources\Materials\DefaultPerFrameMaterialParameters.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataBiTangentImpl.cs" />

@@ -12,6 +12,8 @@ namespace FearEngine.Shadows
         private DepthStencilView depthMapDSV;
         private ShaderResourceView depthMapSRV;
 
+        public ShaderResourceView ResourceView { get { return depthMapSRV; } }
+
         private int mipLevels = 1; //Mips will screw with the readings from the depth texture.
 
         public ShadowMap(GraphicsDevice device, int width, int height)
