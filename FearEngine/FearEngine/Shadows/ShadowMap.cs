@@ -23,12 +23,6 @@ namespace FearEngine.Shadows
         {
             viewport = new SharpDX.Viewport(0, 0, width, height, 0.0f, 1.0f);
 
-            SharpDX.Direct3D11.Device dev = (SharpDX.Direct3D11.Device)device;
-            FormatSupport support = dev.CheckFormatSupport(SharpDX.DXGI.Format.R32_Typeless);
-            support = dev.CheckFormatSupport(SharpDX.DXGI.Format.D32_Float);
-            support = dev.CheckFormatSupport(SharpDX.DXGI.Format.R32_Float);
-            
-
             Texture2DDescription depthTexDesc = FillOutDepthTextureDescription();
             SharpDX.Direct3D11.Texture2D depthTexture = new SharpDX.Direct3D11.Texture2D(device, depthTexDesc);
 

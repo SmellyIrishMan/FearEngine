@@ -24,15 +24,15 @@ namespace FearEngine.RenderTargets
 
         private void StoreCurrentRenderTarget()
         {
-            DepthStencilView depthStencil;
-
-            RenderTargetView[] rtvs = device.GetRenderTargets(out depthStencil);
             RenderTargetView renderTarget = null;
+            DepthStencilView depthStencil = null;
+            RenderTargetView[] rtvs = device.GetRenderTargets(out depthStencil);
+
             if (rtvs.Length > 0)
             {
                 renderTarget = device.GetRenderTargets(out depthStencil)[0];
             }
-            else
+            else if (device.BackBuffer != null)
             {
                 renderTarget = new RenderTargetView(device, device.BackBuffer);
                 depthStencil = new DepthStencilView(device, device.DepthStencilBuffer);

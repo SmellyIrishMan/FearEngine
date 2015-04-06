@@ -11,17 +11,19 @@ namespace FearEngineTests.FullScaleProjects.Games
 {
     class ShaderModelComparisonDemo : FearEngine.FearGame
     {
-        FearEngineImpl fearEngine;
-
         GameObject teapotPhong;
         GameObject teapotPBR;
         Scene scene;
 
         public void Startup(FearEngineImpl engine)
         {
-            fearEngine = engine;
+            FearEngine.DeviceState.DeviceStateFactory devStateFac = new FearEngine.DeviceState.DeviceStateFactory(engine.GetDevice());
+            FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), engine.GetResourceManager(), devStateFac);
 
-            scene = new Scene(null, null, new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
+            scene = new Scene(new MeshRenderer(engine.GetDevice()), engine.GetMainCamera(),
+                new FearEngine.Lighting.LightFactory(),
+                techFac,
+                devStateFac);
 
             float seperation = 6.0f;
 
@@ -33,10 +35,10 @@ namespace FearEngineTests.FullScaleProjects.Games
             teapotPBR.Transform.MoveTo(teapotPhong.Transform.Position + (-teapotPhong.Transform.Right * seperation));
             teapotPBR.AddUpdatable(new ContinuousRotationAroundY());
 
-            Mesh mesh = fearEngine.GetResourceManager().GetMesh("TEAPOT");
+            Mesh mesh = engine.GetResourceManager().GetMesh("TEAPOT");
 
-            Material phong = fearEngine.GetResourceManager().GetMaterial("NormalLit");
-            Material pbr = fearEngine.GetResourceManager().GetMaterial("PBR_GGX");
+            Material phong = engine.GetResourceManager().GetMaterial("NormalLit");
+            Material pbr = engine.GetResourceManager().GetMaterial("PBR_GGX");
 
             SceneObject phongTeapot = new SceneObject(teapotPhong, mesh, phong);
             SceneObject pbrTeapot = new SceneObject(teapotPBR, mesh, pbr);

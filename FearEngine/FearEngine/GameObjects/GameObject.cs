@@ -1,4 +1,5 @@
 ﻿using FearEngine.GameObjects;
+using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace FearEngine.GameObjects
         public ulong ID { get; private set; }
         public string Name { get; private set; }
         public Transform Transform { get; private set; }
+        public Matrix WorldMatrix { get  {
+            return Matrix.Transformation(Vector3.Zero, Quaternion.Identity, Transform.Scale, Vector3.Zero, Transform.Rotation, Transform.Position); } 
+        }
 
         private List<Updateable> updaters;
 

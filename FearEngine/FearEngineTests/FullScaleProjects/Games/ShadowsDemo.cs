@@ -16,7 +16,13 @@ namespace FearEngineTests.FullScaleProjects.Games
         {
             fearEngine = engine;
 
-            scene = new Scene(engine.GetDevice(), fearEngine.GetResourceManager().GetMaterial("DepthWrite"), new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera());
+            FearEngine.DeviceState.DeviceStateFactory devStateFac = new FearEngine.DeviceState.DeviceStateFactory(engine.GetDevice());
+            FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), fearEngine.GetResourceManager(), devStateFac);
+
+            scene = new Scene(new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera(),
+                new FearEngine.Lighting.LightFactory(),
+                techFac,
+                devStateFac);
 
             GameObject teapot = new GameObject("Teapot");
             Mesh mesh = fearEngine.GetResourceManager().GetMesh("TEAPOT");

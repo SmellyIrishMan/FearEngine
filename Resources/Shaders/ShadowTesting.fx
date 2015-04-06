@@ -3,7 +3,7 @@
 cbuffer cbPerObject
 {
 	float4x4 gWorldViewProj; 
-	float4x4 gShadowTransform;
+	float4x4 gLightTextureSpaceTransform;
 };
 
 Texture2D<float4> gShadowMap   : register(t0);
@@ -26,7 +26,7 @@ VertexOut VS(VertexIn vIn)
 	
 	// Transform to homogeneous clip space.
 	vOut.PosH = mul(float4(vIn.PosL, 1.0f), gWorldViewProj);
-    vOut.ShadowPosH = mul(float4(vIn.PosL, 1.0f), gShadowTransform);	//ShadowPos is going to be in the [0,1] range and not [-1,1] range.
+    vOut.ShadowPosH = mul(float4(vIn.PosL, 1.0f), gLightTextureSpaceTransform);	//ShadowPos is going to be in the [0,1] range and not [-1,1] range.
     
     return vOut;
 }

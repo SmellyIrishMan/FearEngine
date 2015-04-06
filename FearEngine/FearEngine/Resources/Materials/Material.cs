@@ -1,5 +1,6 @@
 ﻿using FearEngine.Lighting;
 using FearEngine.Resources.Managment;
+using FearEngine.Resources.Materials;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
 using System;
@@ -50,6 +51,26 @@ namespace FearEngine.Resources
             effect.CurrentTechnique.Passes[0].Apply();
         }
 
+        public void SetParameterValue(DefaultMaterialParameters.Param p, SharpDX.Matrix value)
+        {
+            SetParameterValue(DefaultMaterialParameters.ParamToName[p], value);
+        }
+
+        public void SetParameterValue(DefaultMaterialParameters.Param p, SharpDX.Vector3 value)
+        {
+            SetParameterValue(DefaultMaterialParameters.ParamToName[p], value);
+        }
+
+        public void SetParameterValue(DefaultMaterialParameters.Param p, SharpDX.Vector4 value)
+        {
+            SetParameterValue(DefaultMaterialParameters.ParamToName[p], value);
+        }
+
+        public void SetParameterValue(DefaultMaterialParameters.Param p, FearEngine.Lighting.DirectionalLight light)
+        {
+            SetParameterValue(DefaultMaterialParameters.ParamToName[p], light);
+        }
+
         public void SetParameterValue(string p, SharpDX.Matrix value)
         {
             if (HasParameter(p))
@@ -74,11 +95,11 @@ namespace FearEngine.Resources
             }
         }
 
-        public void SetParameterValue(string p, FearEngine.Lighting.DirectionalLight testLight)
+        public void SetParameterValue(string p, FearEngine.Lighting.DirectionalLight light)
         {
             if (HasParameter(p))
             {
-                effect.Parameters[p].SetValue<FearEngine.Lighting.DirectionalLight>(testLight);
+                effect.Parameters[p].SetValue<FearEngine.Lighting.DirectionalLight>(light);
             }
         }
 
@@ -98,10 +119,17 @@ namespace FearEngine.Resources
             }
         }
 
+        public void SetParameterValue(string p, SharpDX.Direct3D11.SamplerState comparisonSampler)
+        {
+            if (HasParameter(p))
+            {
+                effect.Parameters[p].SetResource(comparisonSampler);
+            }
+        }
+
         private bool HasParameter(string param)
         {
             return effect.Parameters[param] != null;
         }
-
     }
 }

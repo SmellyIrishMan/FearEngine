@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.RenderTargets;
 using SharpDX.Toolkit.Graphics;
+using SharpDX.Direct3D11;
 
 namespace FearEngineTests
 {
@@ -12,7 +13,7 @@ namespace FearEngineTests
         public void CreateARenderTargetStackAndSaveCurrentRT()
         {
             //Given
-            GraphicsDevice device = GraphicsDevice.New();
+            GraphicsDevice device = GraphicsDevice.New(DeviceCreationFlags.Debug);
 
             //When
             RenderTargetStack stack = new RenderTargetStack(device);

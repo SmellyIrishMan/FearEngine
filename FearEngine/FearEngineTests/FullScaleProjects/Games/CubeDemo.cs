@@ -15,7 +15,13 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Startup(FearEngineImpl engine)
         {
-            scene = new Scene(null, null, new MeshRenderer(engine.GetDevice()), engine.GetMainCamera());
+            FearEngine.DeviceState.DeviceStateFactory devStateFac = new FearEngine.DeviceState.DeviceStateFactory(engine.GetDevice());
+            FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), engine.GetResourceManager(), devStateFac);
+
+            scene = new Scene(new MeshRenderer(engine.GetDevice()), engine.GetMainCamera(),
+                new FearEngine.Lighting.LightFactory(),
+                techFac,
+                devStateFac);
 
             GameObject cube = new GameObject("Cube");
             Mesh mesh = engine.GetResourceManager().GetMesh("BOX");

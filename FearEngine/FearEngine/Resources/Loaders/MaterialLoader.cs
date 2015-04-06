@@ -41,20 +41,6 @@ namespace FearEngine.Resources.Managment.Loaders
                 Effect effect = new Effect(device, effectResult.EffectData);
                 effect.CurrentTechnique = effect.Techniques[info.GetString("Technique")];
 
-                SamplerStateDescription desc = new SamplerStateDescription();
-                desc.Filter = Filter.ComparisonMinMagLinearMipPoint;
-                desc.AddressU = TextureAddressMode.Border;
-                desc.AddressV = TextureAddressMode.Border;
-                desc.AddressW = TextureAddressMode.Border;
-                desc.BorderColor = SharpDX.Color4.Black;
-                desc.ComparisonFunction = Comparison.LessEqual;
-
-                SharpDX.Direct3D11.SamplerState comparisonSampler = new SharpDX.Direct3D11.SamplerState(device, desc);
-                if (effect.Parameters["gShadowSampler"] != null)
-                {
-                   effect.Parameters["gShadowSampler"].SetResource(comparisonSampler);
-                }
-
                 Material mat = new Material(info.Name, effect);
                 return mat;
             }
