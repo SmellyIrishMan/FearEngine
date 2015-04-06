@@ -42,6 +42,8 @@ namespace FearEngine
 
             game = gameImpl;
             gameObjects = new List<GameObject>();
+
+            SharpDX.Configuration.EnableObjectTracking = true;
         }
 
         public FearEngineImpl(FearGame gameImpl, string t) : this(gameImpl)
@@ -156,6 +158,28 @@ namespace FearEngine
             game.Shutdown();
 
             resourceManager.Shutdown();
+
+            if (SharpDX.Diagnostics.ObjectTracker.FindActiveObjects().Count > 0)
+            {
+                throw new UnleasedObjectsException();
+            }
+        }
+
+        public class UnleasedObjectsException : Exception
+        {
+            public UnleasedObjectsException()
+            {
+            }
+
+            public UnleasedObjectsException(string message)
+                : base(message)
+            {
+            }
+
+            public UnleasedObjectsException(string message, Exception inner)
+                : base(message, inner)
+            {
+            }
         }
     }
 }
