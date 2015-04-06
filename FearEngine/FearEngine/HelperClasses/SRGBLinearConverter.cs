@@ -14,12 +14,12 @@ namespace FearEngine.HelperClasses
 
         public static float SRGBtoLinear(float sRGB)
         {
-            return (float)Math.Pow(sRGB, 2.2f);
+            return (float)Math.Pow(sRGB, assumedGamma);
         }
 
         public static float LinearToSRGB(float linear)
         {
-            return (float)Math.Pow(linear, 1 / 2.2f);
+            return (float)Math.Pow(linear, 1 / assumedGamma);
         }
     }
 }
