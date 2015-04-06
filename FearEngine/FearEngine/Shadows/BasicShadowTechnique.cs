@@ -4,6 +4,7 @@ using FearEngine.Resources;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scene;
+using Ninject;
 using SharpDX;
 using SharpDX.Direct3D11;
 using System.Collections.Generic;
@@ -12,37 +13,37 @@ namespace FearEngine.Shadows
 {
     public class BasicShadowTechnique
     {
-        private RenderTargetStack renderTargetStack;
+        private SharpDX.Toolkit.Graphics.GraphicsDevice device;
+        private Material depthMaterial;
 
         private ShadowMap shadowMap;
-        private SharpDX.Toolkit.Graphics.GraphicsDevice device;
-
-        private Material depthMaterial;
+        private FearEngine.DeviceState.SamplerStates.SamplerState sampler;
 
         private Matrix lightTSTrans;    //LightTextureSpaceTransform. Takes us from the world space into somewhere in the [0,1] range plus some depth. Oh baby.
         private Matrix lightVP;
 
+        private RenderTargetStack renderTargetStack;
         private RasteriserState depthRS;
-        private SharpDX.Toolkit.Graphics.RasterizerState previousRS;
 
         public Matrix LightTSTrans { get { return lightTSTrans; } }
         public ShaderResourceView ShadowMap { get { return shadowMap.ResourceView; } }
-        public Matrix ShadowMapSampler { get; set; }
+        public SamplerState ShadowMapSampler { get { return sampler.State; } }
 
-        public BasicShadowTechnique(SharpDX.Toolkit.Graphics.GraphicsDevice dev, Material depthMat, RasteriserState depthRasState)
+        public BasicShadowTechnique(SharpDX.Toolkit.Graphics.GraphicsDevice dev, 
+            Material depthMat, 
+            [Named("ShadowBiasedDepth")]RasteriserState depthRasState,
+            [Named("ShadowMapComparison")]FearEngine.DeviceState.SamplerStates.SamplerState samp)
         {
             device = dev;
             depthMaterial = depthMat;
 
             depthRS = depthRasState;
 
-            //THIS IS GOING TO BREAK SO FIX IT!
-            depthRasState.State.GetType();
+            sampler = samp;
         }
 
         public void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects)
         {
-            previousRS = device.RasterizerStates[0];
             device.SetRasterizerState(depthRS.State);
 
             renderTargetStack.PushRenderTargetAndSwitch(shadowMap.RenderTarget);
@@ -53,7 +54,7 @@ namespace FearEngine.Shadows
             }
             renderTargetStack.PopRenderTargetAndSwitch();
 
-            device.SetRasterizerState(previousRS);
+            device.SetRasterizerState(device.RasterizerStates.Default);
         }
     
         public void SetupForLight(Lighting.DirectionalLight light)

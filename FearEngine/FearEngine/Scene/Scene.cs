@@ -90,7 +90,7 @@ namespace FearEngine.Scene
                 if (shadowsEnabled)
                 {
                     material.SetParameterResource("gShadowMap", shadowTech.ShadowMap);
-                    material.SetParameterValue("gShadowSampler", shadowTech.ShadowMapSampler);
+                    material.SetParameterResource("gShadowSampler", shadowTech.ShadowMapSampler);
                 }
             }
         }

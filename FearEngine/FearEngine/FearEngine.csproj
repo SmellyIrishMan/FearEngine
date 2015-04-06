@@ -74,10 +74,12 @@
   <ItemGroup>
     <Compile Include="Cameras\CameraControllerComponent.cs" />
     <Compile Include="Cameras\Camera.cs" />
-    <Compile Include="DeviceState\DefaultRasteriserState.cs" />
-    <Compile Include="DeviceState\DeviceStateFactory.cs" />
-    <Compile Include="DeviceState\RasteriserState.cs" />
-    <Compile Include="DeviceState\ShadowBiasedDepthRasteriserState.cs" />
+    <Compile Include="DeviceState\RasteriserStates\DefaultRasteriserState.cs" />
+    <Compile Include="DeviceState\RasteriserStates\RasteriserState.cs" />
+    <Compile Include="DeviceState\RasteriserStates\ShadowBiasedDepthRasteriserState.cs" />
+    <Compile Include="DeviceState\SamplerStates\SamplerState.cs" />
+    <Compile Include="DeviceState\SamplerStates\ShadowMapComparisonSampler.cs" />
+    <Compile Include="FearEngineNinjectModule.cs" />
     <Compile Include="FearGameFactory.cs" />
     <Compile Include="FearEngineImpl.cs" />
     <Compile Include="FearGame.cs" />

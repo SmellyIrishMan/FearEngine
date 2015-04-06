@@ -6,9 +6,9 @@ namespace FearEngine
     {
         private GraphicsDevice device;
 
-        public SharpDXGraphicsDevice()
+        public SharpDXGraphicsDevice(GraphicsDevice dev)
         {
-            device = GraphicsDevice.New();
+            device = dev;
         }
 
         public GraphicsDevice Device

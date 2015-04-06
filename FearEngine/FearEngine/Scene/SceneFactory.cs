@@ -9,18 +9,15 @@ namespace FearEngine.Scene
     public class SceneFactory
     {
         MeshRenderer renderer;
-        DeviceStateFactory devStateFactory;
         TechniqueFactory techFactory;
         LightFactory lightFactory;
 
         public SceneFactory(MeshRenderer rend,
-            DeviceStateFactory devStateFac,
             TechniqueFactory techFac,
             LightFactory lightFac)
         {
             renderer = rend;
 
-            devStateFactory = devStateFac;
             techFactory = techFac;
             lightFactory = lightFac;
         }

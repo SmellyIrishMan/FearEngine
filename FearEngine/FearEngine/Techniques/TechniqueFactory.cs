@@ -1,12 +1,8 @@
 ﻿using FearEngine.DeviceState;
+using FearEngine.DeviceState.SamplerStates;
 using FearEngine.Resources.Managment;
 using FearEngine.Shadows;
-using SharpDX.Toolkit.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ninject;
 
 namespace FearEngine.Techniques
 {
@@ -17,20 +13,23 @@ namespace FearEngine.Techniques
 
     public class TechniqueFactory
     {
-        GraphicsDevice device;
+        SharpDX.Toolkit.Graphics.GraphicsDevice device;
         FearResourceManager resourceManager;
-        DeviceStateFactory devStateFactory;
 
-        public TechniqueFactory(GraphicsDevice dev, FearResourceManager resMan, DeviceStateFactory devStateFac)
+        public TechniqueFactory(SharpDX.Toolkit.Graphics.GraphicsDevice dev, FearResourceManager resMan)
         {
             device = dev;
             resourceManager = resMan;
-            devStateFactory = devStateFac;
         }
 
         public BasicShadowTechnique CreateShadowTechnique(ShadowTechnique tech)
         {
-            return new BasicShadowTechnique(device, resourceManager.GetMaterial("DepthWrite"), null);
+            RasteriserState rasState = FearGameFactory.dependencyKernel.Get<RasteriserState>("ShadowBiasedDepth");
+            SamplerState samplerState = FearGameFactory.dependencyKernel.Get<SamplerState>("ShadowMapComparison");
+            return new BasicShadowTechnique(device, 
+                resourceManager.GetMaterial("DepthWrite"),
+                rasState,
+                samplerState);
         }
     }
 }

@@ -119,7 +119,7 @@ namespace FearEngine.Resources
             }
         }
 
-        public void SetParameterValue(string p, SharpDX.Direct3D11.SamplerState comparisonSampler)
+        public void SetParameterResource(string p, SharpDX.Direct3D11.SamplerState comparisonSampler)
         {
             if (HasParameter(p))
             {
