@@ -1,15 +1,10 @@
 ﻿using FearEngine.Cameras;
-using FearEngine.DeviceState;
 using FearEngine.GameObjects;
 using FearEngine.Lighting;
-using FearEngine.RenderTargets;
-using FearEngine.Resources;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Shadows;
-using FearEngine.Techniques;
 using SharpDX;
-using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using System.Collections.Generic;
 
@@ -17,7 +12,7 @@ namespace FearEngine.Scene
 {
     public class Scene
     {
-        private HashSet<DirectionalLight> lights;
+        private HashSet<Light> lights;
 
         private HashSet<SceneObject> sceneObjects;
 
@@ -27,34 +22,24 @@ namespace FearEngine.Scene
         private MeshRenderer meshRenderer;
         private Camera camera;
 
-        private LightFactory lightFactory;
-        private Lighting.DirectionalLight defaultLight;
-
-        private TechniqueFactory techniqueFactory;
+        private Lighting.Light defaultLight;
 
         private bool shadowsEnabled = false;
-        private BasicShadowTechnique shadowTech;
+        private ShadowTechnique shadowTech;
 
-        public Scene(MeshRenderer meshRend, Camera cam, LightFactory lightFac, TechniqueFactory techFac)
+        public Scene(MeshRenderer meshRend, Camera cam, Light light, ShadowTechnique shadTech)
         {
             meshRenderer = meshRend;
             camera = cam;
 
-            lightFactory = lightFac;
-            techniqueFactory = techFac;
+            defaultLight = light;
+            shadowTech = shadTech;
 
-            lights = new HashSet<DirectionalLight>();
+            lights = new HashSet<Light>();
 
             sceneObjects = new HashSet<SceneObject>();
             meshes = new HashSet<Mesh>();
             materials = new HashSet<Material>();
-
-            SetupDefaultLight();
-        }
-
-        private void SetupDefaultLight()
-        {
-            defaultLight = lightFactory.CreateLight();
         }
 
         public void AddSceneObject(SceneObject sceneObj)
@@ -90,7 +75,7 @@ namespace FearEngine.Scene
                 if (shadowsEnabled)
                 {
                     material.SetParameterResource("gShadowMap", shadowTech.ShadowMap);
-                    material.SetParameterResource("gShadowSampler", shadowTech.ShadowMapSampler);
+                    material.SetParameterResource("gShadowSampler", shadowTech.ShadowMapSampler.State);
                 }
             }
         }
@@ -112,7 +97,7 @@ namespace FearEngine.Scene
             }
         }
 
-        private void AddLight( Lighting.DirectionalLight light )
+        private void AddLight(Lighting.Light light)
         {
             lights.Add(light);
         }
@@ -133,7 +118,6 @@ namespace FearEngine.Scene
         public void EnableShadows()
         {
             shadowsEnabled = true;
-            shadowTech = techniqueFactory.CreateShadowTechnique(ShadowTechnique.Basic);
             shadowTech.SetupForLight(defaultLight);
         }
     }

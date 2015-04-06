@@ -4,6 +4,7 @@ using FearEngine.Resources.Materials;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
 using System;
+using System.Runtime.InteropServices;
 
 namespace FearEngine.Resources.Materials
 {
@@ -74,7 +75,7 @@ namespace FearEngine.Resources.Materials
             SetParameterValue(DefaultMaterialParameters.ParamToName[p], value);
         }
 
-        public void SetParameterValue(DefaultMaterialParameters.Param p, FearEngine.Lighting.DirectionalLight light)
+        public void SetParameterValue(DefaultMaterialParameters.Param p, Light light)
         {
             SetParameterValue(DefaultMaterialParameters.ParamToName[p], light);
         }
@@ -103,11 +104,11 @@ namespace FearEngine.Resources.Materials
             }
         }
 
-        public void SetParameterValue(string p, FearEngine.Lighting.DirectionalLight light)
+        public void SetParameterValue(string p, Light light)
         {
             if (HasParameter(p))
             {
-                effect.Parameters[p].SetValue<FearEngine.Lighting.DirectionalLight>(light);
+                effect.Parameters[p].SetRawValue(GetRawDataFromStruct(light.LightData));
             }
         }
 
@@ -138,6 +139,18 @@ namespace FearEngine.Resources.Materials
         private bool HasParameter(string param)
         {
             return effect.Parameters[param] != null;
+        }
+
+        private static byte[] GetRawDataFromStruct(ValueType data)
+        {
+            int size = Marshal.SizeOf(data);
+            byte[] rawData = new byte[size];
+            IntPtr ptr = Marshal.AllocHGlobal(size);
+
+            Marshal.StructureToPtr(data, ptr, true);
+            Marshal.Copy(ptr, rawData, 0, size);
+            Marshal.FreeHGlobal(ptr);
+            return rawData;
         }
     }
 }

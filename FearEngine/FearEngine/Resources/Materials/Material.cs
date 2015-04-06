@@ -1,4 +1,4 @@
-﻿using System;
+﻿using FearEngine.Lighting;
 
 namespace FearEngine.Resources.Materials
 {
@@ -14,12 +14,12 @@ namespace FearEngine.Resources.Materials
         void SetParameterValue(DefaultMaterialParameters.Param p, SharpDX.Matrix value);
         void SetParameterValue(DefaultMaterialParameters.Param p, SharpDX.Vector3 value);
         void SetParameterValue(DefaultMaterialParameters.Param p, SharpDX.Vector4 value);
-        void SetParameterValue(DefaultMaterialParameters.Param p, FearEngine.Lighting.DirectionalLight light);
+        void SetParameterValue(DefaultMaterialParameters.Param p, Light light);
 
         void SetParameterValue(string p, SharpDX.Matrix value);
         void SetParameterValue(string p, SharpDX.Vector3 value);
         void SetParameterValue(string p, SharpDX.Vector4 value);
-        void SetParameterValue(string p, FearEngine.Lighting.DirectionalLight light);
+        void SetParameterValue(string p, Light light);
 
         void SetParameterResource(string p, Texture texture);
         void SetParameterResource(string p, SharpDX.Direct3D11.ShaderResourceView shaderResView);

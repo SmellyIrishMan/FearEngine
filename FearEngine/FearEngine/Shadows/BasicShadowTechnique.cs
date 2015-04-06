@@ -1,9 +1,11 @@
 ﻿using FearEngine.DeviceState;
+using FearEngine.Lighting;
 using FearEngine.RenderTargets;
 using FearEngine.Resources;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scene;
+using FearEngine.Shadows;
 using Ninject;
 using SharpDX;
 using SharpDX.Direct3D11;
@@ -11,7 +13,7 @@ using System.Collections.Generic;
 
 namespace FearEngine.Shadows
 {
-    public class BasicShadowTechnique
+    public class BasicShadowTechnique : ShadowTechnique
     {
         private SharpDX.Toolkit.Graphics.GraphicsDevice device;
         private Material depthMaterial;
@@ -27,14 +29,14 @@ namespace FearEngine.Shadows
 
         public Matrix LightTSTrans { get { return lightTSTrans; } }
         public ShaderResourceView ShadowMap { get { return shadowMap.ResourceView; } }
-        public SamplerState ShadowMapSampler { get { return sampler.State; } }
+        public FearEngine.DeviceState.SamplerStates.SamplerState ShadowMapSampler { get { return sampler; } }
 
-        public BasicShadowTechnique(SharpDX.Toolkit.Graphics.GraphicsDevice dev,
+        public BasicShadowTechnique(FearGraphicsDevice dev,
             [Named("DepthWrite")]Material depthMat, 
             [Named("ShadowBiasedDepth")]RasteriserState depthRasState,
             [Named("ShadowMapComparison")]FearEngine.DeviceState.SamplerStates.SamplerState samp)
         {
-            device = dev;
+            device = dev.Device;
             depthMaterial = depthMat;
 
             depthRS = depthRasState;
@@ -57,13 +59,14 @@ namespace FearEngine.Shadows
             device.SetRasterizerState(device.RasterizerStates.Default);
         }
     
-        public void SetupForLight(Lighting.DirectionalLight light)
+        public void SetupForLight(Light light)
         {
             renderTargetStack = new RenderTargetStack(device);
 
             shadowMap = new ShadowMap(device, 2048, 2048);
             
             const float LIGHT_DISTANCE_FROM_CENTER = 4.0f;
+
             Vector3 lightPos = Vector3.Zero + (-light.Direction * LIGHT_DISTANCE_FROM_CENTER);
 
             Matrix View = Matrix.LookAtLH(lightPos, Vector3.Zero, Vector3.Up);

@@ -1,8 +1,10 @@
 ﻿using FearEngine.DeviceState;
 using FearEngine.DeviceState.SamplerStates;
+using FearEngine.Lighting;
 using FearEngine.Resources;
 using FearEngine.Resources.Managment;
 using FearEngine.Resources.Materials;
+using FearEngine.Shadows;
 using Ninject.Modules;
 
 namespace FearEngine
@@ -33,10 +35,13 @@ namespace FearEngine
             Bind<ShadowMapComparisonSampler>().ToSelf().InSingletonScope();
             Bind<SamplerState>().To<ShadowMapComparisonSampler>().Named("ShadowMapComparison");
 
-            //Bind<FearMaterial>().ToSelf().WithConstructorArgument;
             Bind<Material>().To<FearMaterial>().Named("DepthWrite")
                 .WithConstructorArgument("n", "DepthWrite")
                 .WithConstructorArgument("resMan", resMan);
+
+            Bind<ShadowTechnique>().To<BasicShadowTechnique>().Named("BasicShadowTechnique");
+
+            Bind<Light>().To<DirectionalLight>();
         }
 
         //For setting stuff up from within the module

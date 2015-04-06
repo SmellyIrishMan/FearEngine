@@ -90,7 +90,7 @@
     <Compile Include="HelperClasses\SRGBLinearConverter.cs" />
     <Compile Include="Input\FearInput.cs" />
     <Compile Include="Lighting\DirectionalLight.cs" />
-    <Compile Include="Lighting\LightFactory.cs" />
+    <Compile Include="Lighting\Light.cs" />
     <Compile Include="RenderTargets\RenderTarget.cs" />
     <Compile Include="RenderTargets\RenderTargetStack.cs" />
     <Compile Include="Resources\Materials\DefaultMaterialParameters.cs" />
@@ -141,7 +141,7 @@
     <Compile Include="Shadows\BasicShadowTechnique.cs" />
     <Compile Include="Shadows\ShadowMap.cs" />
     <Compile Include="SharpDXGraphicsDevice.cs" />
-    <Compile Include="Techniques\TechniqueFactory.cs" />
+    <Compile Include="Shadows\ShadowTechnique.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayouts.cs" />

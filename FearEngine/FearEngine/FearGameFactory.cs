@@ -42,10 +42,8 @@ namespace FearEngine
 
             dependencyKernel = new StandardKernel(new FearEngineNinjectModule(device, resMan));
 
-            FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), resMan);
-            FearEngine.Lighting.LightFactory lightFac = new FearEngine.Lighting.LightFactory();
             MeshRendererFactory meshRendFac = new MeshRendererFactory();
-            SceneFactory sceneFactory = new SceneFactory(meshRendFac.CreateMeshRenderer(device), techFac, lightFac);
+            SceneFactory sceneFactory = new SceneFactory(meshRendFac.CreateMeshRenderer(device));
 
             engine.InjectDependencies(resMan, 
                 new FearInput(new MouseManager(engine), new KeyboardManager(engine)),
