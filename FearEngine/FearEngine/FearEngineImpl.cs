@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using FearEngine.HelperClasses;
 using SharpDX.Diagnostics;
 using FearEngine.Scene;
+using Ninject;
 
 namespace FearEngine
 {
@@ -99,14 +100,12 @@ namespace FearEngine
             SharpDX.ViewportF viewport = new SharpDX.Viewport(0, 0, (int)DEFAULT_WIDTH, (int)DEFAULT_HEIGHT, 0.0f, 1.0f);
             graphicsDeviceManager.GraphicsDevice.SetViewport(viewport);
 
-            Transform cameraTransform = new Transform();
-            cameraTransform.MoveTo(new Vector3(1, 2, -5));
-
-            GameObject cameraObject = new GameObject("MainCamera", cameraTransform);
-            cameraObject.AddUpdatable(new CameraControllerComponent(input));
+            //TODO Definitely need to clean this up a little bit also.
+            GameObject cameraObject = FearGameFactory.dependencyKernel.Get<GameObject>("FirstPersonCameraObject");
+            cameraObject.AddUpdatable(new CameraControllerComponent(input));    //TODO something here perhaps.
             gameObjects.Add(cameraObject);
 
-            mainCamera = new Camera(cameraObject, GetDevice().GetViewport(0).AspectRatio);
+            mainCamera = FearGameFactory.dependencyKernel.Get<Camera>();
 
             game.Startup(this);
         }

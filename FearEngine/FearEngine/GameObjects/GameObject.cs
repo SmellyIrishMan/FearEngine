@@ -1,56 +1,16 @@
-﻿using FearEngine.GameObjects;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
-using System.Collections.Generic;
+
 namespace FearEngine.GameObjects
 {
-    public class GameObject
+    public interface GameObject
     {
-        private static ulong UIDGenerator = 1;
+        ulong ID { get;  }
+        string Name { get;  }
+        Transform Transform { get;  }
+        Matrix WorldMatrix{ get; }
 
-        public ulong ID { get; private set; }
-        public string Name { get; private set; }
-        public Transform Transform { get; private set; }
-        public Matrix WorldMatrix { get  {
-            return Matrix.Transformation(Vector3.Zero, Quaternion.Identity, Transform.Scale, Vector3.Zero, Transform.Rotation, Transform.Position); } 
-        }
-
-        private List<Updateable> updaters;
-
-        public GameObject(string name)
-        {
-            AssignUniqueID();
-
-            Name = name;
-            Transform = new Transform();
-
-            updaters = new List<Updateable>();
-        }
-
-        public GameObject(string name, Transform transform) 
-            : this(name)
-        {
-            Transform = transform;
-        }
-
-        public void Update( GameTime gameTime )
-        {
-            foreach (Updateable updater in updaters)
-            {
-                updater.Update(this, gameTime);
-            }
-        }
-
-        private void AssignUniqueID()
-        {
-            ID = UIDGenerator;
-            UIDGenerator++;
-        }
-
-        public void AddUpdatable(Updateable updater)
-        {
-            updaters.Add(updater);
-        }
+        void Update(GameTime gameTime);
+        void AddUpdatable(Updateable updater);
     }
 }

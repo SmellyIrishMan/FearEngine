@@ -15,13 +15,13 @@ namespace FearEngineTests.FullScaleProjects.Games
         {
             scene = engine.CreateEmptyScene();
 
-            GameObject teapot = new GameObject("Teapot");
+            GameObject teapot = new BaseGameObject("Teapot");
             Mesh mesh = engine.GetResourceManager().GetMesh("TEAPOT");
             Material material = engine.GetResourceManager().GetMaterial("ShadowTesting");
             SceneObject shadowedTeapot = new SceneObject(teapot, mesh, material);
             scene.AddSceneObject(shadowedTeapot);
 
-            GameObject planeObj = new GameObject("Plane");
+            GameObject planeObj = new BaseGameObject("Plane");
             planeObj.Transform.SetScale(3.0f);
             Mesh plane = engine.GetResourceManager().GetMesh("PLANE");
             SceneObject shadowedPlane = new SceneObject(planeObj, plane, material);

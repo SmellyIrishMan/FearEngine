@@ -15,7 +15,7 @@ namespace FearEngineTests.FullScaleProjects.Games
         {
             scene = engine.CreateEmptyScene();
 
-            GameObject teapot = new GameObject("FloorPlane");
+            GameObject teapot = new BaseGameObject("FloorPlane");
             Mesh mesh = engine.GetResourceManager().GetMesh("PLANE");
             Material material = engine.GetResourceManager().GetMaterial("NormalMapped");
             material.SetParameterResource("gAlbedo", engine.GetResourceManager().GetTexture("GravelCobble"));

@@ -16,7 +16,7 @@ namespace FearEngineTests.FullScaleProjects.Games
         {
             scene = engine.CreateEmptyScene();
 
-            teapot = new GameObject("Teapot");
+            teapot = new BaseGameObject("Teapot");
             teapot.AddUpdatable(new ContinuousRotationAroundY());
 
             Mesh mesh = engine.GetResourceManager().GetMesh("TEAPOT");

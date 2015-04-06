@@ -72,8 +72,9 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cameras\CameraControllerComponent.cs" />
     <Compile Include="Cameras\Camera.cs" />
+    <Compile Include="Cameras\CameraControllerComponent.cs" />
+    <Compile Include="Cameras\FearCamera.cs" />
     <Compile Include="DeviceState\RasteriserStates\DefaultRasteriserState.cs" />
     <Compile Include="DeviceState\RasteriserStates\RasteriserState.cs" />
     <Compile Include="DeviceState\RasteriserStates\ShadowBiasedDepthRasteriserState.cs" />
@@ -84,8 +85,9 @@
     <Compile Include="FearEngineImpl.cs" />
     <Compile Include="FearGame.cs" />
     <Compile Include="FearGraphicsDevice.cs" />
-    <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
+    <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="HelperClasses\MethodTimer.cs" />
     <Compile Include="HelperClasses\SRGBLinearConverter.cs" />
     <Compile Include="Input\FearInput.cs" />

@@ -15,7 +15,7 @@ namespace FearEngineTests.FullScaleProjects.Games
         {
             scene = engine.CreateEmptyScene();
 
-            GameObject cube = new GameObject("Cube");
+            GameObject cube = new BaseGameObject("Cube");
             Mesh mesh = engine.GetResourceManager().GetMesh("BOX");
             Material material = engine.GetResourceManager().GetMaterial("NormalLit");
 

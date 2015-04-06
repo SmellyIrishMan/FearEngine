@@ -20,11 +20,11 @@ namespace FearEngineTests.FullScaleProjects.Games
 
             float seperation = 6.0f;
 
-            teapotPhong = new GameObject("TeapotPhong");
+            teapotPhong = new BaseGameObject("TeapotPhong");
             teapotPhong.Transform.MoveTo(teapotPhong.Transform.Position + (teapotPhong.Transform.Right * seperation));
             teapotPhong.AddUpdatable(new ContinuousRotationAroundY());
 
-            teapotPBR = new GameObject("TeapotPBR");
+            teapotPBR = new BaseGameObject("TeapotPBR");
             teapotPBR.Transform.MoveTo(teapotPhong.Transform.Position + (-teapotPhong.Transform.Right * seperation));
             teapotPBR.AddUpdatable(new ContinuousRotationAroundY());
 
