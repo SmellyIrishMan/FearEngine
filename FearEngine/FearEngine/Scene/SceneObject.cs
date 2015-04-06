@@ -1,5 +1,5 @@
 ﻿using FearEngine.GameObjects;
-using FearEngine.Resources;
+using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 
 namespace FearEngine.Scene

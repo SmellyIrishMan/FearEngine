@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FearEngine;
+﻿using FearEngine;
 using FearEngine.Resources.Meshes;
 using SharpDX.Toolkit;
 using FearEngine.GameObjects;
-using FearEngine.Resources;
 using FearEngine.Scene;
+using FearEngine.Resources.Materials;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {

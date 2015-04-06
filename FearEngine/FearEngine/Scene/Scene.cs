@@ -82,7 +82,7 @@ namespace FearEngine.Scene
 
         private void SetupMaterialsForScene()
         {
-            foreach (Material material in materials)
+            foreach (FearMaterial material in materials)
             {
                 material.SetParameterValue(DefaultMaterialParameters.Param.EyeW, camera.Position);
                 material.SetParameterValue(DefaultMaterialParameters.Param.DirLight, defaultLight);

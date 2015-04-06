@@ -1,8 +1,7 @@
 ﻿using FearEngine;
 using FearEngine.GameObjects;
 using FearEngine.GameObjects.Updateables;
-using FearEngine.Lighting;
-using FearEngine.Resources;
+using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scene;
 using SharpDX.Toolkit;

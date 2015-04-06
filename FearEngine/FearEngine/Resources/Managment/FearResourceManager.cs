@@ -1,8 +1,8 @@
 ﻿using FearEngine.Logger;
 using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources.Managment.Loaders.Collada;
+using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
-using SharpDX.Toolkit.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,7 +28,7 @@ namespace FearEngine.Resources.Managment
             loaders[ResourceType.Material] = materialLoader;
             loaders[ResourceType.Mesh] = meshLoader;
             loaders[ResourceType.Texture] = textureLoader;
-        
+
             loadedMaterials = new Dictionary<string, Material>();
             loadedMeshes = new Dictionary<string, Mesh>();
             loadedTextures = new Dictionary<string, Texture>();
@@ -95,7 +95,7 @@ namespace FearEngine.Resources.Managment
 
         public void Shutdown()
         {
-            foreach (Material mat in loadedMaterials.Values)
+            foreach (FearMaterial mat in loadedMaterials.Values)
             {
                 mat.Dispose();
             }

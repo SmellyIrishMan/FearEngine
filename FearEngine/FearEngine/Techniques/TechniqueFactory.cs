@@ -1,6 +1,7 @@
 ﻿using FearEngine.DeviceState;
 using FearEngine.DeviceState.SamplerStates;
 using FearEngine.Resources.Managment;
+using FearEngine.Resources.Materials;
 using FearEngine.Shadows;
 using Ninject;
 
@@ -26,8 +27,9 @@ namespace FearEngine.Techniques
         {
             RasteriserState rasState = FearGameFactory.dependencyKernel.Get<RasteriserState>("ShadowBiasedDepth");
             SamplerState samplerState = FearGameFactory.dependencyKernel.Get<SamplerState>("ShadowMapComparison");
-            return new BasicShadowTechnique(device, 
-                resourceManager.GetMaterial("DepthWrite"),
+            Material mat = FearGameFactory.dependencyKernel.Get<Material>("DepthWrite");
+            return new BasicShadowTechnique(device,
+                mat,
                 rasState,
                 samplerState);
         }

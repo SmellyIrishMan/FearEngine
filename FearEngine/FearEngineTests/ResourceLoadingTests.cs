@@ -2,6 +2,7 @@
 using FearEngine.Resources.Loaders;
 using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources;
+using FearEngine.Resources.Materials;
 
 namespace FearEngineTests
 {

@@ -1,4 +1,5 @@
 ﻿using FearEngine.Logger;
+using FearEngine.Resources.Materials;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
 
@@ -34,14 +35,14 @@ namespace FearEngine.Resources.Managment.Loaders
                     FearLog.Log("\t" + message.Text, LogPriority.EXCEPTION);
                 }
 
-                return new Material();
+                return new FearMaterial();
             }
             else
             {
                 Effect effect = new Effect(device, effectResult.EffectData);
                 effect.CurrentTechnique = effect.Techniques[info.GetString("Technique")];
 
-                Material mat = new Material(info.Name, effect);
+                FearMaterial mat = new FearMaterial(info.Name, effect);
                 return mat;
             }
         }

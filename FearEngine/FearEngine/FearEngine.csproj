@@ -98,6 +98,7 @@
     <Compile Include="Resources\Loaders\Collada\SourceDataTangentImpl.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
     <Compile Include="Resources\Loaders\MeshLoader.cs" />
+    <Compile Include="Resources\Materials\Material.cs" />
     <Compile Include="Resources\Meshes\MeshRendererFactory.cs" />
     <Compile Include="Resources\Meshes\Vertex\PNTTVertexBuffer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\PositionNormalTangentTextureLayout.cs.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayouts.cs" />
-    <Compile Include="Resources\Materials\Material.cs" />
+    <Compile Include="Resources\Materials\FearMaterial.cs" />
     <Compile Include="Resources\Meshes\MeshData.cs" />
     <Compile Include="Resources\Loaders\Collada\ColladaMeshLoader.cs" />
     <Compile Include="Resources\Managment\FearResourceManager.cs" />

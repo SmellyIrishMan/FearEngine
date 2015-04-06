@@ -36,11 +36,11 @@ namespace FearEngine
             engine.Initialised -= new EngineInitialisedHandler(OnEngineInitialised);
             GraphicsDevice device = engine.GetDevice();
 
-            dependencyKernel = new StandardKernel(new FearEngineNinjectModule(device));
-
             ResourceDirectory resDir = CreateResourceDirectory();
             MeshLoader meshLoader = new MeshLoader(device, new ColladaMeshLoader(), new VertexBufferFactory());
             FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(device), meshLoader, new TextureLoader(device));
+
+            dependencyKernel = new StandardKernel(new FearEngineNinjectModule(device, resMan));
 
             FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), resMan);
             FearEngine.Lighting.LightFactory lightFac = new FearEngine.Lighting.LightFactory();

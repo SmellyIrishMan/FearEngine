@@ -1,14 +1,14 @@
 ﻿using FearEngine.Cameras;
 using FearEngine.GameObjects;
 using FearEngine.Lighting;
+using FearEngine.Resources.Materials;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Meshes
 {
     public class MeshRenderer
     {
-        public MeshRenderer(GraphicsDevice dev)
+        public MeshRenderer(SharpDX.Toolkit.Graphics.GraphicsDevice dev)
         {
         }
 

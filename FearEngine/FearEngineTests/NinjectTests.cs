@@ -62,7 +62,7 @@ namespace FearEngineTests
         public void CreateSingletonGraphicsDevice()
         {
             //Given
-            IKernel dependencyKernel = new StandardKernel(new FearEngineNinjectModule(GraphicsDevice.New()));
+            IKernel dependencyKernel = new StandardKernel(new FearEngineNinjectModule(GraphicsDevice.New(), null));
 
             //When
             FearGraphicsDevice device = dependencyKernel.Get<FearGraphicsDevice>();

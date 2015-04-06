@@ -29,8 +29,8 @@ namespace FearEngine.Shadows
         public ShaderResourceView ShadowMap { get { return shadowMap.ResourceView; } }
         public SamplerState ShadowMapSampler { get { return sampler.State; } }
 
-        public BasicShadowTechnique(SharpDX.Toolkit.Graphics.GraphicsDevice dev, 
-            Material depthMat, 
+        public BasicShadowTechnique(SharpDX.Toolkit.Graphics.GraphicsDevice dev,
+            [Named("DepthWrite")]Material depthMat, 
             [Named("ShadowBiasedDepth")]RasteriserState depthRasState,
             [Named("ShadowMapComparison")]FearEngine.DeviceState.SamplerStates.SamplerState samp)
         {
