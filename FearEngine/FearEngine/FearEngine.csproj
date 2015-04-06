@@ -89,6 +89,7 @@
     <Compile Include="Resources\Loaders\Collada\SourceDataTangentImpl.cs" />
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
     <Compile Include="Resources\Loaders\MeshLoader.cs" />
+    <Compile Include="Resources\Meshes\MeshRendererFactory.cs" />
     <Compile Include="Resources\Meshes\Vertex\PNTTVertexBuffer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\PositionNormalTangentTextureLayout.cs.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\UnableToDetermineMeshLayout.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Resources\Loaders\Collada\SourceDataPositionImpl.cs" />
     <Compile Include="Resources\Loaders\MaterialLoader.cs" />
     <Compile Include="Resources\Meshes\Mesh.cs" />
+    <Compile Include="Scene\SceneFactory.cs" />
     <Compile Include="Scene\SceneObject.cs" />
     <Compile Include="Shadows\BasicShadowTechnique.cs" />
     <Compile Include="Shadows\ShadowMap.cs" />

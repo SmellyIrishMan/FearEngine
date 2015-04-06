@@ -8,11 +8,8 @@ namespace FearEngine.Resources.Meshes
 {
     public class MeshRenderer
     {
-        private GraphicsDevice device;
-
         public MeshRenderer(GraphicsDevice dev)
         {
-            device = dev;
         }
 
         public void RenderMeshWithMaterial(Mesh mesh, Material material)

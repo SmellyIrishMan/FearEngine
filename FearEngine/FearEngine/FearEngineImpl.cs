@@ -13,6 +13,8 @@ using FearEngine.Input;
 using FearEngine.GameObjects;
 using System.Collections.Generic;
 using FearEngine.HelperClasses;
+using SharpDX.Diagnostics;
+using FearEngine.Scene;
 
 namespace FearEngine
 {
@@ -30,6 +32,7 @@ namespace FearEngine
 
         private List<GameObject> gameObjects;   //This gameObjects list should be taken somewhere else. Like some factory that creates gameObjects, tracks them, updates them.
         private Camera mainCamera;
+        private SceneFactory sceneFactory;
 
         private const uint DEFAULT_WIDTH = 1280;
         private const uint DEFAULT_HEIGHT = 720;
@@ -61,10 +64,13 @@ namespace FearEngine
             graphicsDeviceManager.PreferredBackBufferHeight = (int)DEFAULT_HEIGHT;
         }
 
-        internal void InjectDependencies(FearResourceManager resMan, FearInput fearInput)
+        internal void InjectDependencies(FearResourceManager resMan,
+            FearInput fearInput,
+            SceneFactory sceneFac)
         {
             resourceManager = resMan;
             input = fearInput;
+            sceneFactory = sceneFac;
         }
 
         protected override void OnActivated(object sender, EventArgs args)
@@ -103,6 +109,11 @@ namespace FearEngine
             mainCamera = new Camera(cameraObject, GetDevice().GetViewport(0).AspectRatio);
 
             game.Startup(this);
+        }
+
+        public Scene.Scene CreateEmptyScene()
+        {
+            return sceneFactory.CreateScene(mainCamera);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -151,18 +162,23 @@ namespace FearEngine
         public void ExitGame()
         {
             this.Exit();
+
+            FearLog.Log("Exit Game");
         }
 
         protected override void OnExiting(object sender, EventArgs args)
         {
+            FearLog.Log("On Exiting.");
+
             game.Shutdown();
 
             resourceManager.Shutdown();
 
-            if (SharpDX.Diagnostics.ObjectTracker.FindActiveObjects().Count > 0)
-            {
-                throw new UnleasedObjectsException();
-            }
+            //if (SharpDX.Diagnostics.ObjectTracker.FindActiveObjects().Count > 0)
+            //{
+                //FearLog.Log("Active Objects; " + SharpDX.Diagnostics.ObjectTracker.ReportActiveObjects());
+                //throw new UnleasedObjectsException();
+            //}
         }
 
         public class UnleasedObjectsException : Exception

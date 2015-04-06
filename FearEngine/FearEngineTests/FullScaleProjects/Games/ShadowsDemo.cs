@@ -8,31 +8,21 @@ namespace FearEngineTests.FullScaleProjects.Games
 {
     class ShadowsDemo : FearEngine.FearGame
     {
-        FearEngineImpl fearEngine;
-
         Scene scene;
 
         public void Startup(FearEngineImpl engine)
         {
-            fearEngine = engine;
-
-            FearEngine.DeviceState.DeviceStateFactory devStateFac = new FearEngine.DeviceState.DeviceStateFactory(engine.GetDevice());
-            FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), fearEngine.GetResourceManager(), devStateFac);
-
-            scene = new Scene(new MeshRenderer(engine.GetDevice()), fearEngine.GetMainCamera(),
-                new FearEngine.Lighting.LightFactory(),
-                techFac,
-                devStateFac);
+            scene = engine.CreateEmptyScene();
 
             GameObject teapot = new GameObject("Teapot");
-            Mesh mesh = fearEngine.GetResourceManager().GetMesh("TEAPOT");
-            Material material = fearEngine.GetResourceManager().GetMaterial("ShadowTesting");
+            Mesh mesh = engine.GetResourceManager().GetMesh("TEAPOT");
+            Material material = engine.GetResourceManager().GetMaterial("ShadowTesting");
             SceneObject shadowedTeapot = new SceneObject(teapot, mesh, material);
             scene.AddSceneObject(shadowedTeapot);
 
             GameObject planeObj = new GameObject("Plane");
             planeObj.Transform.SetScale(3.0f);
-            Mesh plane = fearEngine.GetResourceManager().GetMesh("PLANE");
+            Mesh plane = engine.GetResourceManager().GetMesh("PLANE");
             SceneObject shadowedPlane = new SceneObject(planeObj, plane, material);
             scene.AddSceneObject(shadowedPlane);
 

@@ -4,6 +4,7 @@ using FearEngine.Resources.Managment;
 using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources.Managment.Loaders.Collada;
 using FearEngine.Resources.Meshes;
+using FearEngine.Scene;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.Toolkit.Input;
@@ -36,7 +37,15 @@ namespace FearEngine
             MeshLoader meshLoader = new MeshLoader(device, new ColladaMeshLoader(), new VertexBufferFactory());
             FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(device), meshLoader, new TextureLoader(device));
 
-            engine.InjectDependencies(resMan, new FearInput(new MouseManager(engine), new KeyboardManager(engine)));
+            FearEngine.DeviceState.DeviceStateFactory devStateFac = new FearEngine.DeviceState.DeviceStateFactory(engine.GetDevice());
+            FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), resMan, devStateFac);
+            FearEngine.Lighting.LightFactory lightFac = new FearEngine.Lighting.LightFactory();
+            MeshRendererFactory meshRendFac = new MeshRendererFactory();
+            SceneFactory sceneFactory = new SceneFactory(meshRendFac.CreateMeshRenderer(device), devStateFac, techFac, lightFac);
+
+            engine.InjectDependencies(resMan, 
+                new FearInput(new MouseManager(engine), new KeyboardManager(engine)),
+                sceneFactory);
         }
 
         private static ResourceDirectory CreateResourceDirectory()

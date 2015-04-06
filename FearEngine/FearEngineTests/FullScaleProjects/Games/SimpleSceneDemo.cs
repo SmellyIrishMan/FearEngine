@@ -15,13 +15,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Startup(FearEngineImpl engine)
         {
-            FearEngine.DeviceState.DeviceStateFactory devStateFac = new FearEngine.DeviceState.DeviceStateFactory(engine.GetDevice());
-            FearEngine.Techniques.TechniqueFactory techFac = new FearEngine.Techniques.TechniqueFactory(engine.GetDevice(), engine.GetResourceManager(), devStateFac);
-
-            scene = new Scene(new MeshRenderer(engine.GetDevice()), engine.GetMainCamera(),
-                new FearEngine.Lighting.LightFactory(),
-                techFac,
-                devStateFac);
+            scene = engine.CreateEmptyScene();
 
             teapot = new GameObject("Teapot");
             teapot.AddUpdatable(new ContinuousRotationAroundY());

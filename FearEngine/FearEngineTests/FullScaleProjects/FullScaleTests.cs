@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine;
 using FearEngineTests.FullScaleProjects.Games;
+using FearEngine.Logger;
 
 namespace FearEngineTests
 {
