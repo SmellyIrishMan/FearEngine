@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
@@ -95,6 +98,7 @@
     <Compile Include="ShadowMapping\DepthTextureCreation.cs" />
     <Compile Include="SRGBToLinearTests.cs" />
     <Compile Include="RenderTargetStackTests.cs" />
+    <Compile Include="NinjectTests.cs" />
     <Compile Include="VertexDataTests.cs" />
   </ItemGroup>
   <ItemGroup>

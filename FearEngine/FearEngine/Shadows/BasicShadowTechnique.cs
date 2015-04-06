@@ -22,33 +22,38 @@ namespace FearEngine.Shadows
         private Matrix lightTSTrans;    //LightTextureSpaceTransform. Takes us from the world space into somewhere in the [0,1] range plus some depth. Oh baby.
         private Matrix lightVP;
 
-        private SharpDX.Toolkit.Graphics.RasterizerState depthRS;
-        private SharpDX.Toolkit.Graphics.RasterizerState normRS;
+        private RasteriserState depthRS;
+        private SharpDX.Toolkit.Graphics.RasterizerState previousRS;
 
         public Matrix LightTSTrans { get { return lightTSTrans; } }
         public ShaderResourceView ShadowMap { get { return shadowMap.ResourceView; } }
+        public Matrix ShadowMapSampler { get; set; }
 
-        public BasicShadowTechnique(SharpDX.Toolkit.Graphics.GraphicsDevice dev, Material depthMat, DeviceStateFactory devStateFac)
+        public BasicShadowTechnique(SharpDX.Toolkit.Graphics.GraphicsDevice dev, Material depthMat, RasteriserState depthRasState)
         {
             device = dev;
             depthMaterial = depthMat;
 
-            depthRS = devStateFac.CreateRasteriserState(DeviceStateFactory.RasterizerStates.ShadowBiasedDepth);
-            normRS = devStateFac.CreateRasteriserState(DeviceStateFactory.RasterizerStates.Default);
+            depthRS = depthRasState;
+
+            //THIS IS GOING TO BREAK SO FIX IT!
+            depthRasState.State.GetType();
         }
 
         public void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects)
         {
-            device.SetRasterizerState(depthRS);
-            renderTargetStack.PushRenderTargetAndSwitch(shadowMap.RenderTarget);
+            previousRS = device.RasterizerStates[0];
+            device.SetRasterizerState(depthRS.State);
 
+            renderTargetStack.PushRenderTargetAndSwitch(shadowMap.RenderTarget);
             foreach (SceneObject sceneObj in shadowedSceneObjects)
             {
                 depthMaterial.SetParameterValue(DefaultMaterialParameters.Param.WorldViewProj, sceneObj.GameObject.WorldMatrix * lightVP);
                 meshRenderer.RenderMeshWithMaterial(sceneObj.Mesh, depthMaterial);
             }
             renderTargetStack.PopRenderTargetAndSwitch();
-            device.SetRasterizerState(normRS);
+
+            device.SetRasterizerState(previousRS);
         }
     
         public void SetupForLight(Lighting.DirectionalLight light)

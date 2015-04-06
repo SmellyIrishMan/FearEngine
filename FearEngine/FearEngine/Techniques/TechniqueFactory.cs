@@ -30,7 +30,7 @@ namespace FearEngine.Techniques
 
         public BasicShadowTechnique CreateShadowTechnique(ShadowTechnique tech)
         {
-            return new BasicShadowTechnique(device, resourceManager.GetMaterial("DepthWrite"), devStateFactory);
+            return new BasicShadowTechnique(device, resourceManager.GetMaterial("DepthWrite"), null);
         }
     }
 }

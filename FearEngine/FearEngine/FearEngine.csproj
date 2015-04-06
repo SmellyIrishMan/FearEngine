@@ -35,6 +35,9 @@
     <Reference Include="Collada_Main">
       <HintPath>..\..\ThirdParty\Collada_Main\Collada_Main\bin\Debug\Collada_Main.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
     </Reference>
@@ -71,10 +74,14 @@
   <ItemGroup>
     <Compile Include="Cameras\CameraControllerComponent.cs" />
     <Compile Include="Cameras\Camera.cs" />
+    <Compile Include="DeviceState\DefaultRasteriserState.cs" />
     <Compile Include="DeviceState\DeviceStateFactory.cs" />
+    <Compile Include="DeviceState\RasteriserState.cs" />
+    <Compile Include="DeviceState\ShadowBiasedDepthRasteriserState.cs" />
     <Compile Include="FearGameFactory.cs" />
     <Compile Include="FearEngineImpl.cs" />
     <Compile Include="FearGame.cs" />
+    <Compile Include="FearGraphicsDevice.cs" />
     <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="HelperClasses\MethodTimer.cs" />
@@ -130,6 +137,7 @@
     <Compile Include="Scene\SceneObject.cs" />
     <Compile Include="Shadows\BasicShadowTechnique.cs" />
     <Compile Include="Shadows\ShadowMap.cs" />
+    <Compile Include="SharpDXGraphicsDevice.cs" />
     <Compile Include="Techniques\TechniqueFactory.cs" />
     <Compile Include="Terrain\Terrain.cs" />
     <Compile Include="Resources\Meshes\MeshRenderer.cs" />

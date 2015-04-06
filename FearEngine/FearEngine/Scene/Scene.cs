@@ -35,16 +35,13 @@ namespace FearEngine.Scene
         private bool shadowsEnabled = false;
         private BasicShadowTechnique shadowTech;
 
-        private DeviceStateFactory devStateFactory;
-
-        public Scene(MeshRenderer meshRend, Camera cam, LightFactory lightFac, TechniqueFactory techFac, DeviceStateFactory devStateFac)
+        public Scene(MeshRenderer meshRend, Camera cam, LightFactory lightFac, TechniqueFactory techFac)
         {
             meshRenderer = meshRend;
             camera = cam;
 
             lightFactory = lightFac;
             techniqueFactory = techFac;
-            devStateFactory = devStateFac;
 
             lights = new HashSet<DirectionalLight>();
 
@@ -92,8 +89,8 @@ namespace FearEngine.Scene
 
                 if (shadowsEnabled)
                 {
-                    material.SetParameterValue("gShadowSampler", devStateFactory.CreateSamplerState(DeviceStateFactory.SamplerStates.ShadowMapComparison));
                     material.SetParameterResource("gShadowMap", shadowTech.ShadowMap);
+                    material.SetParameterValue("gShadowSampler", shadowTech.ShadowMapSampler);
                 }
             }
         }

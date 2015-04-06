@@ -27,7 +27,7 @@ namespace FearEngine.Scene
 
         public Scene CreateScene(Camera camera)
         {
-            return new Scene(renderer, camera, lightFactory, techFactory, devStateFactory);
+            return new Scene(renderer, camera, lightFactory, techFactory);
         }
 
     }
