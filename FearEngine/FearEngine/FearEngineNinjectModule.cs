@@ -9,6 +9,9 @@ using FearEngine.Resources.Materials;
 using FearEngine.Shadows;
 using Ninject.Modules;
 using SharpDX;
+using Ninject;
+using FearEngine.Inputs;
+using SharpDX.Toolkit.Input;
 
 namespace FearEngine
 {
@@ -16,49 +19,49 @@ namespace FearEngine
     {
         SharpDXGraphicsDevice existingDevice;
         FearResourceManager resMan;
+        MouseManager mouseManager;
+        KeyboardManager keyManager;
 
-        public FearEngineNinjectModule(SharpDX.Toolkit.Graphics.GraphicsDevice device, FearResourceManager resman)
+        public FearEngineNinjectModule(
+            SharpDX.Toolkit.Graphics.GraphicsDevice device,
+            FearResourceManager resman,
+            MouseManager mouseMan,
+            KeyboardManager keyMan)
         {
             existingDevice = new SharpDXGraphicsDevice(device);
             resMan = resman;
+
+            mouseManager = mouseMan;
+            keyManager = keyMan;
         }
 
         public override void Load()
         {
-            //Bind<SharpDXGraphicsDevice>().ToSelf().InSingletonScope();
-            //Bind<FearGraphicsDevice>().To<SharpDXGraphicsDevice>();
-            //Bind<FearGraphicsDevice>().To<SharpDXGraphicsDevice>().WithConstructorArgument("dev", SharpDX.Toolkit.Graphics.GraphicsDevice.New());
             Bind<FearGraphicsDevice>().ToConstant<SharpDXGraphicsDevice>(existingDevice);
 
-            Bind<RasteriserState>().To<DefaultRasteriserState>().Named("Default");
-            Bind<DefaultRasteriserState>().ToSelf().InSingletonScope();
-            
-            Bind<RasteriserState>().To<ShadowBiasedDepthRasteriserState>().Named("ShadowBiasedDepth");
-            Bind<ShadowBiasedDepthRasteriserState>().ToSelf().InSingletonScope();
-            
-            Bind<SamplerState>().To<ShadowMapComparisonSampler>().Named("ShadowMapComparison");
-            Bind<ShadowMapComparisonSampler>().ToSelf().InSingletonScope();
+            Bind<RasteriserState>().To<DefaultRasteriserState>().InSingletonScope().Named("Default");
+            Bind<RasteriserState>().To<ShadowBiasedDepthRasteriserState>().InSingletonScope().Named("ShadowBiasedDepth");
 
-            Bind<Material>().To<FearMaterial>().Named("DepthWrite")
+            Bind<SamplerState>().To<ShadowMapComparisonSampler>().InSingletonScope().Named("ShadowMapComparison");
+
+            Bind<Material>().To<FearMaterial>().InSingletonScope().Named("DepthWrite")
                 .WithConstructorArgument("n", "DepthWrite")
                 .WithConstructorArgument("resMan", resMan);
-            Bind<FearMaterial>().ToSelf().InSingletonScope().Named("DepthWrite");
 
             Bind<ShadowTechnique>().To<BasicShadowTechnique>().Named("BasicShadowTechnique");
 
             Bind<Light>().To<DirectionalLight>();
 
+            Bind<Input>().To<FearInput>()
+                .InSingletonScope()
+                .WithConstructorArgument("m", mouseManager)
+                .WithConstructorArgument("keyb", keyManager);            
+
+            Bind<GameObject>().To<BaseGameObject>().Named("FirstPersonCameraObject").WithConstructorArgument("name", "FirstPersonCamera");
+            Bind<Updateable>().To<CameraControllerComponent>().Named("FirstPersonMovementComponent");
+
             Bind<Camera>().To<FearCamera>();
             Bind<FearCamera>().ToSelf().InSingletonScope();
-
-            Transform cameraTransform = new Transform();
-            cameraTransform.MoveTo(new Vector3(1, 2, -5));
-            Bind<GameObject>().To<BaseGameObject>().Named("FirstPersonCameraObject")
-                .WithConstructorArgument("name", "MainCamera")
-                .WithConstructorArgument("transform", cameraTransform);
         }
-
-        //For setting stuff up from within the module
-        //Bind<IFoo>().To<Foo>().WithConstructorArgument("username",  context => context.Kernel.Get<IConfig>().Username)
     }
 }

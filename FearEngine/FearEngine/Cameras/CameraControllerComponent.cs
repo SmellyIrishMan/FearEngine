@@ -1,5 +1,5 @@
 ﻿using FearEngine.GameObjects;
-using FearEngine.Input;
+using FearEngine.Inputs;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;
@@ -19,10 +19,10 @@ namespace FearEngine
 
         private Vector3 YawPitchRoll;
 
-        FearInput input;
+        Input input;
         Transform transform;
 
-        public CameraControllerComponent(FearInput inputParam)
+        public CameraControllerComponent(Input inputParam)
         {
             input = inputParam;
 
@@ -33,6 +33,7 @@ namespace FearEngine
 
         public void Update(GameObject owner, GameTime gameTime)
         {
+            FearEngine.Logger.FearLog.Log("Right mouse button state for component; " + input.IsMouseButtonDown(MouseButton.RightMouseButton));
             transform = owner.Transform;
 
             CheckInput();
@@ -95,7 +96,7 @@ namespace FearEngine
             rotationDir = Vector2.Zero;
             if (input.IsMouseButtonDown(MouseButton.RightMouseButton))
             {
-                rotationDir = input.GetMouseDelta();
+                rotationDir = input.MouseDelta;
             }
         }
 

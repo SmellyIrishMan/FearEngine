@@ -1,4 +1,4 @@
-﻿using FearEngine.Input;
+﻿using FearEngine.Inputs;
 using FearEngine.Resources.Loaders;
 using FearEngine.Resources.Managment;
 using FearEngine.Resources.Managment.Loaders;
@@ -40,14 +40,17 @@ namespace FearEngine
             MeshLoader meshLoader = new MeshLoader(device, new ColladaMeshLoader(), new VertexBufferFactory());
             FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(device), meshLoader, new TextureLoader(device));
 
-            dependencyKernel = new StandardKernel(new FearEngineNinjectModule(device, resMan));
+            dependencyKernel = new StandardKernel(new FearEngineNinjectModule(device,
+                resMan,
+                new MouseManager(engine),
+                new KeyboardManager(engine)));
 
             MeshRendererFactory meshRendFac = new MeshRendererFactory();
             SceneFactory sceneFactory = new SceneFactory(meshRendFac.CreateMeshRenderer(device));
 
-            engine.InjectDependencies(resMan, 
-                new FearInput(new MouseManager(engine), new KeyboardManager(engine)),
-                sceneFactory);
+            engine.InjectDependencies(resMan, dependencyKernel.Get<Input>(), sceneFactory);
+
+            Input anotherTest = dependencyKernel.Get<Input>();
         }
 
         private static ResourceDirectory CreateResourceDirectory()

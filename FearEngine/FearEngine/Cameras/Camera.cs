@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using FearEngine.GameObjects;
+using SharpDX;
 
 namespace FearEngine.Cameras
 {
@@ -8,6 +9,7 @@ namespace FearEngine.Cameras
         Matrix Projection { get; }
         Vector3 Position { get; }
 
+        void AttachToTransform(Transform tran);
         void AdjustProjection(float fov, float aspect, float near, float far);
     }
 }

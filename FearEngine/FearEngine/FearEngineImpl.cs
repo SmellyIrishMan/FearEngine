@@ -9,7 +9,7 @@ using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using FearEngine.Resources.Managment;
 using SharpDX;
-using FearEngine.Input;
+using FearEngine.Inputs;
 using FearEngine.GameObjects;
 using System.Collections.Generic;
 using FearEngine.HelperClasses;
@@ -28,7 +28,7 @@ namespace FearEngine
 
         private GraphicsDeviceManager graphicsDeviceManager;
 
-        private FearInput input;
+        private Input input;
         private FearResourceManager resourceManager;
 
         private List<GameObject> gameObjects;   //This gameObjects list should be taken somewhere else. Like some factory that creates gameObjects, tracks them, updates them.
@@ -65,9 +65,7 @@ namespace FearEngine
             graphicsDeviceManager.PreferredBackBufferHeight = (int)DEFAULT_HEIGHT;
         }
 
-        internal void InjectDependencies(FearResourceManager resMan,
-            FearInput fearInput,
-            SceneFactory sceneFac)
+        internal void InjectDependencies(FearResourceManager resMan, Input fearInput, SceneFactory sceneFac)
         {
             resourceManager = resMan;
             input = fearInput;
@@ -100,12 +98,16 @@ namespace FearEngine
             SharpDX.ViewportF viewport = new SharpDX.Viewport(0, 0, (int)DEFAULT_WIDTH, (int)DEFAULT_HEIGHT, 0.0f, 1.0f);
             graphicsDeviceManager.GraphicsDevice.SetViewport(viewport);
 
-            //TODO Definitely need to clean this up a little bit also.
             GameObject cameraObject = FearGameFactory.dependencyKernel.Get<GameObject>("FirstPersonCameraObject");
-            cameraObject.AddUpdatable(new CameraControllerComponent(input));    //TODO something here perhaps.
+            cameraObject.AddUpdatable(FearGameFactory.dependencyKernel.Get<Updateable>("FirstPersonMovementComponent"));
             gameObjects.Add(cameraObject);
 
+            Vector3 cameraPos = new Vector3(1, 3, -5);
+            cameraObject.Transform.MoveTo(cameraPos);
+            cameraObject.Transform.SetRotation(Quaternion.LookAtLH(cameraPos, Vector3.Zero, Vector3.UnitY));
+
             mainCamera = FearGameFactory.dependencyKernel.Get<Camera>();
+            mainCamera.AttachToTransform(cameraObject.Transform);
 
             game.Startup(this);
         }

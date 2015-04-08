@@ -6,24 +6,41 @@ namespace FearEngine.Cameras
 {
     public class FearCamera : Camera
     {
-        private GameObject gameObj;
+        private Transform transform;
 
         public Matrix View { get; private set; }
         public Matrix Projection { get; private set; }
-        public Vector3 Position { get { return gameObj.Transform.Position; } }
+        public Vector3 Position { get { return transform.Position; } }
 
-        public FearCamera([Named("FirstPersonCameraObject")]GameObject gObj)
+        public FearCamera(Transform trans)
         {
-            gameObj = gObj;
-            gameObj.Transform.Changed += OnTransformChanged;
+            AttachToTransform(trans);
 
             Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, 1280.0f/720.0f, 0.01f, 1000.0f);
-            View = Matrix.LookAtLH(gameObj.Transform.Position, new Vector3(0, 0, 0), Vector3.UnitY);
         }
 
         public void AdjustProjection(float fov, float aspect, float near, float far)
         {
             Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, 1280.0f/720.0f, 0.01f, 1000.0f);
+        }
+
+        public void AttachToTransform(Transform trans)
+        {
+            RemoveOldListener();
+
+            transform = trans;
+
+            transform.Changed += OnTransformChanged;
+
+            OnTransformChanged(transform);
+        }
+
+        private void RemoveOldListener()
+        {
+            if (transform != null)
+            {
+                transform.Changed -= OnTransformChanged;
+            }
         }
 
         void OnTransformChanged(Transform newTransform)

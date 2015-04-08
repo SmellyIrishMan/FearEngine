@@ -90,7 +90,8 @@
     <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="HelperClasses\MethodTimer.cs" />
     <Compile Include="HelperClasses\SRGBLinearConverter.cs" />
-    <Compile Include="Input\FearInput.cs" />
+    <Compile Include="Inputs\FearInput.cs" />
+    <Compile Include="Inputs\Input.cs" />
     <Compile Include="Lighting\DirectionalLight.cs" />
     <Compile Include="Lighting\Light.cs" />
     <Compile Include="RenderTargets\RenderTarget.cs" />

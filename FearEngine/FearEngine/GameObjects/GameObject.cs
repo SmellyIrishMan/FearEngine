@@ -5,7 +5,7 @@ namespace FearEngine.GameObjects
 {
     public interface GameObject
     {
-        ulong ID { get;  }
+        ulong ID { get; }
         string Name { get;  }
         Transform Transform { get;  }
         Matrix WorldMatrix{ get; }
