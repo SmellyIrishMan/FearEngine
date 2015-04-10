@@ -43,23 +43,37 @@ namespace FearEngine.GameObjects
             NotifyNewTransform();
         }
 
-        public void Rotate(Quaternion quaternion)
+        public void SetRotation(Quaternion quaternion)
         {
-            rotation = rotation * quaternion;
-        }
-
-        public void SetRotation(Quaternion quat)
-        {
-            rotation = quat;
+            rotation = SortOutQuaternion(quaternion);
             UpdateLocalDirections();
             NotifyNewTransform();
         }
 
+        public void Rotate(Quaternion quaternion)
+        {
+            rotation = rotation * SortOutQuaternion(quaternion);
+            UpdateLocalDirections();
+            NotifyNewTransform();
+        }
+
+        private static Quaternion SortOutQuaternion(Quaternion quaternion)
+        {
+            quaternion.Normalize();
+            //quaternion.Conjugate();
+            return quaternion;
+        }
+
         private void UpdateLocalDirections()
         {
-            right = Vector3.Transform(Vector3.Right, Rotation);
-            up = Vector3.Transform(Vector3.Up, Rotation);
-            forward = Vector3.Transform(Vector3.ForwardLH, Rotation);
+            right = Vector3.Transform(Vector3.Right, rotation);
+            right.Normalize();
+
+            up = Vector3.Transform(Vector3.Up, rotation);
+            up.Normalize();
+
+            forward = Vector3.Transform(Vector3.ForwardLH, rotation);
+            forward.Normalize();
         }
 
         private void NotifyNewTransform()
@@ -74,5 +88,6 @@ namespace FearEngine.GameObjects
         {
             scale = new Vector3(p);
         }
+
     }
 }

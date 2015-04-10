@@ -12,16 +12,14 @@ namespace FearEngine.Cameras
         public Matrix Projection { get; private set; }
         public Vector3 Position { get { return transform.Position; } }
 
-        public FearCamera(Transform trans)
+        public FearCamera()
         {
-            AttachToTransform(trans);
-
-            Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, 1280.0f/720.0f, 0.01f, 1000.0f);
+            transform = new Transform();
         }
 
         public void AdjustProjection(float fov, float aspect, float near, float far)
         {
-            Projection = Matrix.PerspectiveFovLH(SharpDX.MathUtil.Pi * 0.25f, 1280.0f/720.0f, 0.01f, 1000.0f);
+            Projection = Matrix.PerspectiveFovLH(fov, aspect, near, far);
         }
 
         public void AttachToTransform(Transform trans)

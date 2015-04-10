@@ -93,6 +93,7 @@
     <Compile Include="FullScaleProjects\Games\SimpleSceneDemo.cs" />
     <Compile Include="FullScaleProjects\Games\TexturedCubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\BlankWindowDemo.cs" />
+    <Compile Include="MockClasses\Input\NoInputMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceFileTests.cs" />
     <Compile Include="ResourceDirectoryTests.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="SRGBToLinearTests.cs" />
     <Compile Include="RenderTargetStackTests.cs" />
     <Compile Include="NinjectTests.cs" />
+    <Compile Include="TransformTests.cs" />
     <Compile Include="VertexDataTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,10 +4,10 @@ using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;
 
-namespace FearEngine
+namespace FearEngine.Cameras
 {
     //TODO The reason that we're getting popping when we first move the camera is because our YawPitchRoll starts at zero. Regardless of what the camera might be set at.
-    class CameraControllerComponent : Updateable
+    public class CameraControllerComponent : Updateable
     {
         private const float STRAFE_SPEED = 0.025f;
         private const float WALK_SPEED = 0.025f;

@@ -19,7 +19,7 @@ namespace FearEngineTests
         }
         
         [TestMethod]
-        public void CreateFileWithoutOverwritingExistingFile()
+        public void CreateResourceFileWithoutOverwritingExistingFile()
         {
             //Given
             MeshResourceFile testFile = new MeshResourceFile(new XMLResourceStorage(GetResourceFolder(), "Meshes.xml", ResourceType.Mesh));
