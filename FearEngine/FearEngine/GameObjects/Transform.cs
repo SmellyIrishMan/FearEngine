@@ -89,5 +89,12 @@ namespace FearEngine.GameObjects
             scale = new Vector3(p);
         }
 
+
+        public void LookAt(Vector3 target)
+        {
+            Quaternion lookAt = Quaternion.LookAtLH(Position, target, Vector3.Up);
+            lookAt.Conjugate();
+            SetRotation(lookAt);
+        }
     }
 }

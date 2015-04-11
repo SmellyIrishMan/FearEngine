@@ -104,7 +104,7 @@ namespace FearEngine
 
             Vector3 cameraPos = new Vector3(1, 3, -5);
             cameraObject.Transform.MoveTo(cameraPos);
-            cameraObject.Transform.SetRotation(Quaternion.LookAtLH(cameraPos, Vector3.Zero, Vector3.UnitY));
+            cameraObject.Transform.LookAt(Vector3.Zero);
 
             mainCamera = FearGameFactory.dependencyKernel.Get<Camera>();
             mainCamera.AdjustProjection(SharpDX.MathUtil.Pi * 0.25f, 1280.0f/720.0f, 0.01f, 1000.0f);
