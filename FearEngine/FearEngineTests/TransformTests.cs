@@ -12,7 +12,7 @@ namespace FearEngineTests
     {
         float vector3DiffEpsilon = 0.00002f;
         [TestMethod]
-        public void DirectionalVectorAreCorrectAfter90DegreeRotationInY()
+        public void DirectionalVectorsAreCorrectAfter90DegreeRotationInY()
         {
             //Given
             Transform transform = new Transform();
@@ -32,7 +32,7 @@ namespace FearEngineTests
         }
 
         [TestMethod]
-        public void DirectionalVectorAreCorrectAfter90DegreeRotationInX()
+        public void DirectionalVectorsAreCorrectAfter90DegreeRotationInX()
         {
             //Given
             Transform transform = new Transform();
@@ -52,7 +52,7 @@ namespace FearEngineTests
         }
 
         [TestMethod]
-        public void DirectionalVectorAreCorrectAfter90DegreeRotationInZ()
+        public void DirectionalVectorsAreCorrectAfter90DegreeRotationInZ()
         {
             //Given
             Transform transform = new Transform();

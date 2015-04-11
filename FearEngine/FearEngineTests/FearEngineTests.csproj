@@ -94,7 +94,7 @@
     <Compile Include="FullScaleProjects\Games\TexturedCubeDemo.cs" />
     <Compile Include="FullScaleProjects\Games\BlankWindowDemo.cs" />
     <Compile Include="GameObjectComponents\GameObjectComponentTests.cs" />
-    <Compile Include="MockClasses\InputMocks\FixedDirectionMouse.cs" />
+    <Compile Include="MockClasses\InputMocks\FixedInputMock.cs" />
     <Compile Include="MockClasses\InputMocks\NoInputMock.cs" />
     <Compile Include="MockClasses\TimerMocks\ConstantTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

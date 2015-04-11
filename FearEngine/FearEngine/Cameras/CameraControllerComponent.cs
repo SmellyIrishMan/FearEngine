@@ -18,9 +18,8 @@ namespace FearEngine.Cameras
         private float walkDir;
         private Vector2 rotationDir;
 
-        private Vector3 YawPitchRoll;
-        private float yaw;
-        private float pitch;
+        private float yawSum;
+        private float pitchSum;
 
         Input input;
         Transform transform;
@@ -33,8 +32,8 @@ namespace FearEngine.Cameras
             walkDir = 0.0f;
             rotationDir = Vector2.Zero;
 
-            yaw = 0.0f;
-            pitch = 0.0f;
+            yawSum = 0.0f;
+            pitchSum = 0.0f;
         }
 
         public void Update(GameObject owner, GameTimer gameTime)
@@ -57,20 +56,16 @@ namespace FearEngine.Cameras
 
                 if(!rotationDir.Equals(Vector2.Zero))
                 {
-                    YawPitchRoll.X += rotationDir.X * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
-                    YawPitchRoll.Y += rotationDir.Y * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
-                    YawPitchRoll.Z += 0.0f;
+                    yawSum += rotationDir.X * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
+                    pitchSum += rotationDir.Y * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
 
-                    YawPitchRoll.X = SharpDX.MathUtil.Wrap(YawPitchRoll.X, -SharpDX.MathUtil.Pi, SharpDX.MathUtil.Pi);
-                    YawPitchRoll.Y = SharpDX.MathUtil.Clamp(YawPitchRoll.Y, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
+                    yawSum = SharpDX.MathUtil.Wrap(yawSum, -SharpDX.MathUtil.Pi, SharpDX.MathUtil.Pi);
+                    pitchSum = SharpDX.MathUtil.Clamp(pitchSum, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
                 }
 
-                Quaternion yaw = Quaternion.RotationAxis(Vector3.Up, YawPitchRoll.X);
-                Quaternion pitch = Quaternion.RotationAxis(Vector3.Right, YawPitchRoll.Y);
-                Quaternion combination = yaw * pitch;
-
-                Quaternion old = Quaternion.RotationYawPitchRoll(YawPitchRoll.X, YawPitchRoll.Y, YawPitchRoll.Z);
-                transform.SetRotation(Quaternion.RotationYawPitchRoll(YawPitchRoll.X, YawPitchRoll.Y, YawPitchRoll.Z));
+                Quaternion yaw = Quaternion.RotationAxis(Vector3.Up, yawSum);
+                Quaternion pitch = Quaternion.RotationAxis(Vector3.Right, pitchSum);
+                transform.SetRotation(yaw * pitch);
             }
         }
 
