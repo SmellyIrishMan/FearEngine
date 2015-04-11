@@ -154,6 +154,8 @@
     <Compile Include="Resources\Managment\FearResourceManager.cs" />
     <Compile Include="GameObjects\Transform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Timer\FearGameTimer.cs" />
+    <Compile Include="Timer\GameTimer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

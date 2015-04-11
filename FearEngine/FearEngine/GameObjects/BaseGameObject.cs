@@ -1,4 +1,5 @@
 ﻿using FearEngine.GameObjects;
+using FearEngine.Timer;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
@@ -38,7 +39,7 @@ namespace FearEngine.GameObjects
         {
             foreach (Updateable updater in updaters)
             {
-                updater.Update(this, gameTime);
+                updater.Update(this, new FearGameTimer(gameTime));
             }
         }
 

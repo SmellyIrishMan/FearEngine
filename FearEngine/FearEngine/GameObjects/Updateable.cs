@@ -1,8 +1,10 @@
-﻿using SharpDX.Toolkit;
+﻿using FearEngine.Timer;
+using SharpDX.Toolkit;
+
 namespace FearEngine.GameObjects
 {
     public interface Updateable
     {
-        void Update(GameObject owner, GameTime gameTime);
+        void Update(GameObject owner, GameTimer gameTime);
     }
 }

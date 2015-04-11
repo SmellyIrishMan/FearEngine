@@ -1,4 +1,6 @@
-﻿using SharpDX;
+﻿using FearEngine.Timer;
+using SharpDX;
+
 namespace FearEngine.GameObjects.Updateables
 {
     public class ContinuousRotationAroundY : Updateable
@@ -10,7 +12,7 @@ namespace FearEngine.GameObjects.Updateables
             speed = spd;
         }
 
-        public void Update(GameObject owner, SharpDX.Toolkit.GameTime gameTime)
+        public void Update(GameObject owner, GameTimer gameTime)
         {
             owner.Transform.Rotate(Quaternion.RotationAxis(Vector3.UnitY, (float)gameTime.ElapsedGameTime.TotalSeconds * speed));
         }

@@ -1,6 +1,6 @@
 ﻿using FearEngine.Inputs;
 
-namespace FearEngineTests.MockClasses
+namespace FearEngineTests.MockClasses.InputMocks
 {
     class NoInputMock : Input
     {

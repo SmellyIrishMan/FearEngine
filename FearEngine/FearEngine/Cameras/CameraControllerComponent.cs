@@ -1,5 +1,6 @@
 ﻿using FearEngine.GameObjects;
 using FearEngine.Inputs;
+using FearEngine.Timer;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;
@@ -18,6 +19,8 @@ namespace FearEngine.Cameras
         private Vector2 rotationDir;
 
         private Vector3 YawPitchRoll;
+        private float yaw;
+        private float pitch;
 
         Input input;
         Transform transform;
@@ -29,11 +32,13 @@ namespace FearEngine.Cameras
             strafeDir = 0.0f;
             walkDir = 0.0f;
             rotationDir = Vector2.Zero;
+
+            yaw = 0.0f;
+            pitch = 0.0f;
         }
 
-        public void Update(GameObject owner, GameTime gameTime)
+        public void Update(GameObject owner, GameTimer gameTime)
         {
-            FearEngine.Logger.FearLog.Log("Right mouse button state for component; " + input.IsMouseButtonDown(MouseButton.RightMouseButton));
             transform = owner.Transform;
 
             CheckInput();
@@ -60,6 +65,11 @@ namespace FearEngine.Cameras
                     YawPitchRoll.Y = SharpDX.MathUtil.Clamp(YawPitchRoll.Y, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
                 }
 
+                Quaternion yaw = Quaternion.RotationAxis(Vector3.Up, YawPitchRoll.X);
+                Quaternion pitch = Quaternion.RotationAxis(Vector3.Right, YawPitchRoll.Y);
+                Quaternion combination = yaw * pitch;
+
+                Quaternion old = Quaternion.RotationYawPitchRoll(YawPitchRoll.X, YawPitchRoll.Y, YawPitchRoll.Z);
                 transform.SetRotation(Quaternion.RotationYawPitchRoll(YawPitchRoll.X, YawPitchRoll.Y, YawPitchRoll.Z));
             }
         }
