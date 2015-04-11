@@ -18,7 +18,7 @@ namespace FearEngineTests.GameObjectComponents
         public void TestCameraControllerComponent()
         {
             //Given
-            Input fixedDirectionMouseWithButtonHeldDown = new FixedDirectionMouse(
+            Input fixedDirectionMouseWithButtonHeldDown = new FixedInputMock(
                 new Vector2(0.14f, 0.05f),
                 new List<MouseButton>(new MouseButton[] { MouseButton.RightMouseButton }));
             GameTimer constantTimer = new ConstantTimer(new TimeSpan(0, 0, 0, 0, 99));

@@ -4,26 +4,26 @@ using System.Collections.Generic;
 
 namespace FearEngineTests.MockClasses.InputMocks
 {
-    public class FixedDirectionMouse : Input
+    public class FixedInputMock : Input
     {
         Vector2 fixedDirection;
         List<MouseButton> heldButtons;
         List<SharpDX.Toolkit.Input.Keys> heldKeys;
 
-        public FixedDirectionMouse(Vector2 fixedDir)
+        public FixedInputMock(Vector2 fixedDir)
         {
             fixedDirection = fixedDir;
             heldButtons = new List<MouseButton>();
             heldKeys = new List<SharpDX.Toolkit.Input.Keys>();
         }
 
-        public FixedDirectionMouse(Vector2 fixedDir, List<MouseButton> heldButts)
+        public FixedInputMock(Vector2 fixedDir, List<MouseButton> heldButts)
             : this(fixedDir)
         {
             heldButtons = heldButts;
         }
 
-        public FixedDirectionMouse(Vector2 fixedDir, List<MouseButton> heldButts, List<SharpDX.Toolkit.Input.Keys> heldKs)
+        public FixedInputMock(Vector2 fixedDir, List<MouseButton> heldButts, List<SharpDX.Toolkit.Input.Keys> heldKs)
             : this(fixedDir, heldButts)
         {
             heldKeys = heldKs;
