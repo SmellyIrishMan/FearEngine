@@ -18,8 +18,8 @@ namespace FearEngine.Cameras
         private float walkDir;
         private Vector2 rotationDir;
 
-        private float yawSum;
-        private float pitchSum;
+        private float yaw;
+        private float pitch;
 
         Input input;
         Transform transform;
@@ -32,8 +32,8 @@ namespace FearEngine.Cameras
             walkDir = 0.0f;
             rotationDir = Vector2.Zero;
 
-            yawSum = 0.0f;
-            pitchSum = 0.0f;
+            yaw = 0.0f;
+            pitch = 0.0f;
         }
 
         public void Update(GameObject owner, GameTimer gameTime)
@@ -56,16 +56,14 @@ namespace FearEngine.Cameras
 
                 if(!rotationDir.Equals(Vector2.Zero))
                 {
-                    yawSum += rotationDir.X * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
-                    pitchSum += rotationDir.Y * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
+                    yaw += rotationDir.X * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
+                    pitch += rotationDir.Y * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
 
-                    yawSum = SharpDX.MathUtil.Wrap(yawSum, -SharpDX.MathUtil.Pi, SharpDX.MathUtil.Pi);
-                    pitchSum = SharpDX.MathUtil.Clamp(pitchSum, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
+                    yaw = SharpDX.MathUtil.Wrap(yaw, -SharpDX.MathUtil.Pi, SharpDX.MathUtil.Pi);
+                    pitch = SharpDX.MathUtil.Clamp(pitch, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
                 }
 
-                Quaternion yaw = Quaternion.RotationAxis(Vector3.Up, yawSum);
-                Quaternion pitch = Quaternion.RotationAxis(Vector3.Right, pitchSum);
-                transform.SetRotation(yaw * pitch);
+                transform.SetRotation(Quaternion.RotationMatrix(Matrix.RotationYawPitchRoll(yaw, pitch, 0.0f)));
             }
         }
 
