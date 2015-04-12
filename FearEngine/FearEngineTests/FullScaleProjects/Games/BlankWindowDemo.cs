@@ -1,4 +1,5 @@
 ﻿using FearEngine;
+using FearEngine.HelperClasses;
 using SharpDX.Toolkit;
 
 namespace FearEngineTests
@@ -26,7 +27,7 @@ namespace FearEngineTests
 
         public void Draw(GameTime gameTime)
         {
-            fearEngine.GetDevice().Clear(new SharpDX.Color4(0.2f, 0.0f, 0.2f, 1.0f));
+            fearEngine.GetDevice().Clear(new SharpDX.Color4(SRGBLinearConverter.SRGBtoLinear(0.2f), 0.0f, SRGBLinearConverter.SRGBtoLinear(0.2f), 1.0f));
         }
 
         public void Shutdown()

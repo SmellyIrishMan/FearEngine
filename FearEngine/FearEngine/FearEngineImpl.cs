@@ -112,7 +112,7 @@ namespace FearEngine
             cameraObject.AddUpdatable(updateableFactory.CreateCameraControllerComponent());
             gameObjects.Add(cameraObject);
 
-            Vector3 cameraPos = new Vector3(1, 3, -5);
+            Vector3 cameraPos = new Vector3(1, 5, -9);
             cameraObject.Transform.MoveTo(cameraPos);
             cameraObject.Transform.LookAt(Vector3.Zero);
 
