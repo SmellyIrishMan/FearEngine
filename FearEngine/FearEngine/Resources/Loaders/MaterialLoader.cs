@@ -1,9 +1,10 @@
 ﻿using FearEngine.Logger;
+using FearEngine.Resources.Management;
 using FearEngine.Resources.Materials;
-using SharpDX.Direct3D11;
+using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 using SharpDX.Toolkit.Graphics;
 
-namespace FearEngine.Resources.Managment.Loaders
+namespace FearEngine.Resources.Loaders
 {
     public class MaterialLoader : ResourceLoader
     {
@@ -11,9 +12,9 @@ namespace FearEngine.Resources.Managment.Loaders
 
         bool enableDebug = true;
 
-        public MaterialLoader(GraphicsDevice dev)
+        public MaterialLoader(FearGraphicsDevice dev)
         {
-            device = dev;
+            device = dev.Device;
         }
 
         public Resource Load(ResourceInformation info)

@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.Resources.Loaders;
-using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources;
 using FearEngine.Resources.Materials;
+using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
+using FearEngine;
 
 namespace FearEngineTests
 {
@@ -14,7 +15,7 @@ namespace FearEngineTests
         {
             //Given
             SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
-            TextureLoader loader = new TextureLoader(device);
+            TextureLoader loader = new TextureLoader(new SharpDXGraphicsDevice(device));
             ResourceInformation info = new TextureResourceInformation();
             info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png");
 
@@ -33,7 +34,7 @@ namespace FearEngineTests
         {
             //Given
             SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
-            TextureLoader loader = new TextureLoader(device);
+            TextureLoader loader = new TextureLoader(new SharpDXGraphicsDevice(device));
             ResourceInformation info = new TextureResourceInformation();
             info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png");
             info.UpdateInformation("IsLinear", "false");
@@ -53,7 +54,7 @@ namespace FearEngineTests
         {
             //Given
             SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
-            MaterialLoader loader = new MaterialLoader(device);
+            MaterialLoader loader = new MaterialLoader(new SharpDXGraphicsDevice(device));
             ResourceInformation info = new MaterialResourceInformation();
             info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\Textured.fx");
             info.UpdateInformation("Technique", "TexturedNoLighting");

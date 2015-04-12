@@ -2,7 +2,7 @@
 using grendgine_collada;
 using SharpDX;
 
-namespace FearEngine.Resources.Managment.Loaders.Collada
+namespace FearEngine.Resources.Loaders.Loaders.Collada
 {
     class SourceDataTexcoord2Impl : SourceData
     {

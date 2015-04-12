@@ -1,7 +1,7 @@
 ﻿using FearEngine.DeviceState;
 using FearEngine.DeviceState.SamplerStates;
 using FearEngine.Lighting;
-using FearEngine.Resources.Managment;
+using FearEngine.Resources.Loaders;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scenes;
@@ -19,7 +19,7 @@ namespace FearEngine.Shadows
         ShaderResourceView ShadowMap { get; }
         FearEngine.DeviceState.SamplerStates.SamplerState ShadowMapSampler { get; }
 
-        void RenderShadowTechnique(BasicMeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects);
+        void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects);
         void SetupForLight(Light light);
         void Dispose();
     }

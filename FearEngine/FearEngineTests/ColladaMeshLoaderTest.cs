@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.Resources.Meshes;
-using FearEngine.Resources.Managment.Loaders.Collada;
+using FearEngine.Resources.Loaders.Loaders.Collada;
 
 namespace FearEngineTests
 {

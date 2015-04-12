@@ -1,12 +1,8 @@
-﻿using FearEngine.Logger;
-using FearEngine.Resources.Managment.Loaders;
+﻿using FearEngine.Resources.Management;
 using FearEngine.Resources.ResourceFiles;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
+using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 
-namespace FearEngine.Resources.Managment
+namespace FearEngine.Resources.Loaders
 {
     public abstract class ResourceFile
     {

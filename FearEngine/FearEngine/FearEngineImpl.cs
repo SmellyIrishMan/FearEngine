@@ -7,7 +7,7 @@ using SharpDX.Toolkit.Graphics;
 using SharpDX.Toolkit.Input;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
-using FearEngine.Resources.Managment;
+using FearEngine.Resources.Loaders;
 using SharpDX;
 using FearEngine.Inputs;
 using FearEngine.GameObjects;
@@ -16,6 +16,7 @@ using FearEngine.HelperClasses;
 using SharpDX.Diagnostics;
 using FearEngine.Scenes;
 using Ninject;
+using FearEngine.Resources.Management;
 
 namespace FearEngine
 {

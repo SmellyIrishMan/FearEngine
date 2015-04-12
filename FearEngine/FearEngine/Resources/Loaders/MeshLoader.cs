@@ -1,8 +1,7 @@
-﻿using FearEngine.Logger;
-using FearEngine.Resources.Managment;
-using FearEngine.Resources.Managment.Loaders;
-using FearEngine.Resources.Managment.Loaders.Collada;
+﻿using FearEngine.Resources.Loaders.Loaders.Collada;
+using FearEngine.Resources.Management;
 using FearEngine.Resources.Meshes;
+using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Loaders
@@ -13,9 +12,9 @@ namespace FearEngine.Resources.Loaders
         ColladaMeshLoader loader;
         VertexBufferFactory vertBuffFactory;
 
-        public MeshLoader(GraphicsDevice dev, ColladaMeshLoader l, VertexBufferFactory fac)
+        public MeshLoader(FearGraphicsDevice dev, ColladaMeshLoader l, VertexBufferFactory fac)
         {
-            device = dev;
+            device = dev.Device;
             loader = l;
             vertBuffFactory = fac;
         }

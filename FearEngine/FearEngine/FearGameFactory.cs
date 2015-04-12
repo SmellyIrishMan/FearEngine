@@ -1,8 +1,4 @@
 ﻿using FearEngine.Inputs;
-using FearEngine.Resources.Loaders;
-using FearEngine.Resources.Managment;
-using FearEngine.Resources.Managment.Loaders;
-using FearEngine.Resources.Managment.Loaders.Collada;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scenes;
 using SharpDX.Toolkit;
@@ -11,6 +7,9 @@ using SharpDX.Toolkit.Input;
 using System.IO;
 using Ninject;
 using Ninject.Parameters;
+using FearEngine.Resources.Management;
+using FearEngine.Resources.Loaders;
+using FearEngine.Resources.Loaders.Loaders.Collada;
 
 namespace FearEngine
 {    
@@ -37,15 +36,12 @@ namespace FearEngine
             GraphicsDevice device = engine.GetDevice();
 
             ResourceDirectory resDir = CreateResourceDirectory();
-            MeshLoader meshLoader = new MeshLoader(device, new ColladaMeshLoader(), new VertexBufferFactory());
-            FearResourceManager resMan = new FearResourceManager(resDir, new MaterialLoader(device), meshLoader, new TextureLoader(device));
 
             dependencyKernel = new StandardKernel(new FearEngineNinjectModule(device,
-                resMan,
                 new MouseManager(engine),
                 new KeyboardManager(engine)));
 
-            engine.InjectDependencies(resMan, dependencyKernel.Get<Input>());
+            engine.InjectDependencies(dependencyKernel.Get<FearResourceManager>(), dependencyKernel.Get<Input>());
 
             Input anotherTest = dependencyKernel.Get<Input>();
         }

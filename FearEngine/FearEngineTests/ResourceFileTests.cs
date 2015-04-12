@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FearEngine.Resources.Managment;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FearEngine.Resources.Loaders;
 using System.IO;
-using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources.ResourceFiles;
+using FearEngine.Resources.Management;
+using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 
 namespace FearEngineTests
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FearEngine.Resources.Managment
+namespace FearEngine.Resources.Management
 {
     public interface Resource
     {

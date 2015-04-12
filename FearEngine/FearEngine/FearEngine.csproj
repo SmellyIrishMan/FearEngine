@@ -125,7 +125,7 @@
     <Compile Include="Resources\ResourceFiles\MeshResourceFile.cs" />
     <Compile Include="Resources\Managment\ResourceDirectory.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFile.cs" />
-    <Compile Include="Resources\Managment\ResourceLoader.cs" />
+    <Compile Include="Resources\Loaders\ResourceLoader.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileStorage\XMLResourceStorage.cs" />
     <Compile Include="Resources\Texture.cs" />
     <Compile Include="Scene\BasicScene.cs" />

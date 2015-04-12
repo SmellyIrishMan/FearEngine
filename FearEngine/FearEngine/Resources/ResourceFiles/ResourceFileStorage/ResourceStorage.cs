@@ -1,5 +1,4 @@
-﻿using FearEngine.Resources.Managment.Loaders;
-using System.Collections.Generic;
+﻿using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 
 namespace FearEngine.Resources.ResourceFiles
 {

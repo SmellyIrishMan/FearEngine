@@ -6,7 +6,7 @@ using SharpDX;
 using System;
 using System.Collections.Generic;
 
-namespace FearEngine.Resources.Managment.Loaders.Collada
+namespace FearEngine.Resources.Loaders.Loaders.Collada
 {
     public class ColladaMeshLoader
     {
@@ -151,7 +151,7 @@ namespace FearEngine.Resources.Managment.Loaders.Collada
                 }
             }
 
-            throw new FearEngine.Resources.Managment.Loaders.Collada.SourceDataFactory.UnknownSourceTypeException();
+            throw new FearEngine.Resources.Loaders.Loaders.Collada.SourceDataFactory.UnknownSourceTypeException();
         }
 
         private void SwitchUpAxisFromZtoY()

@@ -19,7 +19,7 @@ namespace FearEngine.Scenes
         private HashSet<Mesh> meshes;
         private HashSet<Material> materials;
 
-        private BasicMeshRenderer meshRenderer;
+        private MeshRenderer meshRenderer;
         private Camera camera;
 
         private Lighting.Light defaultLight;
@@ -27,7 +27,7 @@ namespace FearEngine.Scenes
         private bool shadowsEnabled = false;
         private ShadowTechnique shadowTech;
 
-        public BasicScene(BasicMeshRenderer meshRend, Camera cam, Light light, ShadowTechnique shadTech)
+        public BasicScene(MeshRenderer meshRend, Camera cam, Light light, ShadowTechnique shadTech)
         {
             meshRenderer = meshRend;
             camera = cam;

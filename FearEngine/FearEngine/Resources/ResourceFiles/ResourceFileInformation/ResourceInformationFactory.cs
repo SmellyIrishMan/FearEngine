@@ -1,5 +1,5 @@
-﻿using FearEngine.Resources.Managment;
-using FearEngine.Resources.Managment.Loaders;
+﻿using FearEngine.Resources.Loaders.Loaders;
+using FearEngine.Resources.Management;
 
 namespace FearEngine.Resources.ResourceFiles.ResourceFileInformation
 {
@@ -19,7 +19,7 @@ namespace FearEngine.Resources.ResourceFiles.ResourceFileInformation
                     return new TextureResourceInformation();
 
                 default:
-                    throw new FearEngine.Resources.Managment.ResourceFileFactory.UnknownResourceType();
+                    throw new FearEngine.Resources.Loaders.ResourceFileFactory.UnknownResourceType();
             }
         }
     }

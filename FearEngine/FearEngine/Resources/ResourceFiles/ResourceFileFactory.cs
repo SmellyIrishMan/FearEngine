@@ -1,8 +1,8 @@
-﻿using FearEngine.Resources.Managment.Loaders;
+﻿using FearEngine.Resources.Management;
 using FearEngine.Resources.ResourceFiles;
 using System;
 
-namespace FearEngine.Resources.Managment
+namespace FearEngine.Resources.Loaders
 {
     public class ResourceFileFactory
     {

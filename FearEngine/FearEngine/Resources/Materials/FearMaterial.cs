@@ -1,5 +1,6 @@
 ﻿using FearEngine.Lighting;
-using FearEngine.Resources.Managment;
+using FearEngine.Resources.Loaders;
+using FearEngine.Resources.Management;
 using FearEngine.Resources.Materials;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
@@ -8,12 +9,11 @@ using System.Runtime.InteropServices;
 
 namespace FearEngine.Resources.Materials
 {
-    public class FearMaterial : FearEngine.Resources.Managment.Resource, FearEngine.Resources.Materials.Material
+    public class FearMaterial : FearEngine.Resources.Management.Resource, FearEngine.Resources.Materials.Material
     {
         private string name;
 
-        //TODO CHANGE THIS BACK TO BEING PRIVATE
-        public Effect effect;
+        private Effect effect;
 
         private bool isLoaded;
 
@@ -31,12 +31,6 @@ namespace FearEngine.Resources.Materials
             effect = e;
 
             isLoaded = true;
-        }
-
-        //TODO GET RID OF THIS
-        public FearMaterial(string n, FearResourceManager resMan)
-            : this(n, ((FearMaterial)resMan.GetMaterial(n)).effect)
-        {
         }
 
         public bool IsLoaded()

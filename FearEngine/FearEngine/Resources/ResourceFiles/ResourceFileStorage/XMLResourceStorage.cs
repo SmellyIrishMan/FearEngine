@@ -1,6 +1,5 @@
 ﻿using FearEngine.Logger;
-using FearEngine.Resources.Managment;
-using FearEngine.Resources.Managment.Loaders;
+using FearEngine.Resources.Management;
 using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 using System;
 using System.Collections.Generic;

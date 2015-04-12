@@ -1,6 +1,5 @@
-﻿using FearEngine.Resources.Managment;
-using FearEngine.Resources.Managment.Loaders;
-using System.Drawing;
+﻿using FearEngine.Resources.Management;
+using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 
 namespace FearEngine.Resources.Loaders
 {
@@ -8,9 +7,9 @@ namespace FearEngine.Resources.Loaders
     {
         SharpDX.Toolkit.Graphics.GraphicsDevice device;
 
-        public TextureLoader(SharpDX.Toolkit.Graphics.GraphicsDevice dev)
+        public TextureLoader(FearGraphicsDevice dev)
         {
-            device = dev;
+            device = dev.Device;
         }
 
         public Resource Load(ResourceInformation info)

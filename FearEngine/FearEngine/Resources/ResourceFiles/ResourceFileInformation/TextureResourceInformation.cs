@@ -1,8 +1,6 @@
-﻿using FearEngine.Logger;
-using System;
-using System.Collections.Generic;
+﻿using FearEngine.Resources.Management;
 
-namespace FearEngine.Resources.Managment.Loaders
+namespace FearEngine.Resources.ResourceFiles.ResourceFileInformation
 {
     public class TextureResourceInformation : ResourceInformation
     {

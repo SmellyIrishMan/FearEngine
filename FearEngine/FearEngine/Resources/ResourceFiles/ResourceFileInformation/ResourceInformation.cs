@@ -1,9 +1,10 @@
 ﻿using FearEngine.Logger;
+using FearEngine.Resources.Management;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FearEngine.Resources.Managment.Loaders
+namespace FearEngine.Resources.ResourceFiles.ResourceFileInformation
 {
     public abstract class ResourceInformation
     {

@@ -2,6 +2,7 @@
 using FearEngine.Lighting;
 using FearEngine.RenderTargets;
 using FearEngine.Resources;
+using FearEngine.Resources.Management;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scenes;
@@ -32,19 +33,20 @@ namespace FearEngine.Shadows
         public FearEngine.DeviceState.SamplerStates.SamplerState ShadowMapSampler { get { return sampler; } }
 
         public BasicShadowTechnique(FearGraphicsDevice dev,
-            [Named("DepthWrite")]Material depthMat, 
+            FearResourceManager resMan, 
             [Named("ShadowBiasedDepth")]RasteriserState depthRasState,
             [Named("ShadowMapComparison")]FearEngine.DeviceState.SamplerStates.SamplerState samp)
         {
             device = dev.Device;
-            depthMaterial = depthMat;
+
+            depthMaterial = resMan.GetMaterial("DepthWrite");
 
             depthRS = depthRasState;
 
             sampler = samp;
         }
 
-        public void RenderShadowTechnique(BasicMeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects)
+        public void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects)
         {
             device.SetRasterizerState(depthRS.State);
 

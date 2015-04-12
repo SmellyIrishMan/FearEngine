@@ -36,7 +36,6 @@ namespace FearEngine.Inputs
 
         public void Update(GameTime gameTime)
         {
-            FearEngine.Logger.FearLog.Log("Right mouse button state for input; " + mouseState.RightButton);
             UpdateMouseState();
 
             UpdateKeyboardState();

@@ -4,7 +4,7 @@ using SharpDX;
 using System;
 
 
-namespace FearEngine.Resources.Managment.Loaders.Collada
+namespace FearEngine.Resources.Loaders.Loaders.Collada
 {
     abstract class SourceData
     {

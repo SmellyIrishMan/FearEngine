@@ -1,7 +1,7 @@
-﻿using FearEngine.Resources.Managment.Loaders;
+﻿using FearEngine.Resources.Management;
 using FearEngine.Resources.ResourceFiles;
 
-namespace FearEngine.Resources.Managment
+namespace FearEngine.Resources.Loaders
 {
     public class MeshResourceFile : ResourceFile
     {

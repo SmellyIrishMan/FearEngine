@@ -3,7 +3,7 @@ using grendgine_collada;
 using System;
 using System.Collections.Generic;
 
-namespace FearEngine.Resources.Managment.Loaders.Collada
+namespace FearEngine.Resources.Loaders.Loaders.Collada
 {
     class SourceDataFactory
     {

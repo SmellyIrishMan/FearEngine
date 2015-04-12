@@ -1,5 +1,4 @@
-﻿using FearEngine.GameObjects;
-using FearEngine.Resources.Managment;
+﻿using FearEngine.Resources.Management;
 using FearEngine.Resources.Meshes.Vertex.Layouts;
 using SharpDX.Toolkit.Graphics;
 
