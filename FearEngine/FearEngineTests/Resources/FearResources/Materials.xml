@@ -40,4 +40,9 @@
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\ShadowTesting.fx</Filepath>
       <Technique>RenderShadowsOnly</Technique>
    </Material>
+   <Material>
+      <Name>ShadowedPBR</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\ShadowedPBR.fx</Filepath>
+      <Technique>PBR_GGX_WithShadows</Technique>
+    </Material>
 </MaterialList>

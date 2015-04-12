@@ -17,7 +17,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
             GameObject teapot = new BaseGameObject("Teapot");
             Mesh mesh = engine.GetResourceManager().GetMesh("TEAPOT");
-            Material material = engine.GetResourceManager().GetMaterial("ShadowTesting");
+            Material material = engine.GetResourceManager().GetMaterial("ShadowedPBR");
             SceneObject shadowedTeapot = new SceneObject(teapot, mesh, material);
             scene.AddSceneObject(shadowedTeapot);
 
