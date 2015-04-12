@@ -12,11 +12,11 @@ namespace FearEngine.Resources.Loaders
         ColladaMeshLoader loader;
         VertexBufferFactory vertBuffFactory;
 
-        public MeshLoader(FearGraphicsDevice dev, ColladaMeshLoader l, VertexBufferFactory fac)
+        public MeshLoader(FearGraphicsDevice dev, ColladaMeshLoader formatLoader, VertexBufferFactory vertBufferFactory)
         {
             device = dev.Device;
-            loader = l;
-            vertBuffFactory = fac;
+            loader = formatLoader;
+            vertBuffFactory = vertBufferFactory;
         }
 
         public Resource Load(ResourceInformation info)

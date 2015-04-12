@@ -32,11 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.2\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Collada_Main">
       <HintPath>..\..\ThirdParty\Collada_Main\Collada_Main\bin\Debug\Collada_Main.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Factory">
+      <HintPath>..\packages\Ninject.Extensions.Factory.3.2.1.0\lib\net45-full\Ninject.Extensions.Factory.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
@@ -73,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cameras\Camera.cs" />
-    <Compile Include="Cameras\CameraControllerComponent.cs" />
+    <Compile Include="GameObjects\Updateables\CameraControllerComponent.cs" />
     <Compile Include="Cameras\FearCamera.cs" />
     <Compile Include="DeviceState\RasteriserStates\DefaultRasteriserState.cs" />
     <Compile Include="DeviceState\RasteriserStates\RasteriserState.cs" />
@@ -86,8 +92,10 @@
     <Compile Include="FearGame.cs" />
     <Compile Include="FearGraphicsDevice.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\GameObjectFactory.cs" />
     <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
     <Compile Include="GameObjects\BaseGameObject.cs" />
+    <Compile Include="GameObjects\Updateables\UpdateableFactory.cs" />
     <Compile Include="HelperClasses\MethodTimer.cs" />
     <Compile Include="HelperClasses\SRGBLinearConverter.cs" />
     <Compile Include="Inputs\FearInput.cs" />
@@ -128,8 +136,8 @@
     <Compile Include="Resources\Loaders\ResourceLoader.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileStorage\XMLResourceStorage.cs" />
     <Compile Include="Resources\Texture.cs" />
-    <Compile Include="Scene\BasicScene.cs" />
-    <Compile Include="Scene\Scene.cs" />
+    <Compile Include="Scenes\BasicScene.cs" />
+    <Compile Include="Scenes\Scene.cs" />
     <Compile Include="GameObjects\Updateable.cs" />
     <Compile Include="Logger\FearLog.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataTexcoord2Impl.cs" />
@@ -140,7 +148,8 @@
     <Compile Include="Resources\Loaders\Collada\SourceDataPositionImpl.cs" />
     <Compile Include="Resources\Loaders\MaterialLoader.cs" />
     <Compile Include="Resources\Meshes\Mesh.cs" />
-    <Compile Include="Scene\SceneObject.cs" />
+    <Compile Include="Scenes\SceneFactory.cs" />
+    <Compile Include="Scenes\SceneObject.cs" />
     <Compile Include="Shadows\BasicShadowTechnique.cs" />
     <Compile Include="Shadows\ShadowMap.cs" />
     <Compile Include="SharpDXGraphicsDevice.cs" />

@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.GameObjects;
-using FearEngine.Cameras;
 using FearEngineTests.MockClasses.InputMocks;
 using SharpDX;
 using System.Collections.Generic;
 using FearEngine.Inputs;
 using FearEngine.Timer;
 using FearEngineTests.MockClasses.TimerMocks;
+using FearEngine.GameObjects.Updateables;
 
 namespace FearEngineTests.GameObjectComponents
 {

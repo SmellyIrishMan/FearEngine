@@ -1,22 +1,19 @@
 ﻿using SharpDX.DXGI;
 using System;
 using FearEngine.Cameras;
-using FearEngine.Resources;
 using FearEngine.Logger;
 using SharpDX.Toolkit.Graphics;
-using SharpDX.Toolkit.Input;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
-using FearEngine.Resources.Loaders;
 using SharpDX;
 using FearEngine.Inputs;
 using FearEngine.GameObjects;
 using System.Collections.Generic;
 using FearEngine.HelperClasses;
-using SharpDX.Diagnostics;
 using FearEngine.Scenes;
 using Ninject;
 using FearEngine.Resources.Management;
+using FearEngine.GameObjects.Updateables;
 
 namespace FearEngine
 {
@@ -31,6 +28,9 @@ namespace FearEngine
 
         private Input input;
         private FearResourceManager resourceManager;
+        private GameObjectFactory gameObjectFactory;
+        private UpdateableFactory updateableFactory;
+        private SceneFactory sceneFactory;
 
         private List<GameObject> gameObjects;   //This gameObjects list should be taken somewhere else. Like some factory that creates gameObjects, tracks them, updates them.
         private Camera mainCamera;
@@ -50,7 +50,8 @@ namespace FearEngine
             SharpDX.Configuration.EnableObjectTracking = true;
         }
 
-        public FearEngineImpl(FearGame gameImpl, string t) : this(gameImpl)
+        public FearEngineImpl(FearGame gameImpl, string t)
+            : this(gameImpl)
         {
             title = t;
         }
@@ -65,10 +66,20 @@ namespace FearEngine
             graphicsDeviceManager.PreferredBackBufferHeight = (int)DEFAULT_HEIGHT;
         }
 
-        internal void InjectDependencies(FearResourceManager resMan, Input fearInput)
+        internal void InjectDependencies(FearResourceManager resMan,
+            Input fearInput,
+            GameObjectFactory gameObjFactory,
+            UpdateableFactory updateableFac,
+            Camera cam,
+            SceneFactory sceneFac)
         {
             resourceManager = resMan;
             input = fearInput;
+            gameObjectFactory = gameObjFactory;
+            updateableFactory = updateableFac;
+            sceneFactory = sceneFac;
+
+            mainCamera = cam;
         }
 
         protected override void OnActivated(object sender, EventArgs args)
@@ -97,15 +108,14 @@ namespace FearEngine
             SharpDX.ViewportF viewport = new SharpDX.Viewport(0, 0, (int)DEFAULT_WIDTH, (int)DEFAULT_HEIGHT, 0.0f, 1.0f);
             graphicsDeviceManager.GraphicsDevice.SetViewport(viewport);
 
-            GameObject cameraObject = FearGameFactory.dependencyKernel.Get<GameObject>("FirstPersonCameraObject");
-            cameraObject.AddUpdatable(FearGameFactory.dependencyKernel.Get<Updateable>("FirstPersonMovementComponent"));
+            GameObject cameraObject = gameObjectFactory.CreateGameObject("MainCamera_FirstPersonController");
+            cameraObject.AddUpdatable(updateableFactory.CreateCameraControllerComponent());
             gameObjects.Add(cameraObject);
 
             Vector3 cameraPos = new Vector3(1, 3, -5);
             cameraObject.Transform.MoveTo(cameraPos);
             cameraObject.Transform.LookAt(Vector3.Zero);
 
-            mainCamera = FearGameFactory.dependencyKernel.Get<Camera>();
             mainCamera.AdjustProjection(SharpDX.MathUtil.Pi * 0.25f, 1280.0f/720.0f, 0.01f, 1000.0f);
             mainCamera.AttachToTransform(cameraObject.Transform);
 
@@ -114,7 +124,7 @@ namespace FearEngine
 
         public Scenes.Scene CreateEmptyScene()
         {
-            return FearGameFactory.dependencyKernel.Get<Scene>();
+            return sceneFactory.CreateScene(mainCamera);
         }
 
         protected override void Draw(GameTime gameTime)

@@ -3,13 +3,10 @@ using FearEngine.DeviceState;
 using FearEngine.DeviceState.SamplerStates;
 using FearEngine.GameObjects;
 using FearEngine.Lighting;
-using FearEngine.Resources;
 using FearEngine.Resources.Loaders;
-using FearEngine.Resources.Materials;
 using FearEngine.Shadows;
 using Ninject.Modules;
-using SharpDX;
-using Ninject;
+using Ninject.Extensions.Factory;
 using FearEngine.Inputs;
 using SharpDX.Toolkit.Input;
 using FearEngine.Scenes;
@@ -17,6 +14,7 @@ using FearEngine.Resources.Meshes;
 using FearEngine.Resources.Management;
 using FearEngine.Resources.Loaders.Loaders.Collada;
 using System.IO;
+using FearEngine.GameObjects.Updateables;
 
 namespace FearEngine
 {
@@ -45,14 +43,13 @@ namespace FearEngine
                 .WithConstructorArgument("m", mouseManager)
                 .WithConstructorArgument("keyb", keyManager);
 
-
             Bind<ResourceLoader>().To<TextureLoader>().InSingletonScope().Named("TextureLoader");
             
             Bind<ResourceLoader>().To<MeshLoader>()
                 .InSingletonScope()
                 .Named("MeshLoader")
-                .WithConstructorArgument("l", new ColladaMeshLoader())
-                .WithConstructorArgument("fac", new VertexBufferFactory());
+                .WithConstructorArgument("formatLoader", new ColladaMeshLoader())
+                .WithConstructorArgument("vertBufferFactory", new VertexBufferFactory());
 
             Bind<ResourceLoader>().To<MaterialLoader>().InSingletonScope().Named("MaterialLoader");
 
@@ -76,12 +73,11 @@ namespace FearEngine
 
             Bind<Light>().To<DirectionalLight>();
 
-            
+            Bind<GameObjectFactory>().ToFactory();
+            Bind<UpdateableFactory>().ToFactory();
+            Bind<SceneFactory>().ToFactory();
 
-            Bind<GameObject>().To<BaseGameObject>().Named("FirstPersonCameraObject").WithConstructorArgument("name", "FirstPersonCamera");
-            Bind<Updateable>().To<CameraControllerComponent>().Named("FirstPersonMovementComponent");
-
-            Bind<Camera>().To<FearCamera>().InSingletonScope();
+            Bind<Camera>().To<FearCamera>();
 
             Bind<MeshRenderer>().To<BasicMeshRenderer>().InSingletonScope();
 
