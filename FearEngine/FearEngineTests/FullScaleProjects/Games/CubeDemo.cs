@@ -1,7 +1,7 @@
 ﻿using FearEngine;
 using FearEngine.Resources.Meshes;
 using SharpDX.Toolkit;
-using FearEngine.Scene;
+using FearEngine.Scenes;
 using FearEngine.GameObjects;
 using FearEngine.Resources.Materials;
 

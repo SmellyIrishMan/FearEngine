@@ -12,6 +12,8 @@ using SharpDX;
 using Ninject;
 using FearEngine.Inputs;
 using SharpDX.Toolkit.Input;
+using FearEngine.Scenes;
+using FearEngine.Resources.Meshes;
 
 namespace FearEngine
 {
@@ -60,8 +62,15 @@ namespace FearEngine
             Bind<GameObject>().To<BaseGameObject>().Named("FirstPersonCameraObject").WithConstructorArgument("name", "FirstPersonCamera");
             Bind<Updateable>().To<CameraControllerComponent>().Named("FirstPersonMovementComponent");
 
-            Bind<Camera>().To<FearCamera>();
-            Bind<FearCamera>().ToSelf().InSingletonScope();
+            Bind<Camera>().To<FearCamera>().InSingletonScope();
+
+            Bind<MeshRenderer>().To<BasicMeshRenderer>().InSingletonScope();
+
+            Bind<Scene>().To<BasicScene>()
+                .WithConstructorArgument("meshRend", Kernel.Get<MeshRenderer>())
+                .WithConstructorArgument("cam", Kernel.Get<Camera>())
+                .WithConstructorArgument("light", Kernel.Get<Light>())
+                .WithConstructorArgument("shadTech", Kernel.Get<ShadowTechnique>());
         }
     }
 }

@@ -2,7 +2,7 @@
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 
-namespace FearEngine.Scene
+namespace FearEngine.Scenes
 {
     public struct SceneObject
     {

@@ -3,7 +3,7 @@ using FearEngine.GameObjects;
 using FearEngine.GameObjects.Updateables;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
-using FearEngine.Scene;
+using FearEngine.Scenes;
 using SharpDX.Toolkit;
 namespace FearEngineTests.FullScaleProjects.Games
 {

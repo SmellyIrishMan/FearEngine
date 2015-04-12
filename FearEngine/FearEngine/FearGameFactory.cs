@@ -4,7 +4,7 @@ using FearEngine.Resources.Managment;
 using FearEngine.Resources.Managment.Loaders;
 using FearEngine.Resources.Managment.Loaders.Collada;
 using FearEngine.Resources.Meshes;
-using FearEngine.Scene;
+using FearEngine.Scenes;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.Toolkit.Input;
@@ -45,10 +45,7 @@ namespace FearEngine
                 new MouseManager(engine),
                 new KeyboardManager(engine)));
 
-            MeshRendererFactory meshRendFac = new MeshRendererFactory();
-            SceneFactory sceneFactory = new SceneFactory(meshRendFac.CreateMeshRenderer(device));
-
-            engine.InjectDependencies(resMan, dependencyKernel.Get<Input>(), sceneFactory);
+            engine.InjectDependencies(resMan, dependencyKernel.Get<Input>());
 
             Input anotherTest = dependencyKernel.Get<Input>();
         }

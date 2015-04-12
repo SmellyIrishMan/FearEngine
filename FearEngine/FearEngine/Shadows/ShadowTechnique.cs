@@ -4,7 +4,7 @@ using FearEngine.Lighting;
 using FearEngine.Resources.Managment;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
-using FearEngine.Scene;
+using FearEngine.Scenes;
 using FearEngine.Shadows;
 using Ninject;
 using SharpDX;
@@ -19,7 +19,7 @@ namespace FearEngine.Shadows
         ShaderResourceView ShadowMap { get; }
         FearEngine.DeviceState.SamplerStates.SamplerState ShadowMapSampler { get; }
 
-        void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects);
+        void RenderShadowTechnique(BasicMeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects);
         void SetupForLight(Light light);
         void Dispose();
     }

@@ -4,7 +4,7 @@ using FearEngine.RenderTargets;
 using FearEngine.Resources;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
-using FearEngine.Scene;
+using FearEngine.Scenes;
 using FearEngine.Shadows;
 using Ninject;
 using SharpDX;
@@ -44,7 +44,7 @@ namespace FearEngine.Shadows
             sampler = samp;
         }
 
-        public void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects)
+        public void RenderShadowTechnique(BasicMeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects)
         {
             device.SetRasterizerState(depthRS.State);
 

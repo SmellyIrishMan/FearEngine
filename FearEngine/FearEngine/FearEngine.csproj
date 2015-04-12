@@ -102,7 +102,7 @@
     <Compile Include="Resources\Loaders\TextureLoader.cs" />
     <Compile Include="Resources\Loaders\MeshLoader.cs" />
     <Compile Include="Resources\Materials\Material.cs" />
-    <Compile Include="Resources\Meshes\MeshRendererFactory.cs" />
+    <Compile Include="Resources\Meshes\MeshRenderer.cs" />
     <Compile Include="Resources\Meshes\Vertex\PNTTVertexBuffer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\PositionNormalTangentTextureLayout.cs.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\UnableToDetermineMeshLayout.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="Resources\Managment\ResourceLoader.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileStorage\XMLResourceStorage.cs" />
     <Compile Include="Resources\Texture.cs" />
+    <Compile Include="Scene\BasicScene.cs" />
     <Compile Include="Scene\Scene.cs" />
     <Compile Include="GameObjects\Updateable.cs" />
     <Compile Include="Logger\FearLog.cs" />
@@ -139,14 +140,13 @@
     <Compile Include="Resources\Loaders\Collada\SourceDataPositionImpl.cs" />
     <Compile Include="Resources\Loaders\MaterialLoader.cs" />
     <Compile Include="Resources\Meshes\Mesh.cs" />
-    <Compile Include="Scene\SceneFactory.cs" />
     <Compile Include="Scene\SceneObject.cs" />
     <Compile Include="Shadows\BasicShadowTechnique.cs" />
     <Compile Include="Shadows\ShadowMap.cs" />
     <Compile Include="SharpDXGraphicsDevice.cs" />
     <Compile Include="Shadows\ShadowTechnique.cs" />
     <Compile Include="Terrain\Terrain.cs" />
-    <Compile Include="Resources\Meshes\MeshRenderer.cs" />
+    <Compile Include="Resources\Meshes\BasicMeshRenderer.cs" />
     <Compile Include="Resources\Meshes\Vertex\Layouts\VertexLayouts.cs" />
     <Compile Include="Resources\Materials\FearMaterial.cs" />
     <Compile Include="Resources\Meshes\MeshData.cs" />

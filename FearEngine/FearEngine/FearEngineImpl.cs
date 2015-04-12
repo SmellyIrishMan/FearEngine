@@ -14,7 +14,7 @@ using FearEngine.GameObjects;
 using System.Collections.Generic;
 using FearEngine.HelperClasses;
 using SharpDX.Diagnostics;
-using FearEngine.Scene;
+using FearEngine.Scenes;
 using Ninject;
 
 namespace FearEngine
@@ -33,7 +33,6 @@ namespace FearEngine
 
         private List<GameObject> gameObjects;   //This gameObjects list should be taken somewhere else. Like some factory that creates gameObjects, tracks them, updates them.
         private Camera mainCamera;
-        private SceneFactory sceneFactory;
 
         private const uint DEFAULT_WIDTH = 1280;
         private const uint DEFAULT_HEIGHT = 720;
@@ -65,11 +64,10 @@ namespace FearEngine
             graphicsDeviceManager.PreferredBackBufferHeight = (int)DEFAULT_HEIGHT;
         }
 
-        internal void InjectDependencies(FearResourceManager resMan, Input fearInput, SceneFactory sceneFac)
+        internal void InjectDependencies(FearResourceManager resMan, Input fearInput)
         {
             resourceManager = resMan;
             input = fearInput;
-            sceneFactory = sceneFac;
         }
 
         protected override void OnActivated(object sender, EventArgs args)
@@ -113,9 +111,9 @@ namespace FearEngine
             game.Startup(this);
         }
 
-        public Scene.Scene CreateEmptyScene()
+        public Scenes.Scene CreateEmptyScene()
         {
-            return sceneFactory.CreateScene(mainCamera);
+            return FearGameFactory.dependencyKernel.Get<Scene>();
         }
 
         protected override void Draw(GameTime gameTime)
