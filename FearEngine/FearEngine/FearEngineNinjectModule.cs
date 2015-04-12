@@ -40,8 +40,14 @@ namespace FearEngine
         public override void Load()
         {
             Bind<FearGraphicsDevice>().ToConstant<SharpDXGraphicsDevice>(existingDevice);
+            Bind<Input>().To<FearInput>()
+                .InSingletonScope()
+                .WithConstructorArgument("m", mouseManager)
+                .WithConstructorArgument("keyb", keyManager);
+
 
             Bind<ResourceLoader>().To<TextureLoader>().InSingletonScope().Named("TextureLoader");
+            
             Bind<ResourceLoader>().To<MeshLoader>()
                 .InSingletonScope()
                 .Named("MeshLoader")
@@ -54,6 +60,7 @@ namespace FearEngine
             resourceDir = resourceDir.Parent.Parent;
             string resPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
             ResourceDirectory resDir = new ResourceDirectory(resPath, new ResourceFileFactory());
+            
             Bind<ResourceDirectory>().To<ResourceDirectory>()
                 .InSingletonScope()
                 .WithConstructorArgument("rootResourcePath", resPath)
@@ -69,10 +76,7 @@ namespace FearEngine
 
             Bind<Light>().To<DirectionalLight>();
 
-            Bind<Input>().To<FearInput>()
-                .InSingletonScope()
-                .WithConstructorArgument("m", mouseManager)
-                .WithConstructorArgument("keyb", keyManager);            
+            
 
             Bind<GameObject>().To<BaseGameObject>().Named("FirstPersonCameraObject").WithConstructorArgument("name", "FirstPersonCamera");
             Bind<Updateable>().To<CameraControllerComponent>().Named("FirstPersonMovementComponent");
@@ -82,10 +86,6 @@ namespace FearEngine
             Bind<MeshRenderer>().To<BasicMeshRenderer>().InSingletonScope();
 
             Bind<Scene>().To<BasicScene>();
-                //.WithConstructorArgument("meshRend", Kernel.Get<MeshRenderer>())
-                //.WithConstructorArgument("cam", Kernel.Get<Camera>())
-                //.WithConstructorArgument("light", Kernel.Get<Light>())
-                //.WithConstructorArgument("shadTech", Kernel.Get<ShadowTechnique>());
         }
     }
 }

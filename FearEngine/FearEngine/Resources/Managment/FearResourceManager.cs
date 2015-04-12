@@ -23,7 +23,10 @@ namespace FearEngine.Resources.Management
 
         private Dictionary<ResourceType, ResourceLoader> loaders;
 
-        public FearResourceManager(ResourceDirectory directory, [Named("MaterialLoader")]ResourceLoader materialLoader, [Named("MeshLoader")]ResourceLoader meshLoader, [Named("TextureLoader")]ResourceLoader textureLoader)
+        public FearResourceManager(ResourceDirectory directory,
+            [Named("MaterialLoader")]ResourceLoader materialLoader,
+            [Named("MeshLoader")]ResourceLoader meshLoader,
+            [Named("TextureLoader")]ResourceLoader textureLoader)
         {
             resourceDir = directory;
 
