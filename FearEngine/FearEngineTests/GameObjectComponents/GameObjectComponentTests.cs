@@ -15,7 +15,7 @@ namespace FearEngineTests.GameObjectComponents
     public class GameObjectComponentTests
     {
         [TestMethod]
-        public void TestCameraControllerComponent()
+        public void CameraControllerComponentTest()
         {
             //Given
             Input fixedDirectionMouseWithButtonHeldDown = new FixedInputMock(
@@ -35,6 +35,28 @@ namespace FearEngineTests.GameObjectComponents
             //Then
             Quaternion comparisonRotation = new Quaternion(0.01768886f, -0.9228921f, 0.3822745f, 0.04270469f);
             Assert.IsTrue(MathUtil.WithinEpsilon(testObject.Transform.Rotation.Length(), comparisonRotation.Length(), 0.0001f));
+        }
+
+        [TestMethod]
+        public void OrbitTargetTest()
+        {
+            //Given
+            Input fixedDirectionMouseWithButtonHeldDown = new FixedInputMock(
+                new Vector2(0.14f, 0.05f),
+                new List<MouseButton>(new MouseButton[] { MouseButton.RightMouseButton }));
+            GameTimer constantTimer = new ConstantTimer(new TimeSpan(0, 0, 0, 0, 33));
+
+            BaseGameObject testObject = new BaseGameObject("OrbitTestObject");
+            OrbitTarget component = new OrbitTarget(Vector3.Zero, 0.25f);
+
+            //When
+            for (int update = 0; update < 300; update++)
+            {
+                component.Update(testObject, constantTimer);
+            }
+
+            //Then
+            Assert.IsTrue(true);
         }
     }
 }

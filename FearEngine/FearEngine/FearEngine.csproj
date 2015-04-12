@@ -96,6 +96,7 @@
     <Compile Include="GameObjects\GameObjectFactory.cs" />
     <Compile Include="GameObjects\Updateables\ContinuousRotationAroundY.cs" />
     <Compile Include="GameObjects\BaseGameObject.cs" />
+    <Compile Include="GameObjects\Updateables\OrbitTarget.cs" />
     <Compile Include="GameObjects\Updateables\UpdateableFactory.cs" />
     <Compile Include="HelperClasses\MethodTimer.cs" />
     <Compile Include="HelperClasses\SRGBLinearConverter.cs" />

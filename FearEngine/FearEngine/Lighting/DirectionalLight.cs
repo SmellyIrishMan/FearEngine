@@ -19,8 +19,6 @@ namespace FearEngine.Lighting
             get { return data; }
         }
 
-        Transform transform;
-
         public DirectionalLight()
         {
             data = new DirectionalLightData();
