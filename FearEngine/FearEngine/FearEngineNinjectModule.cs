@@ -43,24 +43,18 @@ namespace FearEngine
                 .WithConstructorArgument("m", mouseManager)
                 .WithConstructorArgument("keyb", keyManager);
 
-            Bind<ResourceLoader>().To<TextureLoader>().InSingletonScope().Named("TextureLoader");
-            
             Bind<ResourceLoader>().To<MeshLoader>()
                 .InSingletonScope()
                 .Named("MeshLoader")
                 .WithConstructorArgument("formatLoader", new ColladaMeshLoader())
                 .WithConstructorArgument("vertBufferFactory", new VertexBufferFactory());
 
+            Bind<ResourceLoader>().To<TextureLoader>().InSingletonScope().Named("TextureLoader");
             Bind<ResourceLoader>().To<MaterialLoader>().InSingletonScope().Named("MaterialLoader");
-
-            DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
-            resourceDir = resourceDir.Parent.Parent;
-            string resPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
-            ResourceDirectory resDir = new ResourceDirectory(resPath, new ResourceFileFactory());
             
             Bind<ResourceDirectory>().To<ResourceDirectory>()
                 .InSingletonScope()
-                .WithConstructorArgument("rootResourcePath", resPath)
+                .WithConstructorArgument("rootResourcePath", GetResourceDirectoryPath())
                 .WithConstructorArgument("fileFactory", new ResourceFileFactory());
             Bind<FearResourceManager>().To<FearResourceManager>().InSingletonScope();
 
@@ -82,6 +76,15 @@ namespace FearEngine
             Bind<MeshRenderer>().To<BasicMeshRenderer>().InSingletonScope();
 
             Bind<Scene>().To<BasicScene>();
+        }
+
+        private string GetResourceDirectoryPath()
+        {
+            DirectoryInfo resourceDir = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory);
+            resourceDir = resourceDir.Parent.Parent;
+            string resPath = System.IO.Path.Combine(resourceDir.FullName, "Resources");
+            ResourceDirectory resDir = new ResourceDirectory(resPath, new ResourceFileFactory());
+            return resPath;
         }
     }
 }
