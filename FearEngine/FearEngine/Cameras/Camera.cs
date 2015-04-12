@@ -9,7 +9,6 @@ namespace FearEngine.Cameras
         Matrix Projection { get; }
         Vector3 Position { get; }
 
-        void AttachToTransform(Transform tran);
         void AdjustProjection(float fov, float aspect, float near, float far);
     }
 }

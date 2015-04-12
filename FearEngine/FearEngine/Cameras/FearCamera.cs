@@ -4,7 +4,7 @@ using SharpDX;
 
 namespace FearEngine.Cameras
 {
-    public class FearCamera : Camera
+    public class FearCamera : TransformAttacher, Camera
     {
         private Transform transform;
 
@@ -22,26 +22,7 @@ namespace FearEngine.Cameras
             Projection = Matrix.PerspectiveFovLH(fov, aspect, near, far);
         }
 
-        public void AttachToTransform(Transform trans)
-        {
-            RemoveOldListener();
-
-            transform = trans;
-
-            transform.Changed += OnTransformChanged;
-
-            OnTransformChanged(transform);
-        }
-
-        private void RemoveOldListener()
-        {
-            if (transform != null)
-            {
-                transform.Changed -= OnTransformChanged;
-            }
-        }
-
-        void OnTransformChanged(Transform newTransform)
+        override sealed protected void OnTransformChanged(Transform newTransform)
         {
             View = Matrix.LookAtLH(newTransform.Position, newTransform.Position + newTransform.Forward, Vector3.UnitY);
         }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FearEngine.GameObjects;
+using SharpDX;
+using System;
 
 namespace FearEngine.Lighting
 {
-    public class DirectionalLight : Light
+    public class DirectionalLight : TransformAttacher, Light
     {
         public struct DirectionalLightData
         {
@@ -20,6 +18,8 @@ namespace FearEngine.Lighting
         {
             get { return data; }
         }
+
+        Transform transform;
 
         public DirectionalLight()
         {
@@ -36,6 +36,11 @@ namespace FearEngine.Lighting
         public SharpDX.Vector3 Direction
         {
             get { return data.Direction; }
+        }
+
+        override sealed protected void OnTransformChanged(Transform newTransform)
+        {
+            data.Direction = Vector3.Transform(Vector3.ForwardLH, newTransform.Rotation);
         }
     }
 }

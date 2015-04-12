@@ -117,7 +117,9 @@ namespace FearEngine
             cameraObject.Transform.LookAt(Vector3.Zero);
 
             mainCamera.AdjustProjection(SharpDX.MathUtil.Pi * 0.25f, 1280.0f/720.0f, 0.01f, 1000.0f);
-            mainCamera.AttachToTransform(cameraObject.Transform);
+
+            TransformAttacher transformAttacher = (TransformAttacher)mainCamera;
+            transformAttacher.AttactToTransform(cameraObject.Transform);
 
             game.Startup(this);
         }

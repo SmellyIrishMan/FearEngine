@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cameras\Camera.cs" />
+    <Compile Include="GameObjects\TransformAttacher.cs" />
     <Compile Include="GameObjects\Updateables\CameraControllerComponent.cs" />
     <Compile Include="Cameras\FearCamera.cs" />
     <Compile Include="DeviceState\RasteriserStates\DefaultRasteriserState.cs" />
