@@ -20,7 +20,7 @@ namespace FearEngine.Shadows
         FearEngine.DeviceState.SamplerStates.SamplerState ShadowMapSampler { get; }
 
         void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects);
-        void SetupForLight(Light light);
+        void Setup(Light light);
         void Dispose();
     }
 }

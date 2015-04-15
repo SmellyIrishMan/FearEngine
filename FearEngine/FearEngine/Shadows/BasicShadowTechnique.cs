@@ -22,6 +22,7 @@ namespace FearEngine.Shadows
         private ShadowMap shadowMap;
         private FearEngine.DeviceState.SamplerStates.SamplerState sampler;
 
+        private Light light;
         private Matrix lightTSTrans;    //LightTextureSpaceTransform. Takes us from the world space into somewhere in the [0,1] range plus some depth. Oh baby.
         private Matrix lightVP;
 
@@ -48,6 +49,8 @@ namespace FearEngine.Shadows
 
         public void RenderShadowTechnique(MeshRenderer meshRenderer, IEnumerable<SceneObject> shadowedSceneObjects)
         {
+            CalculateLightMatrices(light);
+
             device.SetRasterizerState(depthRS.State);
 
             renderTargetStack.PushRenderTargetAndSwitch(shadowMap.RenderTarget);
@@ -61,12 +64,19 @@ namespace FearEngine.Shadows
             device.SetRasterizerState(device.RasterizerStates.Default);
         }
     
-        public void SetupForLight(Light light)
+        public void Setup(Light light)
         {
+            this.light = light;
+
             renderTargetStack = new RenderTargetStack(device);
 
             shadowMap = new ShadowMap(device, 2048, 2048);
-            
+
+            CalculateLightMatrices(light);
+        }
+
+        private void CalculateLightMatrices(Light light)
+        {
             const float LIGHT_DISTANCE_FROM_CENTER = 4.0f;
 
             Vector3 lightPos = Vector3.Zero + (-light.Direction * LIGHT_DISTANCE_FROM_CENTER);

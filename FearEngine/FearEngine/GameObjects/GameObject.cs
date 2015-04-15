@@ -1,5 +1,5 @@
-﻿using SharpDX;
-using SharpDX.Toolkit;
+﻿using FearEngine.Timer;
+using SharpDX;
 
 namespace FearEngine.GameObjects
 {
@@ -10,7 +10,7 @@ namespace FearEngine.GameObjects
         Transform Transform { get;  }
         Matrix WorldMatrix{ get; }
 
-        void Update(GameTime gameTime);
+        void Update(GameTimer gameTime);
         void AddUpdatable(Updateable updater);
     }
 }

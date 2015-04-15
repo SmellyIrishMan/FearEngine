@@ -24,12 +24,12 @@ namespace FearEngineTests.GameObjectComponents
             GameTimer constantTimer = new ConstantTimer(new TimeSpan(0, 0, 0, 0, 99));
 
             BaseGameObject testObject = new BaseGameObject("CameraComponetTest");
-            CameraControllerComponent component = new CameraControllerComponent(fixedDirectionMouseWithButtonHeldDown);
+            testObject.AddUpdatable( new CameraControllerComponent(fixedDirectionMouseWithButtonHeldDown) );
 
             //When
             for (int update = 0; update < 5; update++)
             {
-                component.Update(testObject, constantTimer);
+                testObject.Update( constantTimer );
             }
 
             //Then
@@ -47,7 +47,7 @@ namespace FearEngineTests.GameObjectComponents
             GameTimer constantTimer = new ConstantTimer(new TimeSpan(0, 0, 0, 0, 33));
 
             BaseGameObject testObject = new BaseGameObject("OrbitTestObject");
-            OrbitTarget component = new OrbitTarget(Vector3.Zero, 0.25f);
+            ContinuousRandomSlerp component = new ContinuousRandomSlerp(0.25f);
 
             //When
             for (int update = 0; update < 300; update++)

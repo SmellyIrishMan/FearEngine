@@ -5,6 +5,8 @@ using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scenes;
 using SharpDX.Toolkit;
+using FearEngine.Timer;
+
 namespace FearEngineTests.FullScaleProjects.Games
 {
     class SimpleSceneDemo : FearEngine.FearGame
@@ -29,7 +31,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Update(GameTime gameTime)
         {
-            teapot.Update(gameTime);
+            teapot.Update(new FearGameTimer(gameTime));
         }
 
         public void Draw(GameTime gameTime)

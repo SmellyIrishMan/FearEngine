@@ -4,6 +4,7 @@ using FearEngine.GameObjects.Updateables;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scenes;
+using FearEngine.Timer;
 using SharpDX.Toolkit;
 
 namespace FearEngineTests.FullScaleProjects.Games
@@ -42,8 +43,8 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Update(GameTime gameTime)
         {
-            teapotPhong.Update(gameTime);
-            teapotPBR.Update(gameTime);
+            teapotPhong.Update(new FearGameTimer(gameTime));
+            teapotPBR.Update(new FearGameTimer(gameTime));
         }
 
         public void Draw(GameTime gameTime)

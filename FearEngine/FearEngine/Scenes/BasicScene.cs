@@ -118,7 +118,7 @@ namespace FearEngine.Scenes
         public void EnableShadows()
         {
             shadowsEnabled = true;
-            shadowTech.SetupForLight(defaultLight);
+            shadowTech.Setup(defaultLight);
         }
     }
 }

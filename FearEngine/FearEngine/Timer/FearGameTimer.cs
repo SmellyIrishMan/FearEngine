@@ -3,7 +3,7 @@ using System;
 
 namespace FearEngine.Timer
 {
-    class FearGameTimer : GameTimer
+    public class FearGameTimer : GameTimer
     {
         GameTime gameTime;
 

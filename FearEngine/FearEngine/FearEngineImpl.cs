@@ -14,6 +14,8 @@ using FearEngine.Scenes;
 using Ninject;
 using FearEngine.Resources.Management;
 using FearEngine.GameObjects.Updateables;
+using FearEngine.Lighting;
+using FearEngine.Timer;
 
 namespace FearEngine
 {
@@ -126,7 +128,15 @@ namespace FearEngine
 
         public Scenes.Scene CreateEmptyScene()
         {
-            return sceneFactory.CreateScene(mainCamera);
+            GameObject rotatingLight = gameObjectFactory.CreateGameObject("RotatingLightFixture");
+            rotatingLight.AddUpdatable(updateableFactory.CreateContinuousRandomSlerp(0.25f));
+            gameObjects.Add(rotatingLight);
+
+            Light light = new FearEngine.Lighting.DirectionalLight();
+            TransformAttacher attacher = (TransformAttacher)light;
+            attacher.AttactToTransform(rotatingLight.Transform);
+
+            return sceneFactory.CreateScene(mainCamera, light);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -144,7 +154,7 @@ namespace FearEngine
 
             foreach (GameObject gameObj in gameObjects)
             {
-                gameObj.Update(gameTime);
+                gameObj.Update(new FearGameTimer(gameTime));
             }
 
             base.Update(gameTime);

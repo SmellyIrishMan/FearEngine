@@ -35,11 +35,11 @@ namespace FearEngine.GameObjects
             Transform = transform;
         }
 
-        public void Update( GameTime gameTime )
+        public void Update(GameTimer gameTime)
         {
             foreach (Updateable updater in updaters)
             {
-                updater.Update(this, new FearGameTimer(gameTime));
+                updater.Update(this, gameTime);
             }
         }
 

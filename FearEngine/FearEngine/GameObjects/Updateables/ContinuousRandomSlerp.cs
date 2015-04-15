@@ -4,18 +4,14 @@ using System;
 
 namespace FearEngine.GameObjects.Updateables
 {
-    public class OrbitTarget : Updateable
+    public class ContinuousRandomSlerp : Updateable
     {
-        Vector3 target;
         Quaternion targetRotation;
         float rateOfRotation;
         float progress;
 
-        float distanceBeforeRandomising = 0.001f;
-
-        public OrbitTarget(Vector3 targ, float progressionPerSecond)
+        public ContinuousRandomSlerp(float progressionPerSecond)
         {
-            target = targ;
             rateOfRotation = progressionPerSecond;
 
             RandomiseTargetRotation();
@@ -32,7 +28,7 @@ namespace FearEngine.GameObjects.Updateables
 
         private static float GetRandomAngle(Random random)
         {
-            return random.NextFloat(-MathUtil.Pi, -MathUtil.Pi);
+            return random.NextFloat(-MathUtil.Pi, MathUtil.Pi);
         }
         
         public void Update(GameObject owner, Timer.GameTimer gameTime)
@@ -43,7 +39,6 @@ namespace FearEngine.GameObjects.Updateables
 
             if (progress >= 1.0f)
             {
-                FearLog.Log("Hit the target. Randomising");
                 RandomiseTargetRotation();
             }
         }

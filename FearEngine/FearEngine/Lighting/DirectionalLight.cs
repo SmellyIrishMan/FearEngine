@@ -39,6 +39,7 @@ namespace FearEngine.Lighting
         override sealed protected void OnTransformChanged(Transform newTransform)
         {
             data.Direction = Vector3.Transform(Vector3.ForwardLH, newTransform.Rotation);
+            data.Direction.Normalize();
         }
     }
 }
