@@ -60,7 +60,6 @@ namespace FearEngine.GameObjects
         private static Quaternion SortOutQuaternion(Quaternion quaternion)
         {
             quaternion.Normalize();
-            //quaternion.Conjugate();
             return quaternion;
         }
 
@@ -78,8 +77,10 @@ namespace FearEngine.GameObjects
 
         private void NotifyNewTransform()
         {
+            FearEngine.Logger.FearLog.Log("Transform gonna notify.");
             if (Changed != null)
             {
+                FearEngine.Logger.FearLog.Log("Transform notified something.");
                 Changed(this);
             }
         }

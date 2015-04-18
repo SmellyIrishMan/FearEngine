@@ -5,6 +5,6 @@ namespace FearEngine.GameObjects
 {
     public interface Updateable
     {
-        void Update(GameObject owner, GameTimer gameTime);
+        void Update(GameTimer gameTime);
     }
 }

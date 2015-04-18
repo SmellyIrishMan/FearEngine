@@ -5,16 +5,18 @@ namespace FearEngine.GameObjects.Updateables
 {
     public class ContinuousRotationAroundY : Updateable
     {
+        private Transform transform;
         private float speed;
 
-        public ContinuousRotationAroundY(float spd = 1.0f)
+        public ContinuousRotationAroundY(Transform trans, float spd = 1.0f)
         {
             speed = spd;
+            transform = trans;
         }
 
-        public void Update(GameObject owner, GameTimer gameTime)
+        public void Update(GameTimer gameTime)
         {
-            owner.Transform.Rotate(Quaternion.RotationAxis(Vector3.UnitY, (float)gameTime.ElapsedGameTime.TotalSeconds * speed));
+            transform.Rotate(Quaternion.RotationAxis(Vector3.UnitY, (float)gameTime.ElapsedGameTime.TotalSeconds * speed));
         }
     }
 }

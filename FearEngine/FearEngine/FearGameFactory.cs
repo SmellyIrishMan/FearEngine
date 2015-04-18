@@ -10,6 +10,7 @@ using FearEngine.GameObjects;
 using FearEngine.GameObjects.Updateables;
 using FearEngine.Scenes;
 using FearEngine.Cameras;
+using FearEngine.Lighting;
 
 namespace FearEngine
 {    
@@ -32,9 +33,8 @@ namespace FearEngine
         public void OnEngineInitialised(FearEngineImpl engine)
         {
             engine.Initialised -= new EngineInitialisedHandler(OnEngineInitialised);
-            GraphicsDevice device = engine.GetDevice();
 
-            StandardKernel kernel = new StandardKernel(new FearEngineNinjectModule(device,
+            StandardKernel kernel = new StandardKernel(new FearEngineNinjectModule(engine.Device,
                 new MouseManager(engine),
                 new KeyboardManager(engine)));
 
@@ -43,7 +43,8 @@ namespace FearEngine
                 kernel.Get<GameObjectFactory>(),
                 kernel.Get<UpdateableFactory>(),
                 kernel.Get<Camera>(),
-                kernel.Get<SceneFactory>());
+                kernel.Get<SceneFactory>(),
+                kernel.Get<LightFactory>());
         }
     }
 }

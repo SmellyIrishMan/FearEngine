@@ -24,6 +24,7 @@ namespace FearEngine.Cameras
 
         override sealed protected void OnTransformChanged(Transform newTransform)
         {
+            FearEngine.Logger.FearLog.Log("Updated camera because the transform was changed.");
             View = Matrix.LookAtLH(newTransform.Position, newTransform.Position + newTransform.Forward, Vector3.UnitY);
         }
     }

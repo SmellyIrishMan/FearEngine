@@ -1,9 +1,9 @@
 ﻿using FearEngine;
 using FearEngine.Resources.Meshes;
-using SharpDX.Toolkit;
 using FearEngine.Scenes;
 using FearEngine.GameObjects;
 using FearEngine.Resources.Materials;
+using FearEngine.Timer;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {
@@ -13,23 +13,23 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Startup(FearEngineImpl engine)
         {
-            scene = engine.CreateEmptyScene();
+            scene = engine.SceneFactory.CreateEmptyScene(engine.MainCamera);
 
             GameObject cube = new BaseGameObject("Cube");
-            Mesh mesh = engine.GetResourceManager().GetMesh("BOX");
-            Material material = engine.GetResourceManager().GetMaterial("NormalLit");
+            Mesh mesh = engine.Resources.GetMesh("BOX");
+            Material material = engine.Resources.GetMaterial("NormalLit");
 
             SceneObject litCube = new SceneObject(cube, mesh, material);
 
             scene.AddSceneObject(litCube);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTimer gameTime)
         {
 
         }
 
-        public void Draw(GameTime gameTime)
+        public void Draw(GameTimer gameTime)
         {
             scene.Render( gameTime );
         }

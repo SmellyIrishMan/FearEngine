@@ -4,7 +4,7 @@ namespace FearEngine.GameObjects.Updateables
 {
     public interface UpdateableFactory
     {
-        CameraControllerComponent CreateCameraControllerComponent();
+        CameraControllerComponent CreateCameraControllerComponent(Transform trans);
         ContinuousRandomSlerp CreateContinuousRandomSlerp(float progressionPerSecond);
     }
 }

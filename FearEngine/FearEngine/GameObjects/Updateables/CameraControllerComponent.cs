@@ -24,8 +24,9 @@ namespace FearEngine.GameObjects.Updateables
         Input input;
         Transform transform;
 
-        public CameraControllerComponent(Input inputParam)
+        public CameraControllerComponent(Transform trans, Input inputParam)
         {
+            transform = trans;
             input = inputParam;
 
             strafeDir = 0.0f;
@@ -36,14 +37,14 @@ namespace FearEngine.GameObjects.Updateables
             pitch = 0.0f;
         }
 
-        public void Update(GameObject owner, GameTimer gameTime)
+        public void Update(GameTimer gameTime)
         {
-            transform = owner.Transform;
-
+            FearEngine.Logger.FearLog.Log("Updated camera component");
             CheckInput();
 
             if( NeedToUpdate())
             {
+                FearEngine.Logger.FearLog.Log("Need to update");
                 if(strafeDir != 0.0f)
                 {
                     ShiftInDirection(transform.Right * strafeDir, STRAFE_SPEED * gameTime.ElapsedGameTime.Milliseconds);
@@ -59,17 +60,9 @@ namespace FearEngine.GameObjects.Updateables
                     yaw += rotationDir.X * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
                     pitch += rotationDir.Y * ROTATION_SPEED * gameTime.ElapsedGameTime.Milliseconds;
 
-                    yaw = SharpDX.MathUtil.Wrap(yaw, -SharpDX.MathUtil.Pi, SharpDX.MathUtil.Pi);
-                    pitch = SharpDX.MathUtil.Clamp(pitch, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
+                    Rotate();
                 }
-
-                transform.SetRotation(Quaternion.RotationMatrix(Matrix.RotationYawPitchRoll(yaw, pitch, 0.0f)));
             }
-        }
-
-        private bool NeedToUpdate()
-        {
-            return strafeDir != 0.0f || walkDir != 0.0f || !rotationDir.Equals(Vector2.Zero);
         }
 
         private void CheckInput()
@@ -99,13 +92,28 @@ namespace FearEngine.GameObjects.Updateables
             rotationDir = Vector2.Zero;
             if (input.IsMouseButtonDown(MouseButton.RightMouseButton))
             {
+                FearEngine.Logger.FearLog.Log("Right button is down");
                 rotationDir = input.MouseDelta;
             }
+        }
+
+        private bool NeedToUpdate()
+        {
+            return strafeDir != 0.0f || walkDir != 0.0f || !rotationDir.Equals(Vector2.Zero);
         }
 
         private void ShiftInDirection(Vector3 direction, float amount)
         {
             transform.MoveTo(transform.Position + (direction * amount));
+        }
+
+        private void Rotate()
+        {
+            FearEngine.Logger.FearLog.Log("Rotate");
+            yaw = SharpDX.MathUtil.Wrap(yaw, -SharpDX.MathUtil.Pi, SharpDX.MathUtil.Pi);
+            pitch = SharpDX.MathUtil.Clamp(pitch, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
+
+            transform.SetRotation(Quaternion.RotationMatrix(Matrix.RotationYawPitchRoll(yaw, pitch, 0.0f)));
         }
     }
 }

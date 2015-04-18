@@ -5,7 +5,6 @@ using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scenes;
 using FearEngine.Timer;
-using SharpDX.Toolkit;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {
@@ -17,22 +16,22 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Startup(FearEngineImpl engine)
         {
-            scene = engine.CreateEmptyScene();
+            scene = engine.SceneFactory.CreateEmptyScene( engine.MainCamera );
 
             float seperation = 6.0f;
 
             teapotPhong = new BaseGameObject("TeapotPhong");
             teapotPhong.Transform.MoveTo(teapotPhong.Transform.Position + (teapotPhong.Transform.Right * seperation));
-            teapotPhong.AddUpdatable(new ContinuousRotationAroundY());
+            teapotPhong.AddUpdatable(new ContinuousRotationAroundY(teapotPhong.Transform));
 
             teapotPBR = new BaseGameObject("TeapotPBR");
             teapotPBR.Transform.MoveTo(teapotPhong.Transform.Position + (-teapotPhong.Transform.Right * seperation));
-            teapotPBR.AddUpdatable(new ContinuousRotationAroundY());
+            teapotPBR.AddUpdatable(new ContinuousRotationAroundY(teapotPBR.Transform));
 
-            Mesh mesh = engine.GetResourceManager().GetMesh("TEAPOT");
+            Mesh mesh = engine.Resources.GetMesh("TEAPOT");
 
-            Material phong = engine.GetResourceManager().GetMaterial("NormalLit");
-            Material pbr = engine.GetResourceManager().GetMaterial("PBR_GGX");
+            Material phong = engine.Resources.GetMaterial("NormalLit");
+            Material pbr = engine.Resources.GetMaterial("PBR_GGX");
 
             SceneObject phongTeapot = new SceneObject(teapotPhong, mesh, phong);
             SceneObject pbrTeapot = new SceneObject(teapotPBR, mesh, pbr);
@@ -41,13 +40,13 @@ namespace FearEngineTests.FullScaleProjects.Games
             scene.AddSceneObject(pbrTeapot);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTimer gameTime)
         {
-            teapotPhong.Update(new FearGameTimer(gameTime));
-            teapotPBR.Update(new FearGameTimer(gameTime));
+            teapotPhong.Update( gameTime );
+            teapotPBR.Update( gameTime );
         }
 
-        public void Draw(GameTime gameTime)
+        public void Draw(GameTimer gameTime)
         {
             scene.Render(gameTime);
         }

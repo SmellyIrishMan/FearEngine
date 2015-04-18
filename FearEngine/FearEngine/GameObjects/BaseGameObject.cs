@@ -39,7 +39,7 @@ namespace FearEngine.GameObjects
         {
             foreach (Updateable updater in updaters)
             {
-                updater.Update(this, gameTime);
+                updater.Update(gameTime);
             }
         }
 

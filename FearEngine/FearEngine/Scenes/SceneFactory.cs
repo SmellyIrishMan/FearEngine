@@ -5,6 +5,7 @@ namespace FearEngine.Scenes
 {
     public interface SceneFactory
     {
-        BasicScene CreateScene(Camera cam, Light light);
+        BasicScene CreateSceneWithSingleLight(Camera cam, Light light);
+        BasicScene CreateEmptyScene(Camera cam);
     }
 }

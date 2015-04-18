@@ -70,6 +70,8 @@ namespace FearEngine
             Bind<GameObjectFactory>().ToFactory();
             Bind<UpdateableFactory>().ToFactory();
             Bind<SceneFactory>().ToFactory();
+            Bind<LightFactory>().ToFactory();
+            Bind<CameraFactory>().To<CameraFactory>().InSingletonScope();
 
             Bind<Camera>().To<FearCamera>();
 

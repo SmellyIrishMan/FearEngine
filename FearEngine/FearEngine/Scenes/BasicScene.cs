@@ -4,15 +4,15 @@ using FearEngine.Lighting;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Shadows;
+using FearEngine.Timer;
 using SharpDX;
-using SharpDX.Toolkit;
 using System.Collections.Generic;
 
 namespace FearEngine.Scenes
 {
     public class BasicScene : Scene
     {
-        private HashSet<Light> lights;
+        private List<Light> lights;
 
         private HashSet<SceneObject> sceneObjects;
 
@@ -22,24 +22,27 @@ namespace FearEngine.Scenes
         private MeshRenderer meshRenderer;
         private Camera camera;
 
-        private Lighting.Light defaultLight;
-
         private bool shadowsEnabled = false;
         private ShadowTechnique shadowTech;
 
-        public BasicScene(MeshRenderer meshRend, Camera cam, Light light, ShadowTechnique shadTech)
+        public BasicScene(MeshRenderer meshRend, Camera cam, ShadowTechnique shadTech)
         {
             meshRenderer = meshRend;
             camera = cam;
 
-            defaultLight = light;
             shadowTech = shadTech;
 
-            lights = new HashSet<Light>();
+            lights = new List<Light>();
 
             sceneObjects = new HashSet<SceneObject>();
             meshes = new HashSet<Mesh>();
             materials = new HashSet<Material>();
+        }
+
+        public BasicScene(MeshRenderer meshRend, Camera cam, Light light, ShadowTechnique shadTech) 
+            : this(meshRend, cam, shadTech)
+        {
+            AddLight(light);
         }
 
         public void AddSceneObject(SceneObject sceneObj)
@@ -50,7 +53,7 @@ namespace FearEngine.Scenes
             AddMesh(sceneObj.Mesh);
         }
 
-        public void Render(GameTime gameTime)
+        public void Render(GameTimer gameTime)
         {
             if (shadowsEnabled)
             {
@@ -70,7 +73,7 @@ namespace FearEngine.Scenes
             foreach (FearMaterial material in materials)
             {
                 material.SetParameterValue(DefaultMaterialParameters.Param.EyeW, camera.Position);
-                material.SetParameterValue(DefaultMaterialParameters.Param.DirLight, defaultLight);
+                material.SetParameterValue(DefaultMaterialParameters.Param.DirLight, lights[0]);
 
                 if (shadowsEnabled)
                 {
@@ -118,7 +121,7 @@ namespace FearEngine.Scenes
         public void EnableShadows()
         {
             shadowsEnabled = true;
-            shadowTech.Setup(defaultLight);
+            shadowTech.Setup(lights[0]);
         }
     }
 }

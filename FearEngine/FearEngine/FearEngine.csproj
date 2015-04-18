@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cameras\Camera.cs" />
+    <Compile Include="Cameras\CameraFactory.cs" />
     <Compile Include="GameObjects\TransformAttacher.cs" />
     <Compile Include="GameObjects\Updateables\CameraControllerComponent.cs" />
     <Compile Include="Cameras\FearCamera.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Inputs\Input.cs" />
     <Compile Include="Lighting\DirectionalLight.cs" />
     <Compile Include="Lighting\Light.cs" />
+    <Compile Include="Lighting\LightFactory.cs" />
     <Compile Include="RenderTargets\RenderTarget.cs" />
     <Compile Include="RenderTargets\RenderTargetStack.cs" />
     <Compile Include="Resources\Materials\DefaultMaterialParameters.cs" />

@@ -33,9 +33,19 @@ namespace FearEngine
         private GameObjectFactory gameObjectFactory;
         private UpdateableFactory updateableFactory;
         private SceneFactory sceneFactory;
-
+        private LightFactory lightFactory;
         private List<GameObject> gameObjects;   //This gameObjects list should be taken somewhere else. Like some factory that creates gameObjects, tracks them, updates them.
         private Camera mainCamera;
+        private GameObject cameraObject;
+
+        public GraphicsDevice Device { get {return graphicsDeviceManager.GraphicsDevice; } }
+        public DeviceContext Context { get {return (DeviceContext)graphicsDeviceManager.GraphicsDevice;} }
+        public Camera MainCamera { get { return mainCamera; } }
+        public FearResourceManager Resources { get { return resourceManager; } }
+        public GameObjectFactory GameObjectFactory { get { return gameObjectFactory; } }
+        public UpdateableFactory UpdateableFactory { get { return updateableFactory; } }
+        public SceneFactory SceneFactory { get { return sceneFactory; } }
+        public LightFactory LightFactory { get { return lightFactory; } }
 
         private const uint DEFAULT_WIDTH = 1280;
         private const uint DEFAULT_HEIGHT = 720;
@@ -73,13 +83,15 @@ namespace FearEngine
             GameObjectFactory gameObjFactory,
             UpdateableFactory updateableFac,
             Camera cam,
-            SceneFactory sceneFac)
+            SceneFactory sceneFac,
+            LightFactory lightFac)
         {
             resourceManager = resMan;
             input = fearInput;
             gameObjectFactory = gameObjFactory;
             updateableFactory = updateableFac;
             sceneFactory = sceneFac;
+            lightFactory = lightFac;
 
             mainCamera = cam;
         }
@@ -110,8 +122,8 @@ namespace FearEngine
             SharpDX.ViewportF viewport = new SharpDX.Viewport(0, 0, (int)DEFAULT_WIDTH, (int)DEFAULT_HEIGHT, 0.0f, 1.0f);
             graphicsDeviceManager.GraphicsDevice.SetViewport(viewport);
 
-            GameObject cameraObject = gameObjectFactory.CreateGameObject("MainCamera_FirstPersonController");
-            cameraObject.AddUpdatable(updateableFactory.CreateCameraControllerComponent());
+            cameraObject = gameObjectFactory.CreateGameObject("MainCamera_FirstPersonController");
+            cameraObject.AddUpdatable(updateableFactory.CreateCameraControllerComponent(cameraObject.Transform));
             gameObjects.Add(cameraObject);
 
             Vector3 cameraPos = new Vector3(1, 5, -9);
@@ -126,24 +138,11 @@ namespace FearEngine
             game.Startup(this);
         }
 
-        public Scenes.Scene CreateEmptyScene()
-        {
-            GameObject rotatingLight = gameObjectFactory.CreateGameObject("RotatingLightFixture");
-            rotatingLight.AddUpdatable(updateableFactory.CreateContinuousRandomSlerp(0.25f));
-            gameObjects.Add(rotatingLight);
-
-            Light light = new FearEngine.Lighting.DirectionalLight();
-            TransformAttacher attacher = (TransformAttacher)light;
-            attacher.AttactToTransform(rotatingLight.Transform);
-
-            return sceneFactory.CreateScene(mainCamera, light);
-        }
-
         protected override void Draw(GameTime gameTime)
         {
-            GetDevice().Clear(new SharpDX.Color4(SRGBLinearConverter.SRGBtoLinear(0.2f), 0.0f, SRGBLinearConverter.SRGBtoLinear(0.2f), 1.0f));
+            Device.Clear(new SharpDX.Color4(SRGBLinearConverter.SRGBtoLinear(0.2f), 0.0f, SRGBLinearConverter.SRGBtoLinear(0.2f), 1.0f));
 
-            game.Draw(gameTime);
+            game.Draw(new FearGameTimer(gameTime));
 
             base.Draw(gameTime);
         }
@@ -159,27 +158,7 @@ namespace FearEngine
 
             base.Update(gameTime);
 
-            game.Update(gameTime);
-        }
-
-        public GraphicsDevice GetDevice()
-        {
-            return graphicsDeviceManager.GraphicsDevice;
-        }
-
-        public DeviceContext GetContext()
-        {
-            return (DeviceContext) graphicsDeviceManager.GraphicsDevice;
-        }
-
-        public FearResourceManager GetResourceManager()
-        {
-            return resourceManager;
-        }
-
-        public Camera GetMainCamera()
-        {
-            return mainCamera;
+            game.Update(new FearGameTimer(gameTime));
         }
 
         public void ExitGame()
