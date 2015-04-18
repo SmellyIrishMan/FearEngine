@@ -44,5 +44,10 @@
       <Name>ShadowedPBR</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\ShadowedPBR.fx</Filepath>
       <Technique>PBR_GGX_WithShadows</Technique>
-    </Material>
+   </Material>
+   <Material>
+      <Name>IBLTest</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Shaders\IndirectLightingTest.fx</Filepath>
+      <Technique>SimpleIndirectLighting</Technique>
+   </Material>
 </MaterialList>

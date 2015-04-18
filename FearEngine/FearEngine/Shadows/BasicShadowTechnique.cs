@@ -78,11 +78,18 @@ namespace FearEngine.Shadows
         private void CalculateLightMatrices(Light light)
         {
             const float LIGHT_DISTANCE_FROM_CENTER = 4.0f;
+            const float LIGHT_COVERAGE_DIMENSIONS = 10.0f;
 
             Vector3 lightPos = Vector3.Zero + (-light.Direction * LIGHT_DISTANCE_FROM_CENTER);
 
             Matrix View = Matrix.LookAtLH(lightPos, Vector3.Zero, Vector3.Up);
-            Matrix Projection = Matrix.OrthoOffCenterLH(-4.0f, 4.0f, -4.0f, 4.0f, -LIGHT_DISTANCE_FROM_CENTER, LIGHT_DISTANCE_FROM_CENTER * 2.5f);
+            Matrix Projection = Matrix.OrthoOffCenterLH(
+                -LIGHT_COVERAGE_DIMENSIONS,
+                LIGHT_COVERAGE_DIMENSIONS,
+                -LIGHT_COVERAGE_DIMENSIONS,
+                LIGHT_COVERAGE_DIMENSIONS,
+                -LIGHT_DISTANCE_FROM_CENTER,
+                LIGHT_DISTANCE_FROM_CENTER * 2.5f);
 
             Matrix NormalisedDeviceCoordinatesToTextureSpaceCoordinates = new Matrix(
                 0.5f, 0.0f, 0.0f, 0.0f,

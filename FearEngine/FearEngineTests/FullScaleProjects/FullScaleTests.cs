@@ -106,5 +106,19 @@ namespace FearEngineTests
             //When
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void IBLMaterialScene()
+        {
+            //Given
+            FearGameFactory appFactory = new FearGameFactory();
+            FearGame game = new IBLMaterialDemo();
+
+            //Then
+            appFactory.CreateAndRunFearGame(game);
+
+            //When
+            Assert.IsTrue(true);
+        }
     }
 }
