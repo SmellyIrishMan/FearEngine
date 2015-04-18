@@ -10,13 +10,18 @@ namespace FearEngineTests.FullScaleProjects.Games
 {
     class ShaderModelComparisonDemo : FearEngine.FearGame
     {
+        GameObject cam;
         GameObject teapotPhong;
         GameObject teapotPBR;
         Scene scene;
 
         public void Startup(FearEngineImpl engine)
         {
-            scene = engine.SceneFactory.CreateEmptyScene( engine.MainCamera );
+            cam = engine.GameObjectFactory.CreateGameObject("Camera");
+
+            scene = engine.SceneFactory.CreateSceneWithSingleLight(
+                engine.CameraFactory.CreateDebugCamera(cam),
+                engine.LightFactory.CreateDirectionalLight());
 
             float seperation = 6.0f;
 
@@ -42,6 +47,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Update(GameTimer gameTime)
         {
+            cam.Update(gameTime);
             teapotPhong.Update( gameTime );
             teapotPBR.Update( gameTime );
         }

@@ -42,9 +42,9 @@ namespace FearEngine
                 kernel.Get<Input>(),
                 kernel.Get<GameObjectFactory>(),
                 kernel.Get<UpdateableFactory>(),
-                kernel.Get<Camera>(),
                 kernel.Get<SceneFactory>(),
-                kernel.Get<LightFactory>());
+                kernel.Get<LightFactory>(),
+                kernel.Get<CameraFactory>());
         }
     }
 }

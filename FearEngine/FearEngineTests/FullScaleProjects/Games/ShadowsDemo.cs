@@ -11,6 +11,7 @@ namespace FearEngineTests.FullScaleProjects.Games
     {
         Scene scene;
         GameObject rotatingLight;
+        GameObject cam;
 
         public void Startup(FearEngineImpl engine)
         {
@@ -21,7 +22,8 @@ namespace FearEngineTests.FullScaleProjects.Games
             TransformAttacher attacher = (TransformAttacher)light;
             attacher.AttactToTransform(rotatingLight.Transform);
 
-            scene = engine.SceneFactory.CreateSceneWithSingleLight(engine.MainCamera, light);
+            cam = engine.GameObjectFactory.CreateGameObject("Camera");
+            scene = engine.SceneFactory.CreateSceneWithSingleLight(engine.CameraFactory.CreateDebugCamera(cam), light);
 
             GameObject teapot = new BaseGameObject("Teapot");
             Mesh mesh = engine.Resources.GetMesh("TEAPOT");
@@ -40,6 +42,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Update(GameTimer gameTime)
         {
+            cam.Update(gameTime);
             rotatingLight.Update(gameTime);
         }
 

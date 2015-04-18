@@ -10,10 +10,15 @@ namespace FearEngineTests.FullScaleProjects.Games
     public class CubeDemo : FearEngine.FearGame
     {
         Scene scene;
+        GameObject cam;
 
         public void Startup(FearEngineImpl engine)
         {
-            scene = engine.SceneFactory.CreateEmptyScene(engine.MainCamera);
+            cam = engine.GameObjectFactory.CreateGameObject("Camera");
+
+            scene = engine.SceneFactory.CreateSceneWithSingleLight(
+                engine.CameraFactory.CreateDebugCamera(cam),
+                engine.LightFactory.CreateDirectionalLight());
 
             GameObject cube = new BaseGameObject("Cube");
             Mesh mesh = engine.Resources.GetMesh("BOX");
@@ -26,7 +31,7 @@ namespace FearEngineTests.FullScaleProjects.Games
 
         public void Update(GameTimer gameTime)
         {
-
+            cam.Update(gameTime);
         }
 
         public void Draw(GameTimer gameTime)

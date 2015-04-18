@@ -12,11 +12,17 @@ namespace FearEngineTests.FullScaleProjects.Games
     class SimpleSceneDemo : FearEngine.FearGame
     {
         GameObject teapot;
+        GameObject cam;
+
         Scene scene;
 
         public void Startup(FearEngineImpl engine)
         {
-            scene = engine.SceneFactory.CreateSceneWithSingleLight(engine.MainCamera, new DirectionalLight());
+            cam = engine.GameObjectFactory.CreateGameObject("Camera");
+
+            scene = engine.SceneFactory.CreateSceneWithSingleLight(
+                engine.CameraFactory.CreateDebugCamera(cam),
+                new DirectionalLight());
 
             teapot = new BaseGameObject("Teapot");
             teapot.AddUpdatable(new ContinuousRotationAroundY(teapot.Transform));
@@ -32,6 +38,7 @@ namespace FearEngineTests.FullScaleProjects.Games
         public void Update(GameTimer gameTime)
         {
             teapot.Update(gameTime);
+            cam.Update(gameTime);
         }
 
         public void Draw(GameTimer gameTime)
