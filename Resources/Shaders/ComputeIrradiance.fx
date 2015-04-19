@@ -19,18 +19,20 @@ RWTexture2DArray<float4> gOutput;
 static const float PI = 3.1415926535897932384626433832795;
 
 [numthreads(64, 1, 1)]
-void CS(
-	int3 groupThreadID : SV_GroupThreadID,
-	int3 dispatchThreadID : SV_DispatchThreadID)
+void CS(int3 dispatchThreadID : SV_DispatchThreadID)
 {
 	int TexX = dispatchThreadID.x;
 	int TexY = dispatchThreadID.y;
 	int Slice = dispatchThreadID.z;	//The face of the TextureCube
-	float2 texCoord = float2(dispatchThreadID.x, dispatchThreadID.y) / 2048.0f;
-	float3 test = float3(texCoord.x - 0.5f, texCoord.y - 0.5f, 1.0f);
+	
+	float2 texCoord = float2(TexX, TexY) / 2048.0f;	//Since we have 2048 pixels, this gives us values in the 0...1 range.
+	
+	texCoord = (texCoord * 2.0f) - 1.0f;
+	float zValue = (float(dispatchThreadID.z) / 6.0f);
+	float3 test = float3(texCoord.x, texCoord.y, 1.0f);
 	test = normalize(test);
 	float4 colour = gSource.SampleLevel(Sampler, test, 0);
-	//float4 colour = float4(texCoord.x, texCoord.y, 0.0f, 1.0f);
+	
 	gOutput[int3(TexX, TexY, Slice)] = colour;
 }
 
