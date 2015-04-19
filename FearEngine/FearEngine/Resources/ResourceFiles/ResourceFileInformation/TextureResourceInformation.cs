@@ -14,6 +14,7 @@ namespace FearEngine.Resources.ResourceFiles.ResourceFileInformation
         override protected void PopulateDefaultValues()
         {
             AddInformation("IsLinear", "true");
+            AddInformation("IsCubemap", "false");
         }
     }
 }

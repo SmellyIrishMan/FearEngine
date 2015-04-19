@@ -87,5 +87,22 @@ namespace FearEngineTests
 
             device.Dispose();
         }
+
+        [TestMethod]
+        public void LoadCubemap()
+        {
+            //Given
+            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug);
+            TextureLoader loader = new TextureLoader(new SharpDXGraphicsDevice(device));
+
+            ResourceInformation cubeInfo = new TextureResourceInformation();
+            cubeInfo.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\Cubemaps\\LancellottiChapel\\LancellottiChapelCube.dds");
+            cubeInfo.UpdateInformation("IsCubemap", "true");
+
+            //When
+            TextureCube texture = (TextureCube)loader.Load(cubeInfo);
+
+            device.Dispose();
+        }
     }
 }

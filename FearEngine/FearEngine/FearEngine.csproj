@@ -108,6 +108,7 @@
     <Compile Include="Lighting\LightFactory.cs" />
     <Compile Include="RenderTargets\RenderTarget.cs" />
     <Compile Include="RenderTargets\RenderTargetStack.cs" />
+    <Compile Include="Resources\IrradianceCubeMapGenerator.cs" />
     <Compile Include="Resources\Materials\DefaultMaterialParameters.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataBiTangentImpl.cs" />
     <Compile Include="Resources\Loaders\Collada\SourceDataTangentImpl.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Resources\Loaders\ResourceLoader.cs" />
     <Compile Include="Resources\ResourceFiles\ResourceFileStorage\XMLResourceStorage.cs" />
     <Compile Include="Resources\Texture.cs" />
+    <Compile Include="Resources\TextureCube.cs" />
     <Compile Include="Scenes\BasicScene.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="GameObjects\Updateable.cs" />

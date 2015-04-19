@@ -4,6 +4,7 @@
       <Name>DEFAULT</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\DefaultTexture.png</Filepath>
       <IsLinear>false</IsLinear>
+      <IsCubemap>false</IsCubemap>
    </Texture>
    <Texture>
       <Name>UVChecker</Name>
@@ -24,5 +25,10 @@
       <Name>GravelCobbleNormal</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\GravelCobble0004_S_NRM.bmp</Filepath>
       <IsLinear>true</IsLinear>
+   </Texture>
+   <Texture>
+      <Name>LancellottiChapelCube</Name>
+      <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\Cubemaps\LancellottiChapel\LancellottiChapelCube.dds</Filepath>
+      <IsCubemap>true</IsCubemap>
    </Texture>
 </TextureList>

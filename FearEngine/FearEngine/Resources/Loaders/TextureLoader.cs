@@ -1,5 +1,6 @@
 ﻿using FearEngine.Resources.Management;
 using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
+using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Loaders
 {
@@ -14,9 +15,13 @@ namespace FearEngine.Resources.Loaders
 
         public Resource Load(ResourceInformation info)
         {
+            if (info.GetBool("IsCubemap"))
+            {
+                return LoadCubemap(info);
+            }
+
             SharpDX.Toolkit.Graphics.Texture2D texture = SharpDX.Toolkit.Graphics.Texture2D.Load(device, info.Filepath);
             SharpDX.Direct3D11.ShaderResourceView textureView;
-
             bool isLinearData = info.GetBool("IsLinear");
             if (isLinearData)
             {
@@ -36,6 +41,14 @@ namespace FearEngine.Resources.Loaders
 
             Texture fearTexture = new Texture(texture, textureView);
             return fearTexture;
+        }
+
+        private Resource LoadCubemap(ResourceInformation cubeInfo)
+        {
+            SharpDX.Toolkit.Graphics.TextureCube cube = SharpDX.Toolkit.Graphics.TextureCube.Load(device, cubeInfo.Filepath);
+            SharpDX.Direct3D11.ShaderResourceView cubeView = new SharpDX.Direct3D11.ShaderResourceView(device, cube);
+
+            return new TextureCube(cube, cubeView);
         }
     }
 }

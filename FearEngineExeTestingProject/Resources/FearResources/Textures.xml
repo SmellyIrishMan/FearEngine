@@ -4,6 +4,7 @@
       <Name>DEFAULT</Name>
       <Filepath>C:\Users\Andy\Documents\Coding\Visual Studio 2012\Projects\FearEngine\Resources\Textures\DefaultTexture.png</Filepath>
       <IsLinear>false</IsLinear>
+      <IsCubemap>false</IsCubemap>
    </Texture>
    <Texture>
       <Name>UVChecker</Name>
