@@ -18,6 +18,52 @@ RWTexture2DArray<float4> gOutput;
 
 static const float PI = 3.1415926535897932384626433832795;
 
+float3 UvAndIndexToBoxCoord(float2 uv, uint face)
+{
+	float3 n = float3(0,0,0);
+	float3 t = float3(0,0,0);
+	 
+	if (face == 0) // posx (red)
+	{
+		n = float3(1,0,0);
+		t = float3(0,1,0);
+	}
+	else if (face == 1) // negx (cyan)
+	{
+		n = float3(-1,0,0);
+		t = float3(0,1,0);
+	}
+	else if (face == 2) // posy (green)
+	{
+		n = float3(0,-1,0);
+		t = float3(0,0,-1);
+	}
+	else if (face == 3) // negy (magenta)
+	{
+		n = float3(0,1,0);
+		t = float3(0,0,1);
+	}
+	else if (face == 4) // posz (blue)
+	{
+		n = float3(0,0,-1);
+		t = float3(0,1,0);
+	}
+	else // if (i.face == 5) // negz (yellow)
+	{
+		n = float3(0,0,1);
+		t = float3(0,1,0);
+	}
+	 
+	float3 x = cross(n, t);
+	 
+	uv = uv * 2.0f - 1.0f;	//Take our UVs from [0..1] to [-1..1] so that we cover the entire face from left to right.
+	 
+	n = n + t*uv.y + x*uv.x;
+	n.y *= -1.0f;
+	n.z *= -1.0f;
+	return n;
+}
+
 [numthreads(64, 1, 1)]
 void CS(int3 dispatchThreadID : SV_DispatchThreadID)
 {
@@ -26,11 +72,9 @@ void CS(int3 dispatchThreadID : SV_DispatchThreadID)
 	int Slice = dispatchThreadID.z;	//The face of the TextureCube
 	
 	float2 texCoord = float2(TexX, TexY) / 2048.0f;	//Since we have 2048 pixels, this gives us values in the 0...1 range.
+	//This is mapping a [0..1] range of UV coordinates, onto each of the different faces in the cube map.
+	test = UvAndIndexToBoxCoord(texCoord, Slice);
 	
-	texCoord = (texCoord * 2.0f) - 1.0f;
-	float zValue = (float(dispatchThreadID.z) / 6.0f);
-	float3 test = float3(texCoord.x, texCoord.y, 1.0f);
-	test = normalize(test);
 	float4 colour = gSource.SampleLevel(Sampler, test, 0);
 	
 	gOutput[int3(TexX, TexY, Slice)] = colour;
