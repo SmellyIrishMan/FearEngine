@@ -115,6 +115,7 @@
     <Compile Include="RenderTargetStackTests.cs" />
     <Compile Include="NinjectTests.cs" />
     <Compile Include="TransformTests.cs" />
+    <Compile Include="MipGenerationTests.cs" />
     <Compile Include="VertexDataTests.cs" />
   </ItemGroup>
   <ItemGroup>

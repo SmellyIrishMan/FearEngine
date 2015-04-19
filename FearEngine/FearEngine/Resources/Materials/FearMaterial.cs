@@ -122,6 +122,14 @@ namespace FearEngine.Resources.Materials
             }
         }
 
+        public void SetParameterResource(string p, UnorderedAccessView shaderResView)
+        {
+            if (HasParameter(p))
+            {
+                effect.Parameters[p].SetResource(shaderResView);
+            }
+        }
+
         public void SetParameterResource(string p, SharpDX.Direct3D11.SamplerState comparisonSampler)
         {
             if (HasParameter(p))

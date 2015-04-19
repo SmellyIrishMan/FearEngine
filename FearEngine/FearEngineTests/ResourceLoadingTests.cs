@@ -4,6 +4,7 @@ using FearEngine.Resources;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 using FearEngine;
+using SharpDX.Direct3D11;
 
 namespace FearEngineTests
 {
@@ -14,7 +15,7 @@ namespace FearEngineTests
         public void LoadTexture()
         {
             //Given
-            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
+            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug);
             TextureLoader loader = new TextureLoader(new SharpDXGraphicsDevice(device));
             ResourceInformation info = new TextureResourceInformation();
             info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\DefaultTexture.png");
@@ -33,7 +34,7 @@ namespace FearEngineTests
         public void LoadSRGBTexture()
         {
             //Given
-            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
+            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug);
             TextureLoader loader = new TextureLoader(new SharpDXGraphicsDevice(device));
             ResourceInformation info = new TextureResourceInformation();
             info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Textures\\GammaGradient.png");
@@ -53,11 +54,30 @@ namespace FearEngineTests
         public void LoadMaterial()
         {
             //Given
-            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
+            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug);
             MaterialLoader loader = new MaterialLoader(new SharpDXGraphicsDevice(device));
             ResourceInformation info = new MaterialResourceInformation();
             info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\Textured.fx");
             info.UpdateInformation("Technique", "TexturedNoLighting");
+
+            //When
+            Material material = (Material)loader.Load(info);
+
+            //Then
+            Assert.IsTrue(material.IsLoaded());
+
+            device.Dispose();
+        }
+
+        [TestMethod]
+        public void LoadComputeShader()
+        {
+            //Given
+            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug);
+            MaterialLoader loader = new MaterialLoader(new SharpDXGraphicsDevice(device));
+            ResourceInformation info = new MaterialResourceInformation();
+            info.UpdateInformation("Filepath", "C:\\Users\\Andy\\Documents\\Coding\\Visual Studio 2012\\Projects\\FearEngine\\Resources\\Shaders\\ComputeTest.fx");
+            info.UpdateInformation("Technique", "FillTexture");
 
             //When
             Material material = (Material)loader.Load(info);

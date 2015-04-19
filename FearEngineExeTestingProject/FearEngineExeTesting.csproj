@@ -7,8 +7,8 @@
     <ProjectGuid>{1D10ECC3-8C60-452F-AA74-52A341C1C9A2}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShadowTesting</RootNamespace>
-    <AssemblyName>ShadowTesting</AssemblyName>
+    <RootNamespace>FearEngineExeTest</RootNamespace>
+    <AssemblyName>FearEngineExeTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,78 +43,100 @@
       <HintPath>..\FearEngine\FearEngine\bin\Debug\FearEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpDX">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.dll</HintPath>
+    <Reference Include="SharpDX, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.D3DCompiler">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.D3DCompiler.dll</HintPath>
+    <Reference Include="SharpDX.D3DCompiler, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.D3DCompiler.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct2D1">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct2D1.dll</HintPath>
+    <Reference Include="SharpDX.Direct2D1, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct2D1.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D10">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D10.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D10.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D11">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D11.dll</HintPath>
+    <Reference Include="SharpDX.Direct3D11, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D11.Effects">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D11.Effects.dll</HintPath>
+    <Reference Include="SharpDX.Direct3D11.Effects, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D11.Effects.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D9">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D9.dll</HintPath>
+    <Reference Include="SharpDX.Direct3D9, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.DirectInput">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.DirectInput.dll</HintPath>
+    <Reference Include="SharpDX.DirectInput, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.DirectInput.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.DirectSound">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.DirectSound.dll</HintPath>
+    <Reference Include="SharpDX.DirectSound, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.DirectSound.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.DXGI">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.DXGI.dll</HintPath>
+    <Reference Include="SharpDX.DXGI, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.DXGI.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.MediaFoundation">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.MediaFoundation.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.MediaFoundation.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.RawInput">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.RawInput.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.RawInput.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Toolkit">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.dll</HintPath>
+    <Reference Include="SharpDX.Toolkit, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Toolkit.Audio">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Audio.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Audio.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Toolkit.Compiler">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Compiler.dll</HintPath>
+    <Reference Include="SharpDX.Toolkit.Compiler, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Compiler.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Toolkit.CompilerTask">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.CompilerTask.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.CompilerTask.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Toolkit.Game">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Game.dll</HintPath>
+    <Reference Include="SharpDX.Toolkit.Game, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Game.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Toolkit.Graphics">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Graphics.dll</HintPath>
+    <Reference Include="SharpDX.Toolkit.Graphics, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Graphics.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Toolkit.Input">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Input.dll</HintPath>
+    <Reference Include="SharpDX.Toolkit.Input, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Input.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Toolkit.Yaml">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Yaml.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.Toolkit.Yaml.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.XACT3">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.XACT3.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.XACT3.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.XAudio2">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.XAudio2.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.XAudio2.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.XInput">
-      <HintPath>..\FearEngine\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.XInput.dll</HintPath>
+      <HintPath>..\FearEngine\packages\SharpDX.2.6.3\Bin\DirectX11-Signed-net40\SharpDX.XInput.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sharpdx_direct3d11_effects_x64.dll" />
+    <Content Include="sharpdx_direct3d11_effects_x86.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />
+  <Import Project="packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets" Condition="Exists('packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,81 +1,28 @@
-﻿using FearEngine;
-using FearEngine.GameObjects;
-using FearEngine.Resources.Meshes;
-using FearEngine.Scenes;
-using FearEngine.Resources.Materials;
-using FearEngine.Timer;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpDX.Direct3D11;
-using SharpDX;
+using SharpDX.Direct3D;
 using FearEngine.Resources.Loaders;
 using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
-using SharpDX.Direct3D;
+using FearEngine;
+using FearEngine.Resources.Materials;
+using SharpDX;
 
-namespace FearEngineExeTest
+namespace FearEngineTests
 {
-    class SimpleMainEntry
+    [TestClass]
+    public class MipGenerationTests
     {
-        static int Main(string[] args)
-        {
-            FearGameFactory appFactory = new FearGameFactory();
-            FearGame game = new TestGame();
-            appFactory.CreateAndRunFearGame(game);
-
-            return 0;
-        }
-    }
-
-    class TestGame : FearEngine.FearGame
-    {
-        Scene scene;
-        GameObject cam;
-        SharpDX.Toolkit.Graphics.GraphicsDevice device;
-
-        public void Startup(FearEngineImpl engine)
-        {
-            cam = engine.GameObjectFactory.CreateGameObject("Camera");
-            device = engine.Device;
-
-            scene = engine.SceneFactory.CreateSceneWithSingleLight(
-                engine.CameraFactory.CreateDebugCamera(cam),
-                engine.LightFactory.CreateDirectionalLight());
-
-            GameObject cube = new BaseGameObject("Cube");
-            Mesh mesh = engine.Resources.GetMesh("BOX");
-            Material material = engine.Resources.GetMaterial("NormalLit");
-
-            SceneObject litCube = new SceneObject(cube, mesh, material);
-
-            scene.AddSceneObject(litCube);
-        }
-
-        public void Update(GameTimer gameTime)
-        {
-            cam.Update(gameTime);
-        }
-
-        public void Draw(GameTimer gameTime)
-        {
-            scene.Render(gameTime);
-
-            MipGenerationSimple2LevelsOn2DTexture();
-        }
-
-        public void Shutdown()
-        {
-        }
-
         int numOfMips = 3;
 
-        private void MipGenerationSimple2LevelsOn2DTexture()
+        [TestMethod]
+        public void MipGenerationSimple2LevelsOn2DTexture()
         {
             //Given
+            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug); 
             Material computeShader = LoadComputeShader(device);
 
             Texture2DDescription emptyTextureDesc = CreateTextureDescription();
             SharpDX.Direct3D11.Texture2D emptyTexture = new SharpDX.Direct3D11.Texture2D(device, emptyTextureDesc);
-
-            //ShaderResourceViewDescription srvDesc = CreateSRVDescription();
-            //ShaderResourceView srv = new ShaderResourceView(device, emptyTexture, srvDesc);
 
             UnorderedAccessViewDescription uavDesc = CreateUAVDescription(0);
             UnorderedAccessView uavMip0 = new UnorderedAccessView(device, emptyTexture, uavDesc);
@@ -87,18 +34,22 @@ namespace FearEngineExeTest
             UnorderedAccessView uavMip2 = new UnorderedAccessView(device, emptyTexture, uavDesc);
 
             //When
+            Vector4 mip0Colour = new Vector4(0.1f, 0.2f, 0.3f, 1.0f);
+            Vector4 mip1Colour = new Vector4(0.0f, 0.5f, 0.0f, 1.0f);
+            Vector4 mip2Colour = new Vector4(0.7f, 0.4f, 0.15f, 1.0f);
+
             computeShader.SetParameterResource("gOutput", uavMip0);
-            computeShader.SetParameterValue("fillColour", new Vector4(0.1f, 0.2f, 0.3f, 1.0f));
+            computeShader.SetParameterValue("fillColour", mip0Colour);
             computeShader.Apply();
             device.Dispatch(1, 64, 1);
 
             computeShader.SetParameterResource("gOutput", uavMip1);
-            computeShader.SetParameterValue("fillColour", new Vector4(0.0f, 0.5f, 0.0f, 1.0f));
+            computeShader.SetParameterValue("fillColour", mip1Colour);
             computeShader.Apply();
             device.Dispatch(1, 32, 1);
 
             computeShader.SetParameterResource("gOutput", uavMip2);
-            computeShader.SetParameterValue("fillColour", new Vector4(0.7f, 0.4f, 0.15f, 1.0f));
+            computeShader.SetParameterValue("fillColour", mip2Colour);
             computeShader.Apply();
             device.Dispatch(1, 16, 1);
 
@@ -109,18 +60,12 @@ namespace FearEngineExeTest
 
             DataStream data = new DataStream(8 * 64 * 64, true, true);
             DataBox box = ((DeviceContext)device).MapSubresource(localbuffer, 0, 0, MapMode.Read, MapFlags.None, out data);
-
-            Half4 quickTest;
-            for (int i = 0; i < 64 * 64; i++)
-            {
-                quickTest = data.ReadHalf4();
-                if (quickTest.X != 0 || quickTest.Y != 0 || quickTest.Z != 0 || quickTest.W != 0)
-                {
-                    FearEngine.Logger.FearLog.Log("Found something; " + quickTest.ToString());
-                }
-            }
-
+            Half4 quickTest = data.ReadHalf4();
             ((DeviceContext)device).UnmapSubresource(localbuffer, 0);
+
+            Vector4 conversion = (Vector4)quickTest;
+            float distance = (conversion - mip0Colour).Length();
+            Assert.IsTrue(distance < 0.0005f);
         }
 
         private static Material LoadComputeShader(SharpDX.Toolkit.Graphics.GraphicsDevice device)

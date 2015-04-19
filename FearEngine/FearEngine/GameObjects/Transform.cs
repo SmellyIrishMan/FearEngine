@@ -77,10 +77,8 @@ namespace FearEngine.GameObjects
 
         private void NotifyNewTransform()
         {
-            FearEngine.Logger.FearLog.Log("Transform gonna notify.");
             if (Changed != null)
             {
-                FearEngine.Logger.FearLog.Log("Transform notified something.");
                 Changed(this);
             }
         }

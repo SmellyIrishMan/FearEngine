@@ -23,6 +23,7 @@ namespace FearEngine.Resources.Materials
 
         void SetParameterResource(string p, Texture texture);
         void SetParameterResource(string p, SharpDX.Direct3D11.ShaderResourceView shaderResView);
+        void SetParameterResource(string p, SharpDX.Direct3D11.UnorderedAccessView unorderedAccView);
         void SetParameterResource(string p, SharpDX.Direct3D11.SamplerState comparisonSampler);
     }
 }

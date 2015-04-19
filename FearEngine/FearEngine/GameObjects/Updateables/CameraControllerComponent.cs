@@ -39,12 +39,10 @@ namespace FearEngine.GameObjects.Updateables
 
         public void Update(GameTimer gameTime)
         {
-            FearEngine.Logger.FearLog.Log("Updated camera component");
             CheckInput();
 
             if( NeedToUpdate())
             {
-                FearEngine.Logger.FearLog.Log("Need to update");
                 if(strafeDir != 0.0f)
                 {
                     ShiftInDirection(transform.Right * strafeDir, STRAFE_SPEED * gameTime.ElapsedGameTime.Milliseconds);
@@ -92,7 +90,6 @@ namespace FearEngine.GameObjects.Updateables
             rotationDir = Vector2.Zero;
             if (input.IsMouseButtonDown(MouseButton.RightMouseButton))
             {
-                FearEngine.Logger.FearLog.Log("Right button is down");
                 rotationDir = input.MouseDelta;
             }
         }
@@ -109,7 +106,6 @@ namespace FearEngine.GameObjects.Updateables
 
         private void Rotate()
         {
-            FearEngine.Logger.FearLog.Log("Rotate");
             yaw = SharpDX.MathUtil.Wrap(yaw, -SharpDX.MathUtil.Pi, SharpDX.MathUtil.Pi);
             pitch = SharpDX.MathUtil.Clamp(pitch, -SharpDX.MathUtil.PiOverFour, SharpDX.MathUtil.PiOverFour);
 

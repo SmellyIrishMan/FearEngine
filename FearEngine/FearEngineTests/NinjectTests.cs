@@ -5,6 +5,7 @@ using FearEngine.DeviceState;
 using FearEngine;
 using SharpDX.Toolkit.Graphics;
 using Ninject.Parameters;
+using SharpDX.Direct3D11;
 
 namespace FearEngineTests
 {
@@ -20,7 +21,7 @@ namespace FearEngineTests
             kernal.Bind<SharpDXGraphicsDevice>().ToSelf().InSingletonScope();
             kernal.Bind<DefaultRasteriserState>().ToSelf().InSingletonScope();
 
-            kernal.Bind<FearGraphicsDevice>().ToConstant<SharpDXGraphicsDevice>( new SharpDXGraphicsDevice(GraphicsDevice.New() ) );
+            kernal.Bind<FearGraphicsDevice>().ToConstant<SharpDXGraphicsDevice>(new SharpDXGraphicsDevice(GraphicsDevice.New(DeviceCreationFlags.Debug)));
             kernal.Bind<RasteriserState>().To<DefaultRasteriserState>();
 
             //When
@@ -34,14 +35,14 @@ namespace FearEngineTests
         public void CreateDifferentRasteriserStatesWithNinjectUsingNamedBindings()
         {
             //Given
-            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New();
+            SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug);
             IKernel kernal = new StandardKernel();
 
             kernal.Bind<SharpDXGraphicsDevice>().ToSelf().InSingletonScope();
             kernal.Bind<DefaultRasteriserState>().ToSelf().InSingletonScope();
             kernal.Bind<ShadowBiasedDepthRasteriserState>().ToSelf().InSingletonScope();
 
-            kernal.Bind<FearGraphicsDevice>().ToConstant<SharpDXGraphicsDevice>(new SharpDXGraphicsDevice(GraphicsDevice.New()));
+            kernal.Bind<FearGraphicsDevice>().ToConstant<SharpDXGraphicsDevice>(new SharpDXGraphicsDevice(GraphicsDevice.New(DeviceCreationFlags.Debug)));
             kernal.Bind<RasteriserState>().To<DefaultRasteriserState>().Named("Default");
             kernal.Bind<RasteriserState>().To<ShadowBiasedDepthRasteriserState>().Named("ShadowBiasedDepth");
 
@@ -62,7 +63,7 @@ namespace FearEngineTests
         public void CreateSingletonGraphicsDevice()
         {
             //Given
-            IKernel dependencyKernel = new StandardKernel(new FearEngineNinjectModule(GraphicsDevice.New(), null, null));
+            IKernel dependencyKernel = new StandardKernel(new FearEngineNinjectModule(GraphicsDevice.New(DeviceCreationFlags.Debug), null, null));
 
             //When
             FearGraphicsDevice device = dependencyKernel.Get<FearGraphicsDevice>();
