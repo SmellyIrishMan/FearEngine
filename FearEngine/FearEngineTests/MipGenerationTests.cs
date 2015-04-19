@@ -6,6 +6,7 @@ using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
 using FearEngine;
 using FearEngine.Resources.Materials;
 using SharpDX;
+using System.Collections.Generic;
 
 namespace FearEngineTests
 {
@@ -13,6 +14,7 @@ namespace FearEngineTests
     public class MipGenerationTests
     {
         int numOfMips = 3;
+        int textureSize = 64;
 
         [TestMethod]
         public void MipGenerationSimple2LevelsOn2DTexture()
@@ -20,52 +22,63 @@ namespace FearEngineTests
             //Given
             SharpDX.Toolkit.Graphics.GraphicsDevice device = SharpDX.Toolkit.Graphics.GraphicsDevice.New(DeviceCreationFlags.Debug); 
             Material computeShader = LoadComputeShader(device);
+            List<Vector4> mipColours = new List<Vector4>( 
+                new Vector4[]{ 
+                    new Vector4(0.1f, 0.2f, 0.3f, 1.0f),
+                    new Vector4(0.0f, 0.5f, 0.0f, 1.0f),
+                    new Vector4(0.7f, 0.4f, 0.15f, 1.0f)});
 
             Texture2DDescription emptyTextureDesc = CreateTextureDescription();
-            SharpDX.Direct3D11.Texture2D emptyTexture = new SharpDX.Direct3D11.Texture2D(device, emptyTextureDesc);
+            Texture2D emptyTexture = new Texture2D(device, emptyTextureDesc);
 
-            UnorderedAccessViewDescription uavDesc = CreateUAVDescription(0);
-            UnorderedAccessView uavMip0 = new UnorderedAccessView(device, emptyTexture, uavDesc);
-
-            uavDesc = CreateUAVDescription(1);
-            UnorderedAccessView uavMip1 = new UnorderedAccessView(device, emptyTexture, uavDesc);
-
-            uavDesc = CreateUAVDescription(2);
-            UnorderedAccessView uavMip2 = new UnorderedAccessView(device, emptyTexture, uavDesc);
+            List<UnorderedAccessView> mipViews = new List<UnorderedAccessView>();
+            for (int mip = 0; mip < numOfMips; mip++)
+            {
+                UnorderedAccessViewDescription uavDesc = CreateUAVDescription(mip);
+                mipViews.Add(new UnorderedAccessView(device, emptyTexture, uavDesc));
+            }
 
             //When
-            Vector4 mip0Colour = new Vector4(0.1f, 0.2f, 0.3f, 1.0f);
-            Vector4 mip1Colour = new Vector4(0.0f, 0.5f, 0.0f, 1.0f);
-            Vector4 mip2Colour = new Vector4(0.7f, 0.4f, 0.15f, 1.0f);
+            for (int mip = 0; mip < numOfMips; mip++)
+            {
+                FillMipSlice(device, computeShader, textureSize / (mip + 1), mipViews[mip], mipColours[mip]);
+            }
 
-            computeShader.SetParameterResource("gOutput", uavMip0);
-            computeShader.SetParameterValue("fillColour", mip0Colour);
-            computeShader.Apply();
-            device.Dispatch(1, 64, 1);
+            Texture2D readableTexture = CopyFilledTextureLocally(device, emptyTexture);
 
-            computeShader.SetParameterResource("gOutput", uavMip1);
-            computeShader.SetParameterValue("fillColour", mip1Colour);
-            computeShader.Apply();
-            device.Dispatch(1, 32, 1);
+            for (int mip = 0; mip < numOfMips; mip++)
+            {
+                float variance = CheckVariationBetweenValueAndExpectedValue(device, textureSize / (mip + 1), mip, mipColours[mip], readableTexture);
+                Assert.IsTrue(variance < 0.0005f);
+            }
+        }
 
-            computeShader.SetParameterResource("gOutput", uavMip2);
-            computeShader.SetParameterValue("fillColour", mip2Colour);
-            computeShader.Apply();
-            device.Dispatch(1, 16, 1);
-
-            Texture2DDescription bufferDesc = CreateLocalBufferDesc();
-            SharpDX.Direct3D11.Texture2D localbuffer = new SharpDX.Direct3D11.Texture2D(device, bufferDesc);
-
-            device.Copy(emptyTexture, localbuffer);
-
-            DataStream data = new DataStream(8 * 64 * 64, true, true);
-            DataBox box = ((DeviceContext)device).MapSubresource(localbuffer, 0, 0, MapMode.Read, MapFlags.None, out data);
+        private static float CheckVariationBetweenValueAndExpectedValue(DeviceContext context, int textureSize, int mipSlice, Vector4 mip0Colour, Texture2D readableTexture)
+        {
+            DataStream data = new DataStream(8 * textureSize * textureSize, true, true);
+            context.MapSubresource(readableTexture, mipSlice, 0, MapMode.Read, MapFlags.None, out data);
             Half4 quickTest = data.ReadHalf4();
-            ((DeviceContext)device).UnmapSubresource(localbuffer, 0);
+            context.UnmapSubresource(readableTexture, mipSlice);
 
             Vector4 conversion = (Vector4)quickTest;
-            float distance = (conversion - mip0Colour).Length();
-            Assert.IsTrue(distance < 0.0005f);
+            float variance = (conversion - mip0Colour).Length();
+            return variance;
+        }
+
+        private Texture2D CopyFilledTextureLocally(SharpDX.Toolkit.Graphics.GraphicsDevice device, SharpDX.Direct3D11.Texture2D emptyTexture)
+        {
+            Texture2DDescription bufferDesc = CreateLocalBufferDesc();
+            SharpDX.Direct3D11.Texture2D localbuffer = new SharpDX.Direct3D11.Texture2D(device, bufferDesc);
+            device.Copy(emptyTexture, localbuffer);
+            return localbuffer;
+        }
+
+        private void FillMipSlice(SharpDX.Toolkit.Graphics.GraphicsDevice device, Material computeShader, int textureSize, UnorderedAccessView UAVMip, Vector4 fillColour)
+        {
+            computeShader.SetParameterResource("gOutput", UAVMip);
+            computeShader.SetParameterValue("fillColour", fillColour);
+            computeShader.Apply();
+            device.Dispatch(1, textureSize, 1);
         }
 
         private static Material LoadComputeShader(SharpDX.Toolkit.Graphics.GraphicsDevice device)
@@ -81,8 +94,8 @@ namespace FearEngineTests
         private Texture2DDescription CreateTextureDescription()
         {
             Texture2DDescription desc = new Texture2DDescription();
-            desc.Width = 64;
-            desc.Height = 64;
+            desc.Width = textureSize;
+            desc.Height = textureSize;
             desc.MipLevels = numOfMips;
             desc.ArraySize = 1;
             desc.Format = SharpDX.DXGI.Format.R16G16B16A16_Float;
@@ -118,8 +131,8 @@ namespace FearEngineTests
         private Texture2DDescription CreateLocalBufferDesc()
         {
             Texture2DDescription desc = new Texture2DDescription();
-            desc.Width = 64;
-            desc.Height = 64;
+            desc.Width = textureSize;
+            desc.Height = textureSize;
             desc.MipLevels = numOfMips;
             desc.ArraySize = 1;
             desc.Format = SharpDX.DXGI.Format.R16G16B16A16_Float;
