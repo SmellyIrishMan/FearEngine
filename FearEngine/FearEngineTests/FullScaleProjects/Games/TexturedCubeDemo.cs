@@ -4,7 +4,6 @@ using FearEngine.GameObjects;
 using FearEngine.Scenes;
 using FearEngine.Resources.Materials;
 using FearEngine.Timer;
-using FearEngine.Cameras;
 
 namespace FearEngineTests.FullScaleProjects.Games
 {

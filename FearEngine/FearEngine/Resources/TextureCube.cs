@@ -1,5 +1,4 @@
 ﻿using FearEngine.Resources.Management;
-using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources
 {

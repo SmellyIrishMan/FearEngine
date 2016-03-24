@@ -1,8 +1,5 @@
-﻿using FearEngine.GameObjects;
-using FearEngine.Timer;
+﻿using FearEngine.Timer;
 using SharpDX;
-using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
 using System.Collections.Generic;
 namespace FearEngine.GameObjects
 {

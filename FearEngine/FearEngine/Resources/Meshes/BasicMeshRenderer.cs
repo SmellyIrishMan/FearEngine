@@ -1,8 +1,4 @@
-﻿using FearEngine.Cameras;
-using FearEngine.GameObjects;
-using FearEngine.Lighting;
-using FearEngine.Resources.Materials;
-using SharpDX;
+﻿using FearEngine.Resources.Materials;
 
 namespace FearEngine.Resources.Meshes
 {

@@ -1,7 +1,6 @@
 ﻿using FearEngine.Resources.Meshes;
 using grendgine_collada;
 using SharpDX;
-using System;
 
 
 namespace FearEngine.Resources.Loaders.Loaders.Collada

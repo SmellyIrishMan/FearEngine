@@ -1,6 +1,5 @@
 ﻿using FearEngine.Resources.Management;
 using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
-using SharpDX.Toolkit.Graphics;
 
 namespace FearEngine.Resources.Loaders
 {

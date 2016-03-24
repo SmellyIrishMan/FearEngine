@@ -1,12 +1,10 @@
 ﻿using FearEngine.DeviceState;
 using FearEngine.Lighting;
 using FearEngine.RenderTargets;
-using FearEngine.Resources;
 using FearEngine.Resources.Management;
 using FearEngine.Resources.Materials;
 using FearEngine.Resources.Meshes;
 using FearEngine.Scenes;
-using FearEngine.Shadows;
 using Ninject;
 using SharpDX;
 using SharpDX.Direct3D11;

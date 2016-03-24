@@ -1,10 +1,4 @@
-﻿using FearEngine.GameObjects;
-using FearEngine.GameObjects.Updateables;
-using FearEngine.Lighting;
-using FearEngine.Resources.Management;
-using FearEngine.Scenes;
-using FearEngine.Timer;
-using SharpDX.Toolkit;
+﻿using FearEngine.Timer;
 
 namespace FearEngine
 {

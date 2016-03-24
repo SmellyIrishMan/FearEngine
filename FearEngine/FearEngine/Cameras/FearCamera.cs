@@ -1,5 +1,4 @@
 ﻿using FearEngine.GameObjects;
-using Ninject;
 using SharpDX;
 
 namespace FearEngine.Cameras

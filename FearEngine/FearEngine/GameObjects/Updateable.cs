@@ -1,5 +1,4 @@
 ﻿using FearEngine.Timer;
-using SharpDX.Toolkit;
 
 namespace FearEngine.GameObjects
 {

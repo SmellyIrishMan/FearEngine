@@ -1,7 +1,4 @@
 ﻿using FearEngine.Lighting;
-using FearEngine.Resources.Loaders;
-using FearEngine.Resources.Management;
-using FearEngine.Resources.Materials;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
 using System;

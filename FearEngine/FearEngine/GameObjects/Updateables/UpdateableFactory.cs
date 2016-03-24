@@ -1,6 +1,4 @@
-﻿using SharpDX;
-
-namespace FearEngine.GameObjects.Updateables
+﻿namespace FearEngine.GameObjects.Updateables
 {
     public interface UpdateableFactory
     {

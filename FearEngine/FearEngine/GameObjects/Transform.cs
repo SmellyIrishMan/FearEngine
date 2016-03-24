@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using SharpDX;
+﻿using SharpDX;
 
 namespace FearEngine.GameObjects
 {

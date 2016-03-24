@@ -1,6 +1,5 @@
 ﻿using FearEngine.Logger;
 using FearEngine.Resources.Meshes;
-using FearEngineTests.HelperClasses;
 using grendgine_collada;
 using SharpDX;
 using System;

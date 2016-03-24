@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.GameObjects;
-using FearEngine;
-using FearEngineTests.MockClasses;
 using SharpDX;
 
 namespace FearEngineTests

@@ -1,5 +1,4 @@
-﻿using FearEngine.Resources.Loaders.Loaders.Collada;
-using SharpDX;
+﻿using SharpDX;
 using System;
 using System.Collections.Generic;
 

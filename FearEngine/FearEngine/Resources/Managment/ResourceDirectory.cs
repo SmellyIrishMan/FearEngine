@@ -1,15 +1,8 @@
 ﻿using FearEngine.Logger;
 using FearEngine.Resources.Loaders;
-using FearEngine.Resources.Loaders.Loaders;
-using FearEngine.Resources.Loaders.Loaders.Collada;
-using FearEngine.Resources.Meshes;
 using FearEngine.Resources.ResourceFiles.ResourceFileInformation;
-using SharpDX.Toolkit.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Xml;
 
 namespace FearEngine.Resources.Management
 {

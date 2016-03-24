@@ -1,7 +1,5 @@
-﻿using SharpDX.Toolkit.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Buffer = SharpDX.Toolkit.Graphics.Buffer;
 namespace FearEngine.Resources.Meshes
 {
     public class MeshData

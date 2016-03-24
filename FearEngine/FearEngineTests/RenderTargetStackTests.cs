@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FearEngine.RenderTargets;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.Direct3D11;

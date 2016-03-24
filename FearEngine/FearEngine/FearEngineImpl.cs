@@ -7,7 +7,6 @@ using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 using FearEngine.Inputs;
 using FearEngine.GameObjects;
-using System.Collections.Generic;
 using FearEngine.HelperClasses;
 using FearEngine.Scenes;
 using FearEngine.Resources.Management;

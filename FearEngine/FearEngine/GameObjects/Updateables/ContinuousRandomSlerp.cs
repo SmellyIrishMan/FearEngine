@@ -1,5 +1,4 @@
-﻿using FearEngine.Logger;
-using SharpDX;
+﻿using SharpDX;
 using System;
 
 namespace FearEngine.GameObjects.Updateables

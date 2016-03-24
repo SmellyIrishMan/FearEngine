@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using FearEngine.DeviceState;
 using FearEngine;
 using SharpDX.Toolkit.Graphics;
-using Ninject.Parameters;
 using SharpDX.Direct3D11;
 
 namespace FearEngineTests

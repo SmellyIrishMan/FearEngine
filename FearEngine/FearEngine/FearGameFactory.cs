@@ -1,11 +1,8 @@
 ﻿using FearEngine.Inputs;
 using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
 using SharpDX.Toolkit.Input;
-using System.IO;
 using Ninject;
 using FearEngine.Resources.Management;
-using FearEngine.Resources.Loaders;
 using FearEngine.GameObjects;
 using FearEngine.GameObjects.Updateables;
 using FearEngine.Scenes;
@@ -13,7 +10,7 @@ using FearEngine.Cameras;
 using FearEngine.Lighting;
 
 namespace FearEngine
-{    
+{
     public class FearGameFactory
     {
 

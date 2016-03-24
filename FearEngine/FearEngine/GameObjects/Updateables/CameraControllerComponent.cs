@@ -1,8 +1,6 @@
-﻿using FearEngine.GameObjects;
-using FearEngine.Inputs;
+﻿using FearEngine.Inputs;
 using FearEngine.Timer;
 using SharpDX;
-using SharpDX.Toolkit;
 using SharpDX.Toolkit.Input;
 
 namespace FearEngine.GameObjects.Updateables
